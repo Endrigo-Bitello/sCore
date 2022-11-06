@@ -1,61 +1,59 @@
 roles:
- administrador:
-  name: '&4Admin'
-  prefix: '&4&lADMIN &4'
+ owner:
+  name: '&cOWNER'
+  prefix: '&c[OWNER] '
+  permission: 'role.owner'
+  # Do not hide in the lobby
+  alwaysvisible: true
+ administrator:
+  name: '&cADMIN'
+  prefix: '&c[ADMIN] '
   permission: 'role.admin'
+  # Do not hide in the lobby
   alwaysvisible: true
- gerente:
-  name: '&cGerente'
-  prefix: '&c&lGERENTE &c'
-  permission: 'role.gerente'
-  # nao esconder no lobby
+ moderator:
+  name: '&2MOD'
+  prefix: '&2[MOD] '
+  permission: 'role.moderator'
   alwaysvisible: true
- moderador:
-  name: '&5Moderador'
-  prefix: '&5&lMOD &5'
-  permission: 'role.moderador'
-  alwaysvisible: true
- ajudante:
-  name: '&9Ajudante'
-  prefix: '&9&lAJUDANTE &9'
+ helper:
+  name: '&9HELPER'
+  prefix: '&9[HELPER] '
   permission: 'role.helper'
   alwaysvisible: true
- construtor:
-  name: '&eBuilder'
-  prefix: '&e&lBUILDER &e'
-  permission: 'role.construtor'
+ buildteam:
+  name: '&3BUILD TEAM'
+  prefix: '&3[BUILD TEAM] '
+  permission: 'role.buildteam'
   alwaysvisible: true
  youtuber:
-  name: '&bYouTuber'
-  prefix: '&b&lYT &b'
+  name: '&cYT'
+  prefix: '&c[&fYOUTUBE&c] '
   permission: 'role.youtuber'
-  alwaysvisible: false
- streamer:
-  name: '&5Streamer'
-  prefix: '&5&lSTREAMER &5'
-  permission: 'role.streamer'
-  alwaysvisible: false
- creator:
-  name: '&bCreator'
-  prefix: '&b&lCREATOR &b'
-  permission: 'role.creator'
   alwaysvisible: true
- ultimate:
-  name: '&dUltimate'
-  prefix: '&d&lULTIMATE &d'
-  permission: 'role.ultimate'
- premium:
-  name: '&6Premium'
-  prefix: '&6&lPREMIUM &6'
-  permission: 'role.premium'
- light:
-  name: '&aLight'
-  prefix: '&a&lLIGHT &a'
-  permission: 'role.light'
-  broadcast: false
- membro:
-  name: '&7Membro'
+ mvp++:
+  name: '&6MVP++'
+  prefix: '&6[MVP++] '
+  permission: 'role.mvp++'
+  mvp+:
+   name: '&bMVP&6+'
+   prefix: '&b[MVP+&6+&b] &b'
+   permission: 'role.mvp+'
+ mvp:
+  name: '&bMVP'
+  prefix: '&b[MVP] '
+  permission: 'role.mvp'
+ vip+:
+  name: '&aVIP&6+'
+  prefix: '&a[VIP&6+&a] '
+  permission: 'role.vip+'
+ vip:
+  name: '&aVIP'
+  prefix: '&a[VIP] '
+  permission: 'role.vip'
+ default:
+  name: '&7Default'
   prefix: '&7'
   permission: ''
-  # nao enviar avisos ao entrar no lobby
+  # Do not send warnings when entering the lobby
   broadcast: false

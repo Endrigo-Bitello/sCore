@@ -1,36 +1,100 @@
-# Ative isso caso deseja utilizar o cash
+# Activate this if you want to use cash.
 cash: true
-# Ative isso caso esteja utilizando o kCore no Bungee para os comandos: party e fake
+# Enable this if using this plugin on BungeeCord so /party and /fake will work.
 bungeecord: false
-# Ative isso caso deseja utilizar a Fila
+# Enable this if you want to use the queue to enter other servers.
 queue: true
-# /fake do kCore
+# /fake:
 fake:
-  # Roles que podem ser utilizadas com o /fake
-  # As role vão de acordo com as do servidor spigot em que o jogador está conectado.
-  # No bungeecord só é utilizado para restringir os cargos que podem ser utilizado pelo comando direto.
+# Roles that can be used with /fake
+# Roles go according to the spigot server the player is connected to.
+# In bungeecord it is only used to restrict the positions that can be used by the direct command.
   role:
-  - 'Membro'
-  - 'VIP'
-  - 'MVP'
-  - 'MVP+'
-  # Nomes aleatórios do /fake
+  - 'Default'
+  # Random names from /fake
   randoms:
-    - 'pottershot'
-    - 'ismykiss'
-    - 'overdead'
-    - 'traveler'
-  # Mensagem de kick ao utilizar o /fake
-  kick-apply: '&c&lREDE SLICK\n \n&aSeu nick foi modificado\n&aEntre novamente no servidor para que faça efeito.'
+    - 'FlintCroak'
+    - 'Ceaselessama'
+    - 'Ceaselesscao'
+    - 'Faucroak'
+    - 'Croakbui'
+    - 'Croakoff'
+    - 'Kelsioff'
+    - 'vigaristaz'
+    - 'megazzaws'
+    - 'wandersondbz'
+    - 'Furoniddd'
+    - 'Geloucofc'
+    - 'alyssonaraujo'
+    - 'Proximic'
+    - 'Yandex321'
+    - 'kcppc8756'
+    - 'dmfalcao'
+    - 'pegasosz'
+    - 'smokerz4'
+    - 'feice265'
+    - 'Rafaeldren'
+    - 'Presidasss'
+    - 'Cultistz76'
+    - 'dsoonpvp1334'
+    - 'Dodge56blck'
+    - 'Insomniac'
+    - 'HunSzhg'
+    - 'SeTuP23hg'
+    - 'akilaslol'
+    - 'vito92123rei'
+    - 'hikari543king'
+    - 'pedrowings312'
+    - 'Wellingtonkling'
+    - 'pylm69asthor'
+    - 'nrtnwestark'
+    - 'alFaUHGqwcombo'
+    - '2agames_32'
+    - 'GabriGamer777'
+    - 'JPvp357xz'
+    - 'ManuzinhaGODxz'
+    - 'IamStreeterzx'
+    - 'PedroOrdepps'
+    - 'CowPVP_hg'
+    - 'SoGoodPvPking'
+    - 'Gamerzin4722'
+    - 'fearmelhorservidor'
+    - 'thor_fearland'
+    - 'jogador_less'
+    - 'ManoelOmelhor'
+    - 'SrManoelBeta'
+    - 'Betanaomorreu'
+    - 'talvezdsaok'
+    - 'eunaoseijogador123'
+    - 'tanquelimpo100'
+    - 'suportedofear'
+    - 'japanaotanka23'
+    - 'mkolclb'
+    - '9966272139'
+    - 'limptuslol'
+    - 'mukalolverme'
+    - 'eopijaskkkkj'
+    - 'vem3v1kkkfraco'
+    - 'noskynaotanka231'
+    - 'naoganhanefraco'
+    - 'rexpeitanoisfear'
+    - 'fearlimpenzsd'
+    - 'polpappvp'
+  # Kick message when using /fake
+  kick-apply: '&c&lSMART\n \n&eYour nickname has been changed!\n&eSign in again to update.'
   # Mensagem de kick ao utilizar o /faker
-  kick-remove: '&c&lREDE SLICK\n \n&aSeu nick foi resetado\n&aEntre novamente no servidor para que faça efeito.'
+  kick-remove: '&c&lSMART\n \n&eYour nickname has been reset!\n&eSign in again to update.'
 # /party do kCore
 party:
-  # Tamanho da party por permissão
-  # (_) é igual a (.)
-  # Tamanho padrão: 3
+  # Party size by permission
+  # (_) it's the same as (.)
+  # Default size: 3
   size:
-    role_master: 20
-    role_youtuber: 15
-    role_mvpplus: 10
-    role_mvp: 5
+    role_administrator: 10
+    role_helper: 10
+    role_youtuber: 10
+    role_mvp++: 10
+    role_mvp+: 8
+    role_mvp: 6
+    role_vip+: 4
+    role_vip: 3

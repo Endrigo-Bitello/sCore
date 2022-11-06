@@ -1,4 +1,4 @@
-author: Kiwizin
+author: Slasher
 name: ${project.artifactId}
 version: ${project.version}
 

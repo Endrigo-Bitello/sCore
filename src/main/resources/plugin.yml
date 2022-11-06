@@ -1,7 +1,7 @@
-author: Cangasso
-name: kCore
+author: Slasher
+name: sCore
 # ${project.artifactId}
 version: ${project.version}
 depend: [ProtocolLib, PlaceholderAPI]
 
-main: dev.slasher.smartplugins.Core
+main: dev.hyplay.sohappynow.Core
