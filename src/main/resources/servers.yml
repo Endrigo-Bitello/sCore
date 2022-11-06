@@ -36,19 +36,19 @@ items:
       - '127.0.0.1:23949 ; buildbattle'
   bedwars:
     slot: 12
-    icon: 'BED : 1 : name>&aBedWars : desc>&8Team work\n \n&7You and your team must protect the bed, it\n&7guarantees you will be reborn. Your enemies\n&7will try to break it in every way\n \n &f▪ Solo\n &f▪ Doubles\n &f▪ 3v3v3v3\n &f▪ 4v4v4v4\n \n&eClick to connect!\n&7{players} Playing.\n&r'
+    icon: 'BED : 1 : name>&aBed Wars : desc>&8Team work\n \n&7You and your team must protect the bed, it\n&7guarantees you will be reborn. Your enemies\n&7will try to break it in every way\n \n &f▪ Solo\n &f▪ Doubles\n &f▪ 3v3v3v3\n &f▪ 4v4v4v4\n \n&eClick to connect!\n&7{players} Playing.\n&r'
     max-players: 100
     servernames:
       - '127.0.0.1:16509 ; bedwars'
   murder:
     slot: 16
-    icon: 'IRON_SWORD : 1 : name>&aMurderMystery : desc>&8Casual\n \n&7You must help find out who the serial killer is\n&7killing people in this bizarre police case!\n\n&aClique para conectar\n&7{players} Playing.'
+    icon: 'IRON_SWORD : 1 : name>&aMurder Mystery : desc>&8Casual\n \n&7You must help find out who the serial killer is\n&7killing people in this bizarre police case!\n\n&aClique para conectar\n&7{players} Playing.'
     max-players: 100
     servernames:
       - '127.0.0.1:39494 ; murder'
   arcade:
     slot: 14
-    icon: 'SLIME_BALL : 1 : name>&cArcadeGames &e&lCOMING SOON : enchant>KNOCKBACK:1 : hide>all : desc>&8Casual competitve\n \n&7Lots of fun modes for you to play with\n&7your friends and relax!\n\n &f▪ Bomb Lobbers\n &f▪ Splegg\n &f▪ Quake\n &f▪ TNT Run \n &f▪ Mini Walls\n &f▪ Temple Run\n &f▪ Prop Hunt\n &f▪ Block Party\n &f▪ TNT Tag\n &f▪ Party Games &7(11 games)\n\n&eClick to connect!\n&7{players} Playing.\n&r'
+    icon: 'SLIME_BALL : 1 : name>&cArcade Games &e&lCOMING SOON : enchant>KNOCKBACK:1 : hide>all : desc>&8Casual competitve\n \n&7Lots of fun modes for you to play with\n&7your friends and relax!\n\n &f▪ Bomb Lobbers\n &f▪ Splegg\n &f▪ Quake\n &f▪ TNT Run \n &f▪ Mini Walls\n &f▪ Temple Run\n &f▪ Prop Hunt\n &f▪ Block Party\n &f▪ TNT Tag\n &f▪ Party Games &7(11 games)\n\n&eClick to connect!\n&7{players} Playing.\n&r'
     max-players: 100
     servernames:
       - '127.0.0.1:39422 ; arcade'

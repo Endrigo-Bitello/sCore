@@ -4,4 +4,4 @@ name: sCore
 version: ${project.version}
 depend: [ProtocolLib, PlaceholderAPI]
 
-main: dev.hyplay.sohappynow.Core
+main: dev.slasher.smartplugins.Core
