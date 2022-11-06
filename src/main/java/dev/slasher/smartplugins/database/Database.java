@@ -20,7 +20,7 @@ public abstract class Database {
 
   public void convertDatabase(Object player) {
     if (!Manager.BUNGEE) {
-      ((org.bukkit.entity.Player) player).sendMessage("§cRecurso não suportado para seu tipo de Banco de Dados.");
+      ((org.bukkit.entity.Player) player).sendMessage("§cFeature not supported for your Database type");
     }
   }
 

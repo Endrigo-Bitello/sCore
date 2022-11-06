@@ -5,8 +5,8 @@ import dev.slasher.smartplugins.libraries.MinecraftVersion;
 import java.util.Arrays;
 
 /**
- * Classe utilizada para pegar várias classes e métodos<br/>
- * do Servidor de Minecraft através da Reflection do java.
+ * Class used to get various classes and methods<br/>
+ * from the Minecraft Server through Reflection in java.
  */
 @SuppressWarnings("rawtypes")
 public class MinecraftReflection {
@@ -314,14 +314,14 @@ public class MinecraftReflection {
     return property;
   }
 
-  // -- Utilitarios
+  // -- Utilities
 
   /**
-   * Verifica se o object é da classe escolhida.
+   * Checks if the object is of the chosen class.
    *
-   * @param clazz  - A classe para verificar.
-   * @param object - O objeto que é da classe.
-   * @return TRUE caso o objeto seja relacionado a classe, FALSE caso não.
+   * @param clazz - The class to check.
+   * @param object - The object that is of the class.
+   * @return TRUE if the object is class-related, FALSE otherwise.
    */
   public static boolean is(Class<?> clazz, Object object) {
     if (clazz == null || object == null) {
@@ -334,11 +334,11 @@ public class MinecraftReflection {
   // -- Metodos para buscar classes.
 
   /**
-   * Método utilizado para procurar por uma classe e carrega-la.
+   * Method used to search for a class and load it.
    *
-   * @param name O nome da classe.
-   * @return A classe com o nome desejado.
-   * @throws IllegalArgumentException Caso não encontre a classe.
+   * @param name The name of the class.
+   * @return The class with the desired name.
+   * @throws IllegalArgumentException If not find class.
    */
   public static Class<?> getClass(String name) {
     try {
@@ -349,22 +349,22 @@ public class MinecraftReflection {
   }
 
   /**
-   * Um encurtador para {@link MinecraftReflection#getCraftBukkitClass(Object, String...)}<br>
-   * com o Object <code>false</code> para sempre dar throw na exception.
+   * A shortener for {@link MinecraftReflection#getCraftBukkitClass(Object, String...)}<br>
+   * with Object <code>false</code> to always throw exception.
    */
   public static Class<?> getCraftBukkitClass(String... names) {
     return getCraftBukkitClass(false, names);
   }
 
   /**
-   * Método utilizado para procurar uma classe da package <code>org.bukkit.craftbukkit</code> a partir
-   * dos nomes desejados.
+   * Method used to look up a class from package <code>org.bukkit.craftbukkit</code> from
+   * of the desired names.
    *
-   * @param canNull FALSE caso queira que ocorra a Exception, ou uma Classe para retornar caso nao
-   *                encontre.
-   * @param names   Os possíveis nomes da classe.
-   * @return A classe encontrada.
-   * @throws IllegalArgumentException Caso não ache nenhuma classe.
+   * @param canNull FALSE if you want the Exception to occur, or a Class to return if you don't
+   *                find.
+   * @param names The possible names of the class.
+   * @return The class found.
+   * @throws IllegalArgumentException If no class is found.
    */
   public static Class<?> getCraftBukkitClass(Object canNull, String... names) {
     for (String name : names) {
@@ -381,22 +381,22 @@ public class MinecraftReflection {
   }
 
   /**
-   * Um encurtador para {@link MinecraftReflection#getMinecraftClass(Object, String...)}<br>
-   * com o Object <code>false</code> para sempre dar throw na exception.
+   * A shortener for {@link MinecraftReflection#getMinecraftClass(Object, String...)}<br>
+   * with Object <code>false</code> to always throw exception.
    */
   public static Class<?> getMinecraftClass(String... names) {
     return getMinecraftClass(false, names);
   }
 
   /**
-   * Método utilizado para procurar uma classe da package <code>net.minecraft.server</code> a partir dos
-   * nomes desejados.
+   * Method used to search for a class from the <code>net.minecraft.server</code> package from the
+   * desired names.
    *
-   * @param canNull FALSE caso queira que ocorra a Exception, ou uma Classe para retornar caso não
-   *                ache.
-   * @param names   Os possiveis nomes da classe.
-   * @return A classe encontrada.
-   * @throws IllegalArgumentException Caso não ache nenhuma classe.
+   * @param canNull FALSE if you want the Exception to occur, or a Class to return if you don't
+   * find.
+   * @param names Possible class names.
+   * @return The class found.
+   * @throws IllegalArgumentException If no class is found.
    */
   public static Class<?> getMinecraftClass(Object canNull, String... names) {
     for (String name : names) {
@@ -413,13 +413,13 @@ public class MinecraftReflection {
   }
 
   /**
-   * Metodo utilizado para procurar uma classe de utilidade do minecraft<br>
-   * Caso ainda exista a package net.minecraft.util irá usa-la como prefixo. Caso contrario irá
-   * procurar pelo nome sem nenhuma modificação.
+   * Method used to search for a minecraft utility class<br>
+   * If the net.minecraft.util package still exists, it will use it as a prefix. Otherwise it will
+   * search by name without any modification.
    *
-   * @param name O nome da classe.
-   * @return A classe encontrada.
-   * @throws IllegalArgumentException Caso não ache nenhuma classe.
+   * @param name The name of the class.
+   * @return The class found.
+   * @throws IllegalArgumentException If no class is found.
    */
   public static Class<?> getMinecraftUtilClass(String name) {
     try {

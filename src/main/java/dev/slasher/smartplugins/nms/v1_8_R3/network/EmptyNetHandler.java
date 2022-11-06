@@ -12,6 +12,6 @@ public class EmptyNetHandler extends PlayerConnection {
 
   @Override
   public void sendPacket(Packet packet) {
-    // nao envie packets para um NPC.
+    // Do not send packets to an NPC
   }
 }

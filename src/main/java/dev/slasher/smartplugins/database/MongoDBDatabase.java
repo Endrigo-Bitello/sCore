@@ -54,7 +54,7 @@ public class MongoDBDatabase extends Database {
     this.collation = Collation.builder().locale("en_US").collationStrength(CollationStrength.SECONDARY).build();
     this.updateOptions = new UpdateOptions().collation(this.collation);
     this.tables =
-      DataTable.listTables().stream().map(DataTable::getInfo).map(DataTableInfo::name).filter(name -> !name.equalsIgnoreCase("kCoreProfile")).collect(Collectors.toList());
+      DataTable.listTables().stream().map(DataTable::getInfo).map(DataTableInfo::name).filter(name -> !name.equalsIgnoreCase("HyCoreProfile")).collect(Collectors.toList());
 
     if (!Manager.BUNGEE) {
       Object pluginManager = Accessors.getMethod(org.bukkit.Bukkit.class, "getPluginManager").invoke(null);
@@ -172,7 +172,7 @@ public class MongoDBDatabase extends Database {
 
   public void openConnection() {
     this.client = MongoClients.create(this.url);
-    this.database = this.client.getDatabase("kCore");
+    this.database = this.client.getDatabase("HyCore");
     this.collection = this.database.getCollection("Profile");
     LOGGER.info("Conectado ao MongoDB");
   }
@@ -193,7 +193,7 @@ public class MongoDBDatabase extends Database {
         containerMap.put("month", new DataContainer((Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR)));
       }
 
-      String prefix = table.getInfo().name().equalsIgnoreCase("kcoreprofile") ? "" : table.getInfo().name() + ".";
+      String prefix = table.getInfo().name().equalsIgnoreCase("HyCoreProfile") ? "" : table.getInfo().name() + ".";
       containerMap.keySet().forEach(key -> includes.add(prefix + key));
       tableMap.put(table.getInfo().name(), containerMap);
     }
@@ -218,7 +218,7 @@ public class MongoDBDatabase extends Database {
           continue;
         }
 
-        tableMap.get("kCoreProfile").put(key, new DataContainer(document.get(key)));
+        tableMap.get("HyCoreProfile").put(key, new DataContainer(document.get(key)));
       }
     } else {
       Document insert = new Document();
@@ -261,7 +261,7 @@ public class MongoDBDatabase extends Database {
         continue;
       }
 
-      String prefix = table.getInfo().name().equalsIgnoreCase("kcoreprofile") ? "" : table.getInfo().name() + ".";
+      String prefix = table.getInfo().name().equalsIgnoreCase("HyCoreProfile") ? "" : table.getInfo().name() + ".";
       if (table.getInfo().name().contains("SkyWars") || table.getInfo().name().contains("TheBridge")) {
         save.put(prefix + "totalkills", rows.get("1v1kills").getAsLong() + rows.get("2v2kills").getAsLong());
         save.put(prefix + "totalwins", rows.get("1v1wins").getAsLong() + rows.get("2v2wins").getAsLong());

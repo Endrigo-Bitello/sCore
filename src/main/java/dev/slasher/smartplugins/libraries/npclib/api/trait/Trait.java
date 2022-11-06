@@ -3,22 +3,22 @@ package dev.slasher.smartplugins.libraries.npclib.api.trait;
 public interface Trait {
   
   /**
-   * chamado ao Rastreio ser adicionado.
+   * called to Trace be added.
    */
   public void onAttach();
   
   /**
-   * chamado ao Rastreio ser removido.
+   * called to Trace be removed.
    */
   public void onRemove();
   
   /**
-   * chamado ao NPC ser spawnado.
+   * called to the NPC to be spawned.
    */
   public void onSpawn();
   
   /**
-   * chamado ao NPC ser despawnado.
+   * called to the NPC to be despawned.
    */
   public void onDespawn();
 }

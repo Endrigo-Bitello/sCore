@@ -1,5 +1,6 @@
 package dev.slasher.smartplugins.menus;
 
+import dev.slasher.smartplugins.Core;
 import dev.slasher.smartplugins.database.data.container.DeliveriesContainer;
 import dev.slasher.smartplugins.deliveries.Delivery;
 import dev.slasher.smartplugins.libraries.menu.UpdatablePlayerMenu;
@@ -12,22 +13,33 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import dev.slasher.smartplugins.Core;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MenuDeliveries extends UpdatablePlayerMenu {
-
+  
+  private Profile profile;
+  private Map<ItemStack, Delivery> deliveries;
+  public MenuDeliveries(Profile profile) {
+    super(profile.getPlayer(), "Deliveries", 5);
+    this.profile = profile;
+    this.deliveries = new HashMap<>();
+    
+    this.update();
+    this.register(Core.getInstance(), 20);
+    this.open();
+  }
+  
   @EventHandler
   public void onInventoryClick(InventoryClickEvent evt) {
     if (evt.getInventory().equals(this.getInventory())) {
       evt.setCancelled(true);
-
+      
       if (evt.getWhoClicked().equals(this.player)) {
         if (evt.getClickedInventory() != null && evt.getClickedInventory().equals(this.getInventory())) {
           ItemStack item = evt.getCurrentItem();
-
+          
           if (item != null && item.getType() != Material.AIR) {
             Delivery delivery = this.deliveries.get(item);
             if (delivery != null) {
@@ -47,20 +59,7 @@ public class MenuDeliveries extends UpdatablePlayerMenu {
       }
     }
   }
-
-  private Profile profile;
-  private Map<ItemStack, Delivery> deliveries;
-
-  public MenuDeliveries(Profile profile) {
-    super(profile.getPlayer(), "Entregas", 5);
-    this.profile = profile;
-    this.deliveries = new HashMap<>();
-
-    this.update();
-    this.register(Core.getInstance(), 20);
-    this.open();
-  }
-
+  
   @Override
   public void update() {
     this.deliveries.clear();
@@ -69,10 +68,10 @@ public class MenuDeliveries extends UpdatablePlayerMenu {
       this.setItem(delivery.getSlot(), item);
       this.deliveries.put(item, delivery);
     }
-
+    
     this.player.updateInventory();
   }
-
+  
   public void cancel() {
     super.cancel();
     HandlerList.unregisterAll(this);
@@ -80,14 +79,14 @@ public class MenuDeliveries extends UpdatablePlayerMenu {
     this.deliveries.clear();
     this.deliveries = null;
   }
-
+  
   @EventHandler
   public void onPlayerQuit(PlayerQuitEvent evt) {
     if (evt.getPlayer().equals(this.player)) {
       this.cancel();
     }
   }
-
+  
   @EventHandler
   public void onInventoryClose(InventoryCloseEvent evt) {
     if (evt.getPlayer().equals(this.player) && evt.getInventory().equals(this.getInventory())) {

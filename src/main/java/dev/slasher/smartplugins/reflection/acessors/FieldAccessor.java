@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import dev.slasher.smartplugins.reflection.Accessors;
 
 /**
- * Essa classe representa um {@link Field} com métodos seguros de acesso.
+ * This class represents a {@link Field} with safe access methods.
  */
 @SuppressWarnings("unchecked")
 public class FieldAccessor<TField> {
@@ -24,10 +24,10 @@ public class FieldAccessor<TField> {
   }
 
   /**
-   * Método utilizado para pegar o valor de um {@link Field}
-   * 
-   * @param target O alvo para pegar o valor do field.
-   * @return O valor do field.
+   * Method used to get the value of a {@link Field}
+   *
+   * @param target The target to get the value of the field.
+   * @return The value of the field.
    */
   public TField get(Object target) {
     try {
@@ -38,10 +38,10 @@ public class FieldAccessor<TField> {
   }
 
   /**
-   * Método utilizado para setar o valor de um {@link Field}
-   * 
-   * @param target O alvo para setar o valor do field.
-   * @param value O novo valor do field.
+   * Method used to set the value of a {@link Field}
+   *
+   * @param target The target to set the value of the field.
+   * @param value The new value of the field.
    */
   public void set(Object target, TField value) {
     try {
@@ -52,17 +52,17 @@ public class FieldAccessor<TField> {
   }
 
   /**
-   * Método utilizado para verificar se a classe do Objeto possui o {@link Field}.
-   * 
-   * @param target O alvo para verificar.
-   * @return TRUE caso possua o field na classe, FALSE caso não.
+   * Method used to check if the Object class has the {@link Field}.
+   *
+   * @param target The target to check.
+   * @return TRUE if you have the field in the class, FALSE if not.
    */
   public boolean hasField(Object target) {
     return target != null && this.handle.getDeclaringClass().equals(target.getClass());
   }
 
   /**
-   * @return O {@link Field} representado nesse Accessor.
+   * @return The {@link Field} represented in this Accessor.
    */
   public Field getHandle() {
     return handle;

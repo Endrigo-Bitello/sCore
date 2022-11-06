@@ -10,10 +10,10 @@ public class SimpleMetadataStore implements MetadataStore {
   private final Map<String, Object> metadata = new HashMap<>();
 
   private void checkPrimitive(Object data) {
-    Preconditions.checkNotNull(data, "data nao pode ser null!");
+    Preconditions.checkNotNull(data, "date cannot be null!");
     boolean isPrimitive = data instanceof Boolean || data instanceof String || data instanceof Number;
     if (!isPrimitive) {
-      throw new IllegalArgumentException("Data tem que ser primitiva!");
+      throw new IllegalArgumentException("Date has to be primitive!");
     }
   }
 
@@ -36,7 +36,7 @@ public class SimpleMetadataStore implements MetadataStore {
 
   @Override
   public boolean has(String key) {
-    Preconditions.checkNotNull(key, "Key nao pode ser null!");
+    Preconditions.checkNotNull(key, "Key cannot be null!");
     return metadata.containsKey(key);
   }
 
@@ -47,7 +47,7 @@ public class SimpleMetadataStore implements MetadataStore {
 
   @Override
   public void set(String key, Object data) {
-    Preconditions.checkNotNull(key, "Key nao pode ser null!");
+    Preconditions.checkNotNull(key, "Key cannot be null!");
     if (data == null) {
       remove(key);
     } else {

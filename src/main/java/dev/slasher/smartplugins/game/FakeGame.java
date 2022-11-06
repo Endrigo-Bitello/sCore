@@ -48,7 +48,7 @@ public class FakeGame implements Game<GameTeam> {
 
   @Override
   public GameState getState() {
-    return GameState.AGUARDANDO;
+    return GameState.WAITING;
   }
 
   @Override

@@ -10,7 +10,7 @@ import dev.slasher.smartplugins.nms.interfaces.entity.IArmorStand;
 import dev.slasher.smartplugins.nms.interfaces.entity.IItem;
 import dev.slasher.smartplugins.nms.interfaces.entity.ISlime;
 import dev.slasher.smartplugins.nms.v1_8_R3.NMS1_8R3;
-import dev.slasher.smartplugins.plugin.logger.KLogger;
+import dev.slasher.smartplugins.plugin.logger.HyLogger;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -25,7 +25,7 @@ import java.util.Collection;
 public class NMS {
 
   private static INMS BRIDGE;
-  public static final KLogger LOGGER = ((KLogger) Core.getInstance().getLogger()).getModule("NMS");
+  public static final HyLogger LOGGER = ((HyLogger) Core.getInstance().getLogger()).getModule("NMS");
 
   public static IArmorStand createArmorStand(Location location, String name, HologramLine line) {
     return BRIDGE.createArmorStand(location, name, line);

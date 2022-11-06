@@ -1,31 +1,29 @@
 package dev.slasher.smartplugins.bungee.cmd;
 
+import dev.slasher.smartplugins.bungee.Bungee;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
-import dev.slasher.smartplugins.bungee.Bungee;
 
 public abstract class Commands extends Command {
 
-  public Commands(String name, String... aliases) {
-    super(name, null, aliases);
-    ProxyServer.getInstance().getPluginManager().registerCommand(Bungee.getInstance(), this);
-  }
+    public Commands(String name, String... aliases) {
+        super(name, null, aliases);
+        ProxyServer.getInstance().getPluginManager().registerCommand(Bungee.getInstance(), this);
+    }
 
-  public abstract void perform(CommandSender sender, String[] args);
+    public static void setupCommands() {
+        new FakeCommand();
+        new FakeResetCommand();
+        new FakeListCommand();
+        new PartyCommand();
+        new PartyChatCommand();
+    }
 
-  @Override
-  public void execute(CommandSender sender, String[] args) {
-    this.perform(sender, args);
-  }
+    public abstract void perform(CommandSender sender, String[] args);
 
-  public static void setupCommands() {
-    new FakeCommand();
-    new FakeResetCommand();
-    new FakeListCommand();
-    new PartyCommand();
-    new PartyChatCommand();
-    new GoCommand();
-    new FinderCommand();
-  }
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        this.perform(sender, args);
+    }
 }

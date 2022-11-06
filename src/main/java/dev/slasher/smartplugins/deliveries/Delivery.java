@@ -3,7 +3,7 @@ package dev.slasher.smartplugins.deliveries;
 import dev.slasher.smartplugins.Core;
 import dev.slasher.smartplugins.player.Profile;
 import dev.slasher.smartplugins.player.role.Role;
-import dev.slasher.smartplugins.plugin.config.KConfig;
+import dev.slasher.smartplugins.plugin.config.HyConfig;
 import dev.slasher.smartplugins.utils.BukkitUtils;
 import dev.slasher.smartplugins.utils.StringUtils;
 import dev.slasher.smartplugins.utils.TimeUtils;
@@ -64,9 +64,9 @@ public class Delivery {
     boolean alreadyClaimed = profile.getDeliveriesContainer().alreadyClaimed(this.id);
     if (permission) {
       Role role = Role.getRoleByPermission(this.permission);
-      desc = role == null ? "\n \n&cVocê não possui permissão." : "\n \n&7Exclusivo para " + role.getName() + "&7.";
+      desc = role == null ? "\n \n&cYou don't have permission." : "\n \n&7Exclusive to " + role.getName() + "&7.";
     } else if (alreadyClaimed) {
-      desc = "\n \n&7Você poderá coletar novamente em &f" + TimeUtils.getTimeUntil(profile.getDeliveriesContainer().getClaimTime(this.id)) + "&7.";
+      desc = "\n \n&You can collect again at &f" + TimeUtils.getTimeUntil(profile.getDeliveriesContainer().getClaimTime(this.id)) + "&7.";
     }
 
     ItemStack item = BukkitUtils.deserializeItemStack(this.icon.replace("{color}", !permission && !alreadyClaimed ? "&a" : "&c") + desc);
@@ -89,7 +89,7 @@ public class Delivery {
   private static final List<Delivery> DELIVERIES = new ArrayList<>();
 
   public static void setupDeliveries() {
-    KConfig config = Core.getInstance().getConfig("deliveries");
+    HyConfig config = Core.getInstance().getConfig("deliveries");
 
     for (String key : config.getSection("deliveries").getKeys(false)) {
       int slot = config.getInt("deliveries." + key + ".slot");

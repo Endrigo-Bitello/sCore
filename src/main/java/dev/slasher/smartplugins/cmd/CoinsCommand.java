@@ -6,26 +6,26 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CoinsCommand extends Commands {
-
-    public CoinsCommand() {
-        super("coins");
+  
+  public CoinsCommand() {
+    super("coins");
+  }
+  
+  @Override
+  public void perform(CommandSender sender, String label, String[] args) {
+    if (sender instanceof Player) {
+      Player player = (Player) sender;
+      Profile profile = Profile.getProfile(player.getName());
+      player.sendMessage("\n§eYour Coins:\n ");
+      
+      for (String name : new String[]{"Bed Wars", "Murder", "The Bridge", "Sky Wars", "Build Battle"}) {
+        player.sendMessage(" §8▪ §e" + name + ": §6" + StringUtils
+            .formatNumber(profile.getCoins("HyCore" + name.replace(" ", ""))));
+      }
+      
+      player.sendMessage("\n");
+    } else {
+      sender.sendMessage("§cOnly players.");
     }
-
-    @Override
-    public void perform(CommandSender sender, String label, String[] args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            Profile profile = Profile.getProfile(player.getName());
-            player.sendMessage("\n§aSEUS COINS:");
-
-            for (String table : new String[] {"kCoreBedWars", "kCoreBuildBattle", "kCoreMurder", "kCoreTheBridge", "kCoreSkyWars"}) {
-                String name = table.replace("kCore", "");
-                player.sendMessage("\n§6" + name + ": §e" + StringUtils.formatNumber(profile.getCoins(table.replace(" ", ""))));
-            }
-
-            player.sendMessage("\n ");
-        } else {
-            sender.sendMessage("§cApenas jogadores podem utilizar este comando.");
-        }
-    }
+  }
 }

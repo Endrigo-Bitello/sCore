@@ -48,7 +48,7 @@ public class Profile {
     public Profile(String name) throws ProfileLoadException {
         this.name = name;
         this.tableMap = Database.getInstance().load(name);
-        this.getDataContainer("kCoreProfile", "lastlogin").set(System.currentTimeMillis());
+        this.getDataContainer("HyCoreProfile", "lastlogin").set(System.currentTimeMillis());
     }
 
     public void setGame(Game<? extends GameTeam> game) {
@@ -109,8 +109,8 @@ public class Profile {
             player.setGameMode(GameMode.ADVENTURE);
             player.teleport(Core.getLobby());
 
-            player.setAllowFlight(player.hasPermission("kcore.fly"));
-            this.getDataContainer("kCoreProfile", "role").set(StringUtils.stripColors(Role.getPlayerRole(player, true).getName()));
+            player.setAllowFlight(player.hasPermission("hycore.fly"));
+            this.getDataContainer("HyCoreProfile", "role").set(StringUtils.stripColors(Role.getPlayerRole(player, true).getName()));
         }
 
         if (this.hotbar != null) {
@@ -127,7 +127,7 @@ public class Profile {
 
         if (this.hotbar != null) {
             this.hotbar.getButtons().forEach(button -> {
-                if (button.getAction().getValue().equalsIgnoreCase("jogadores")) {
+                if (button.getAction().getValue().equalsIgnoreCase("players")) {
                     player.getInventory().setItem(button.getSlot(), BukkitUtils.deserializeItemStack(PlaceholderAPI.setPlaceholders(player, button.getIcon())));
                 }
             });
@@ -317,6 +317,14 @@ public class Profile {
     }
 
 
+    public int addExp(String table, double amount) {
+        this.getDataContainer(table, "xp").addDouble(amount);
+        return (int) amount;
+    }
+
+
+
+
     // Com multiplicador
     public int addCoinsWM(String table, double amount) {
         amount = this.calculateWM(amount);
@@ -376,6 +384,10 @@ public class Profile {
         return this.getDataContainer(table, "coins").getAsDouble();
     }
 
+    public double getXp(String table) {
+        return this.getDataContainer(table, "xp").getAsDouble();
+    }
+
     public String getFormatedStats(String table, String... keys) {
         return StringUtils.formatNumber(this.getStats(table, keys));
     }
@@ -385,27 +397,27 @@ public class Profile {
     }
 
     public DeliveriesContainer getDeliveriesContainer() {
-        return this.getAbstractContainer("kCoreProfile", "deliveries", DeliveriesContainer.class);
+        return this.getAbstractContainer("HyCoreProfile", "deliveries", DeliveriesContainer.class);
     }
 
     public PreferencesContainer getPreferencesContainer() {
-        return this.getAbstractContainer("kCoreProfile", "preferences", PreferencesContainer.class);
+        return this.getAbstractContainer("HyCoreProfile", "preferences", PreferencesContainer.class);
     }
 
     public TitlesContainer getTitlesContainer() {
-        return this.getAbstractContainer("kCoreProfile", "titles", TitlesContainer.class);
+        return this.getAbstractContainer("HyCoreProfile", "titles", TitlesContainer.class);
     }
 
     public BoostersContainer getBoostersContainer() {
-        return this.getAbstractContainer("kCoreProfile", "boosters", BoostersContainer.class);
+        return this.getAbstractContainer("HyCoreProfile", "boosters", BoostersContainer.class);
     }
 
     public AchievementsContainer getAchievementsContainer() {
-        return this.getAbstractContainer("kCoreProfile", "achievements", AchievementsContainer.class);
+        return this.getAbstractContainer("HyCoreProfile", "achievements", AchievementsContainer.class);
     }
 
     public SelectedContainer getSelectedContainer() {
-        return this.getAbstractContainer("kCoreProfile", "selected", SelectedContainer.class);
+        return this.getAbstractContainer("HyCoreProfile", "selected", SelectedContainer.class);
     }
 
     public DataContainer getDataContainer(String table, String key) {

@@ -3,7 +3,7 @@ package dev.slasher.smartplugins.reflection.acessors;
 import java.lang.reflect.Method;
 
 /**
- * Essa classe representa um {@link Method} com métodos seguros de acesso.
+ * This class represents a {@link Method} with safe access methods.
  */
 public class MethodAccessor {
 
@@ -21,11 +21,11 @@ public class MethodAccessor {
   }
 
   /**
-   * Método utilizado para invocar um {@link Method}
+   * Method used to invoke a {@link Method}
    *
-   * @param target A instância para utilizar o método.
-   * @param args   Os parâmetros para invocar o método.
-   * @return Resultado do método.
+   * @param target The instance to use the method.
+   * @param args The parameters for invoking the method.
+   * @return Result of the method.
    */
   public Object invoke(Object target, Object... args) {
     try {
@@ -36,17 +36,17 @@ public class MethodAccessor {
   }
 
   /**
-   * Método utilizado para verificar se a classe do Objeto possui o {@link Method}.
+   * Method used to check if the Object class has the {@link Method}.
    *
-   * @param target O alvo para verificar.
-   * @return TRUE caso possua o método na classe, FALSE caso não.
+   * @param target The target to check.
+   * @return TRUE if you have the method in the class, FALSE otherwise.
    */
   public boolean hasMethod(Object target) {
     return target != null && this.handle.getDeclaringClass().equals(target.getClass());
   }
 
   /**
-   * @return O {@link Method} representado nesse Accessor.
+   * @return The {@link Method} represented in this Accessor.
    */
   public Method getHandle() {
     return handle;

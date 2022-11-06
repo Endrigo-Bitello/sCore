@@ -1,42 +1,42 @@
 package dev.slasher.smartplugins.bungee.cmd;
 
+import dev.slasher.smartplugins.bungee.Bungee;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import dev.slasher.smartplugins.bungee.Bungee;
 
 import java.util.List;
 
 public class FakeListCommand extends Commands {
-
+  
   public FakeListCommand() {
-    super("fakel");
+    super("fakelist");
   }
-
+  
   @Override
   public void perform(CommandSender sender, String[] args) {
     if (!(sender instanceof ProxiedPlayer)) {
-      sender.sendMessage(TextComponent.fromLegacyText("§cApenas jogadores podem utilizar este comando."));
+      sender.sendMessage(TextComponent.fromLegacyText("§cOnly players can use this command."));
       return;
     }
-
+    
     ProxiedPlayer player = (ProxiedPlayer) sender;
-    if (!player.hasPermission("kcore.cmd.fakelist")) {
-      player.sendMessage(TextComponent.fromLegacyText("§cVocê não possui permissão para utilizar este comando."));
+    if (!player.hasPermission("hyplay.cmd.fakelist")) {
+      player.sendMessage(TextComponent.fromLegacyText("§cYou don't have permission."));
       return;
     }
-
+    
     List<String> nicked = Bungee.listNicked();
     StringBuilder sb = new StringBuilder();
     for (int index = 0; index < nicked.size(); index++) {
-      sb.append("§c").append(Bungee.getFake(nicked.get(index))).append(" §fé na verdade ").append("§a").append(nicked.get(index)).append(index + 1 == nicked.size() ? "" : "\n");
+      sb.append("§7Player: §f").append(Bungee.getFake(nicked.get(index))).append(" §b➟ §7Fake: ").append("§f").append(nicked.get(index)).append(index + 1 == nicked.size() ? "" : "\n");
     }
-
+    
     nicked.clear();
     if (sb.length() == 0) {
-      sb.append("§cNão há nenhum usuário utilizando um nickname falso.");
+      sb.append("§cThere are no players using fake.");
     }
-
-    player.sendMessage(TextComponent.fromLegacyText(" \n§eLista de nicknames falsos:\n \n" + sb.toString() + "\n "));
+    
+    player.sendMessage(TextComponent.fromLegacyText(" \n§a§lFAKE PLAYERS LIST:\n \n" + sb + "\n "));
   }
 }

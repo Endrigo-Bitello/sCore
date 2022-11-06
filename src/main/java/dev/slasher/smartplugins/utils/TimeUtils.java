@@ -3,14 +3,14 @@ package dev.slasher.smartplugins.utils;
 import java.util.Calendar;
 
 /**
- * Classe com utilitários relacionados a TimeMillis e {@link Calendar}.
+ * Class with TimeMillis-related utilities and {@link Calendar}.
  */
 public class TimeUtils {
 
   /**
-   * Analisa se a data atual é de ano novo.
+   * Analyzes whether the current date is New Year's.
    *
-   * @return TRUE caso seja, FALSE caso não.
+   * @return TRUE if so, FALSE if not.
    */
   public static boolean isNewYear() {
     Calendar cl = Calendar.getInstance();
@@ -18,9 +18,9 @@ public class TimeUtils {
   }
 
   /**
-   * Analisa se a data atual é de natal.
+   * Analyzes if the current date is Christmas.
    *
-   * @return TRUE caso seja, FALSE caso não.
+   * @return TRUE if it is, FALSE if not.
    */
   public static boolean isChristmas() {
     Calendar cl = Calendar.getInstance();
@@ -28,10 +28,10 @@ public class TimeUtils {
   }
 
   /**
-   * Requesita a última data do mês a partir do número dele.
+   * Requires the last date of the month from its number.
    *
-   * @param month mês de 1 a 12
-   * @return o último dia do mês escolhido.
+   * @param month Month 1 to 12
+   * @return the last day of the chosen month.
    */
   public static int getLastDayOfMonth(int month) {
     Calendar cl = Calendar.getInstance();
@@ -40,19 +40,19 @@ public class TimeUtils {
   }
 
   /**
-   * Requesita a última data do mês atual.
+   * Requires the last date of the current month.
    *
-   * @return o último dia do mês.
+   * @return the last day of the month.
    */
   public static int getLastDayOfMonth() {
     return Calendar.getInstance().getActualMaximum(Calendar.DATE);
   }
 
   /**
-   * Cria uma data a partir da atual para expirar depois dos dias requesitados.
+   * Create a date from the current one to expire after the requested days.
    *
-   * @param days Quantia de dias a partir de hoje.
-   * @return A data de expiração.
+   * @param days Number of days from today.
+   * @return The expiration date.
    */
   public static long getExpireIn(int days) {
     Calendar cooldown = Calendar.getInstance();
@@ -67,22 +67,22 @@ public class TimeUtils {
   }
 
   /**
-   * Pega quanto tempo resta entre um timemillis e o atual.<br/>
-   * Observação: encurtador de {@link #getTimeUntil(long, boolean)} com seconds ativado.
+   * Get how much time is left between a timemillis and the current one.<br/>
+   * Note: {@link #getTimeUntil(long, boolean)} shortener with seconds enabled.
    *
-   * @param epoch Timemillis para pegar o tempo restante.
-   * @return O tempo restante ou vazio (<code>""</code>) caso já tenha passado do tempo.
+   * @param epoch Timemillis to get the remaining time.
+   * @return The remaining or empty time (<code>""</code>) if time has passed.
    */
   public static String getTimeUntil(long epoch) {
     return getTimeUntil(epoch, true);
   }
 
   /**
-   * Pega quanto tempo resta entre um timemillis e o atual.
+   * Get how much time is left between a timemillis and the current one.
    *
-   * @param epoch   Timemillis para pegar o tempo restante.
-   * @param seconds Se irá mostrar os segundos no tempo restante.
-   * @return O tempo restante ou vazio (<code>""</code>) caso já tenha passado do tempo.
+   * @param epoch Timemillis to get the remaining time.
+   * @param seconds Whether to show the seconds in the time remaining.
+   * @return The remaining or empty time (<code>""</code>) if time has passed.
    */
   public static String getTimeUntil(long epoch, boolean seconds) {
     epoch -= System.currentTimeMillis();
@@ -90,22 +90,22 @@ public class TimeUtils {
   }
 
   /**
-   * Transforma um timemillis em String para saber quantos dias, horas, minutos e segundos há no timemillis.<br/>
-   * Observação: encurtador de {@link #getTime(long, boolean)} com seconds ativado.
+   * Transforms a timemillis into a String to know how many days, hours, minutes and seconds are in the timemillis.<br/>
+   * Note: {@link #getTime(long, boolean)} shortener with seconds enabled.
    *
-   * @param time Timemillis para pegar o tempo.
-   * @return O tempo em String ou vazio (<code>""</code>) caso <code>time <= 0</code>
+   * @param time Timemillis to catch the time.
+   * @return Time in String or empty (<code>""</code>) case <code>time <= 0</code>
    */
   public static String getTime(long time) {
     return getTime(time, true);
   }
 
   /**
-   * Transforma um timemillis em String para saber quantos dias, horas, minutos e segundos há no timemillis.
+   * Transforms a timemillis into a String to know how many days, hours, minutes and seconds there are in the timemillis.
    *
-   * @param time    Timemillis para pegar o tempo.
-   * @param seconds Se irá mostrar os segundos no tempo.
-   * @return O tempo em String ou vazio (<code>""</code>) caso <code>time <= 0</code>
+   * @param time Timemillis to catch the time.
+   * @param seconds If it will show the seconds in time.
+   * @return Time in String or empty (<code>""</code>) case <code>time <= 0</code>
    */
   public static String getTime(long time, boolean seconds) {
     long ms = time / 1000;

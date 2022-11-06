@@ -65,10 +65,10 @@ public class Manager {
 
 
   /**
-   * Pega a value ou signature de uma skin de uma {@link String}
+   * Get the value or signature of a skin from a {@link String}
    *
-   * @param player A {@link String} o jogador para requisitar a value ou signature.
-   * @param value A {@link Boolean} para saber se é pra requisitar a value ou signature.
+   * @param player A {@link String} the player to request a value or signature.
+   * @param value A {@link Boolean} to know if it is to request the value or signature.
    */
   public static String getSkin(String player, boolean value) {
     try {

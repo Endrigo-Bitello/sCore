@@ -17,8 +17,8 @@ public class DeliveryReward {
     String[] splitter = reward.split(">");
     RewardType type = RewardType.from(splitter[0]);
     if (type == null || reward.replace(splitter[0] + ">", "").split(":").length < type.getParameters()) {
-      this.type = RewardType.COMANDO;
-      this.values = new Object[] {"tell {name} §cPrêmio \"" + reward + "\" inválido!"};
+      this.type = RewardType.COMMAND;
+      this.values = new Object[] {"tell {name} §cPrize \"" + reward + "\" invalid!"};
       return;
     }
 
@@ -27,18 +27,18 @@ public class DeliveryReward {
       this.values = type.parseValues(reward.replace(splitter[0] + ">", ""));
     } catch (Exception ex) {
       ex.printStackTrace();
-      this.type = RewardType.COMANDO;
-      this.values = new Object[] {"tell {name} §cPrêmio \"" + reward + "\" inválido!"};
+      this.type = RewardType.COMMAND;
+      this.values = new Object[] {"tell {name} §cPrize \"" + reward + "\" invalid!"};
     }
   }
 
   public void dispatch(Profile profile) {
-    if (this.type == RewardType.COMANDO) {
+    if (this.type == RewardType.COMMAND) {
       Bukkit.dispatchCommand(Bukkit.getConsoleSender(), ((String) this.values[0]).replace("{name}", profile.getName()));
     } else if (this.type == RewardType.CASH) {
-      profile.setStats("kCoreProfile", profile.getStats("kCoreProfile", "cash") + (long) this.values[0], "cash");
+      profile.setStats("sCoreProfile", profile.getStats("HyCoreProfile", "cash") + (long) this.values[0], "cash");
     } else if (this.type.name().contains("_COINS")) {
-      profile.addCoins("kCore" + this.type.name().replace("_COINS", ""), (double) this.values[0]);
+      profile.addCoins("sCore" + this.type.name().replace("_COINS", ""), (double) this.values[0]);
     } else if (this.type.name().contains("_BOOSTER")) {
       for (int i = 0; i < (int) this.values[0]; i++) {
         profile.getBoostersContainer().addBooster(Booster.BoosterType.valueOf(this.type.name().replace("_BOOSTER", "")), (double) this.values[1], (long) this.values[2]);
@@ -47,12 +47,12 @@ public class DeliveryReward {
   }
 
   private enum RewardType {
-    COMANDO(1),
+    COMMAND(1),
     CASH(1),
-    SkyWars_COINS(1),
-    BedWars_Coins(1),
-    TheBridge_COINS(1),
-    Murder_COINS(1),
+    SKYWARS_COINS(1),
+    BEDWARS_Coins(1),
+    THEBRIDGE_COINS(1),
+    MURDER_COINS(1),
     PRIVATE_BOOSTER(3),
     NETWORK_BOOSTER(3);
 
@@ -67,7 +67,7 @@ public class DeliveryReward {
     }
 
     public Object[] parseValues(String value) throws Exception {
-      if (this == COMANDO) {
+      if (this == COMMAND) {
         return new Object[] {value};
       } else if (this == CASH) {
         return new Object[] {Long.parseLong(value)};

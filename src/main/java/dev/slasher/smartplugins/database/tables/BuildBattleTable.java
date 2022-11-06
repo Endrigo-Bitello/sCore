@@ -13,12 +13,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @DataTableInfo(
-        name = "kCoreBuildBattle",
-        create = "CREATE TABLE IF NOT EXISTS `kCoreBuildBattle` (`name` VARCHAR(32), `1v1wins` LONG, `2v2wins` LONG, `1v1games` LONG, `2v2games` LONG, `points` LONG, " +
+        name = "sCoreBuildBattle",
+        create = "CREATE TABLE IF NOT EXISTS `sCoreBuildBattle` (`name` VARCHAR(32), `1v1wins` LONG, `2v2wins` LONG, `1v1games` LONG, `2v2games` LONG, `points` LONG, " +
                 "`monthlywins` LONG, `monthlygames` LONG, `monthlypoints` LONG, `month` TEXT, `coins` DOUBLE, `lastmap` LONG, `cosmetics` TEXT, `selected` TEXT, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
-        select = "SELECT * FROM `kCoreBuildBattle` WHERE LOWER(`name`) = ?",
-        insert = "INSERT INTO `kCoreBuildBattle` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        update = "UPDATE `kCoreBuildBattle` SET " +
+        select = "SELECT * FROM `sCoreBuildBattle` WHERE LOWER(`name`) = ?",
+        insert = "INSERT INTO `sCoreBuildBattle` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        update = "UPDATE `sCoreBuildBattle` SET " +
                 "`1v1wins` = ?, " +
                 "`2v2wins` = ?, " +
                 "`1v1games` = ?, " +
@@ -39,14 +39,14 @@ public class BuildBattleTable extends DataTable {
     @Override
     public void init(Database database) {
         if (database instanceof MySQLDatabase) {
-            if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreBuildBattle` LIKE 'lastmap'") == null) {
+            if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `sCoreBuildBattle` LIKE 'lastmap'") == null) {
                 ((MySQLDatabase) database).execute(
-                        "ALTER TABLE `kCoreBuildBattle` ADD `lastmap` LONG DEFAULT 0 AFTER `coins`");
+                        "ALTER TABLE `sCoreBuildBattle` ADD `lastmap` LONG DEFAULT 0 AFTER `coins`");
             }
         } else if (database instanceof HikariDatabase) {
-            if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreBuildBattle` LIKE 'lastmap'") == null) {
+            if (((HikariDatabase) database).query("SHOW COLUMNS FROM `sCoreBuildBattle` LIKE 'lastmap'") == null) {
                 ((HikariDatabase) database).execute(
-                        "ALTER TABLE `kCoreBuildBattle` ADD `lastmap` LONG DEFAULT 0 AFTER `coins`");
+                        "ALTER TABLE `sCoreBuildBattle` ADD `lastmap` LONG DEFAULT 0 AFTER `coins`");
             }
         }
     }

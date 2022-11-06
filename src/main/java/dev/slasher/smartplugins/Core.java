@@ -6,7 +6,7 @@ import com.google.common.io.ByteStreams;
 import dev.slasher.smartplugins.booster.Booster;
 import dev.slasher.smartplugins.cmd.Commands;
 import dev.slasher.smartplugins.database.Database;
-import dev.slasher.smartplugins.hook.KCoreExpansion;
+import dev.slasher.smartplugins.hook.SCoreExpansion;
 import dev.slasher.smartplugins.hook.protocollib.FakeAdapter;
 import dev.slasher.smartplugins.hook.protocollib.HologramAdapter;
 import dev.slasher.smartplugins.hook.protocollib.NPCAdapter;
@@ -14,13 +14,12 @@ import dev.slasher.smartplugins.nms.NMS;
 import dev.slasher.smartplugins.player.Profile;
 import dev.slasher.smartplugins.player.fake.FakeManager;
 import dev.slasher.smartplugins.player.role.Role;
-import dev.slasher.smartplugins.plugin.KPlugin;
-import dev.slasher.smartplugins.plugin.config.KConfig;
+import dev.slasher.smartplugins.plugin.HyPlugin;
+import dev.slasher.smartplugins.plugin.config.HyConfig;
 import dev.slasher.smartplugins.queue.Queue;
 import dev.slasher.smartplugins.queue.QueuePlayer;
 import dev.slasher.smartplugins.servers.ServerItem;
 import dev.slasher.smartplugins.titles.Title;
-import dev.slasher.smartplugins.utils.SlickUpdater;
 import dev.slasher.smartplugins.achievements.Achievement;
 import dev.slasher.smartplugins.deliveries.Delivery;
 import dev.slasher.smartplugins.libraries.MinecraftVersion;
@@ -47,7 +46,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 @SuppressWarnings("unchecked")
-public class Core extends KPlugin {
+public class Core extends HyPlugin {
 
   private static Core instance;
   public static boolean validInit;
@@ -67,7 +66,7 @@ public class Core extends KPlugin {
   public void enable() {
     if (!NMS.setupNMS()) {
       this.setEnabled(false);
-      this.getLogger().warning("Sua versao nao e compativel com o plugin, utilize a versao 1_8_R3 (Atual: " + MinecraftVersion.getCurrentVersion().getVersion() + ")");
+      this.getLogger().warning("Your version is not compatible with the plugin, use version 1_8_R3 (Current: " + MinecraftVersion.getCurrentVersion().getVersion() + ")");
       return;
     }
 
@@ -93,7 +92,7 @@ public class Core extends KPlugin {
 
     if (!warnings.isEmpty()) {
       CommandSender sender = Bukkit.getConsoleSender();
-      StringBuilder sb = new StringBuilder(" \n §6§lAVISO IMPORTANTE\n \n §7Aparentemente você utiliza plugins que conflitam com o kCore.\n §7Você não poderá iniciar o servidor com os seguintes plugins:");
+      StringBuilder sb = new StringBuilder(" \n §6§lIMPORTANT WARNING\n \n §7Apparently you use plugins that conflict with HyCore.\n §7You will not be able to start the server with the following plugins:");
       for (String warning : warnings) {
         sb.append("\n§f").append(warning);
       }
@@ -137,20 +136,20 @@ public class Core extends KPlugin {
     }
 
     if (!PlaceholderAPIPlugin.getInstance().getDescription().getVersion().equals("2.10.5")) {
-      Bukkit.getConsoleSender().sendMessage(" \n §6§lAVISO IMPORTANTE\n \n §7Utilize a versão 2.10.5 do PlaceHolderAPI, você está utilizando a v" + PlaceholderAPIPlugin.getInstance().getDescription().getVersion() + "\n ");
+      Bukkit.getConsoleSender().sendMessage(" \n §6§lIMPORTANT WARNING\n \n §7Use the PlaceHolderAPI version 2.10.5, you are using the v" + PlaceholderAPIPlugin.getInstance().getDescription().getVersion() + "\n ");
       System.exit(0);
       return;
     }
 
-    PlaceholderAPI.registerExpansion(new KCoreExpansion());
+    PlaceholderAPI.registerExpansion(new SCoreExpansion());
 
     Database.setupDatabase(
-      getConfig().getString("database.tipo"), //TIPO: MySQL, Hikari ou Mongo
-      getConfig().getString("database.mysql.host"), //IP
-      getConfig().getString("database.mysql.porta"), //Porta
-      getConfig().getString("database.mysql.nome"), //Database
-      getConfig().getString("database.mysql.usuario"), //Usuário
-      getConfig().getString("database.mysql.senha"), //Senha
+      getConfig().getString("database.type"),
+      getConfig().getString("database.mysql.host"),
+      getConfig().getString("database.mysql.port"),
+      getConfig().getString("database.mysql.database"),
+      getConfig().getString("database.mysql.user"),
+      getConfig().getString("database.mysql.password"),
 
       getConfig().getBoolean("database.mysql.hikari",false),
       getConfig().getBoolean("database.mysql.mariadb", false),
@@ -161,6 +160,7 @@ public class Core extends KPlugin {
     HologramLibrary.setupHolograms(this);
 
     setupRoles();
+    Language.setupLanguage();
     FakeManager.setupFake();
     Title.setupTitles();
     Booster.setupBoosters();
@@ -176,13 +176,13 @@ public class Core extends KPlugin {
     ProtocolLibrary.getProtocolManager().addPacketListener(new HologramAdapter());
 
     getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-    getServer().getMessenger().registerOutgoingPluginChannel(this, "kCore");
-    getServer().getMessenger().registerIncomingPluginChannel(this, "kCore", new PluginMessageListener());
+    getServer().getMessenger().registerOutgoingPluginChannel(this, "HyCore");
+    getServer().getMessenger().registerIncomingPluginChannel(this, "HyCore", new PluginMessageListener());
 
    // Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> new SlickUpdater(this, 2).run());
 
     validInit = true;
-    this.getLogger().info("O plugin foi ativado.");
+    this.getLogger().info("The plugin has been activated.");
   }
 
   @Override
@@ -193,29 +193,29 @@ public class Core extends KPlugin {
         if (profile != null) {
           profile.saveSync();
           profile.save();
-          this.getLogger().info("O jogador " + profile.getName() + " foi salvo!");
+          this.getLogger().info("The player " + profile.getName() + " has been saved!");
           profile.destroy();
         }
       });
       Database.getInstance().close();
     }
 
-    File update = new File("plugins/kCore/update", "kCore.jar");
+    File update = new File("plugins/HyCore/update", "HyCore.jar");
     if (update.exists()) {
       try {
-        this.getFileUtils().deleteFile(new File("plugins/kCore.jar"));
-        this.getFileUtils().copyFile(new FileInputStream(update), new File("plugins/kCore.jar"));
+        this.getFileUtils().deleteFile(new File("plugins/HyCore.jar"));
+        this.getFileUtils().copyFile(new FileInputStream(update), new File("plugins/HyCore.jar"));
         this.getFileUtils().deleteFile(update.getParentFile());
-        this.getLogger().info("Update do nCore aplicada.");
+        this.getLogger().info("Update added.");
       } catch (Exception ex) {
         ex.printStackTrace();
       }
     }
-    this.getLogger().info("O plugin foi desativado.");
+    this.getLogger().info("The plugin has been disabled.");
   }
 
   private void setupRoles() {
-    KConfig config = getConfig("roles");
+    HyConfig config = getConfig("roles");
     for (String key : config.getSection("roles").getKeys(false)) {
       String name = config.getString("roles." + key + ".name");
       String prefix = config.getString("roles." + key + ".prefix");
@@ -228,7 +228,7 @@ public class Core extends KPlugin {
     }
 
     if (Role.listRoles().isEmpty()) {
-      Role.listRoles().add(new Role("&7Membro", "&7", "", false, false, false));
+      Role.listRoles().add(new Role("&7Default", "&7", "", false, false, false));
     }
   }
 
@@ -259,7 +259,7 @@ public class Core extends KPlugin {
         QueuePlayer qp = queue.getQueuePlayer(player);
         if (qp != null) {
           if (qp.server.equalsIgnoreCase(name)) {
-            qp.player.sendMessage("§cVocê já está na fila de conexão!");
+            qp.player.sendMessage("§cYou are already in the connection queue!");
           } else {
             qp.server = name;
           }
@@ -275,7 +275,7 @@ public class Core extends KPlugin {
             player.closeInventory();
             NMS.sendActionBar(player, "");
             profile.saveSync();
-            player.sendMessage("§aConectando...");
+            player.sendMessage("§aConnecting...");
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(name);

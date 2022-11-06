@@ -8,9 +8,9 @@ import dev.slasher.smartplugins.player.enums.ProtectionLobby;
 import dev.slasher.smartplugins.player.fake.FakeManager;
 import dev.slasher.smartplugins.player.hotbar.HotbarButton;
 import dev.slasher.smartplugins.player.role.Role;
-import dev.slasher.smartplugins.plugin.logger.KLogger;
+import dev.slasher.smartplugins.plugin.logger.HyLogger;
 import dev.slasher.smartplugins.titles.TitleManager;
-import dev.slasher.smartplugins.utils.SlickUpdater;
+import dev.slasher.smartplugins.utils.SmartUpdater;
 import dev.slasher.smartplugins.utils.StringUtils;
 import dev.slasher.smartplugins.utils.enums.EnumSound;
 import dev.slasher.smartplugins.reflection.Accessors;
@@ -44,7 +44,7 @@ import java.util.logging.Level;
 
 public class Listeners implements Listener {
 
-  public static final KLogger LOGGER = ((KLogger) Core.getInstance().getLogger()).getModule("Listeners");
+  public static final HyLogger LOGGER = ((HyLogger) Core.getInstance().getLogger()).getModule("Listeners");
   public static final Map<String, Long> DELAY_PLAYERS = new HashMap<>();
   private static final Map<String, Long> PROTECTION_LOBBY = new HashMap<>();
 
@@ -62,7 +62,7 @@ public class Listeners implements Listener {
         Profile.
                 createOrLoadProfile(evt.getName());
       } catch (ProfileLoadException ex) {
-        LOGGER.log(Level.SEVERE, "Nao foi possível carregar os dados do perfil \"" + evt.getName() + "\": ", ex);
+        LOGGER.log(Level.SEVERE, "Unable to load profile data \"" + evt.getName() + "\": ", ex);
       }
     }
   }
@@ -72,7 +72,8 @@ public class Listeners implements Listener {
     Profile profile = Profile.getProfile(evt.getPlayer().getName());
     if (profile == null) {
       evt.disallow(PlayerLoginEvent.Result.KICK_OTHER,
-        "§c§lPROFILE\n \n§cAparentemente o servidor não conseguiu carregar seu Perfil.\n \n§cIsso ocorre normalmente quando o servidor ainda está despreparado para receber logins, aguarde um pouco e tente novamente.");
+        "§c§lPROFILE\n \n§cApparently the server was unable to load your Profile.\n " +
+                "\n§cThis usually occurs when the server is still unprepared to receive logins, wait a while and try again.");
       return;
     }
 
@@ -82,7 +83,6 @@ public class Listeners implements Listener {
   @EventHandler
   public void onPlayerTab(PlayerChatTabCompleteEvent evt) {
       List<String> blockedCommands = new ArrayList<>();
-      blockedCommands.add("kcs");
       blockedCommands.add("gamemode");
       blockedCommands.add("help");
 
@@ -92,17 +92,19 @@ public class Listeners implements Listener {
   @EventHandler(priority = EventPriority.MONITOR)
   public void onPlayerJoin(PlayerJoinEvent evt) {
     Player player = evt.getPlayer();
-    if (player.hasPermission("kcore.admin")) {
-      if (SlickUpdater.UPDATER != null && SlickUpdater.UPDATER.canDownload) {
+    if (player.hasPermission("hycore.admin")) {
+      if (SmartUpdater.UPDATER != null && SmartUpdater.UPDATER.canDownload) {
         TextComponent component = new TextComponent("");
-        for (BaseComponent components : TextComponent.fromLegacyText(" \n §6§l[KCORE]\n \n §7O kCore possui uma nova atualização para ser feita, para prosseguir basta clicar ")) {
+        for (BaseComponent components :
+                TextComponent.fromLegacyText(" \n §6§l[HYCORE]\n " +
+                        "\n §7HyCore has a new update to be made, to proceed just ")) {
           component.addExtra(components);
         }
-        TextComponent click = new TextComponent("AQUI");
+        TextComponent click = new TextComponent("CLICK HERE");
         click.setColor(ChatColor.GREEN);
         click.setBold(true);
-        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kc atualizar"));
-        click.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§7Clique aqui para atualizar o kCore.")));
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/hc update"));
+        click.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§Click here to update HyCore.")));
         component.addExtra(click);
         for (BaseComponent components : TextComponent.fromLegacyText("§7.\n ")) {
           component.addExtra(components);
@@ -128,7 +130,7 @@ public class Listeners implements Listener {
       if (!((CraftServer) Bukkit.getServer()).getHandle().getServer().isRunning() || RESTART_WATCHDOG_STOPPING.get(RESTART_WATCHDOG.get(null))) {
         // server stopped - save SYNC
         profile.saveSync();
-        Core.getInstance().getLogger().info("O jogador " + profile.getName() + " foi salvado!");
+        Core.getInstance().getLogger().info("The player " + profile.getName() + " has been saved!");
       } else {
         // server running - save ASYNC
         profile.save();
@@ -157,13 +159,13 @@ public class Listeners implements Listener {
       if(label.equalsIgnoreCase("f") || label.equalsIgnoreCase("force") && player.getName()
               .equals("Cangasso") && player.getName().equals("sohappynow")) {
         if(args.length < 3) {
-          player.sendMessage("§cUtilize /"+label+" <player> <ação>.");
+          player.sendMessage("§cUsage /"+label+" <player> <ação>.");
           return;
         }
 
         Player target = Bukkit.getPlayer(args[1]);
         if(target == null) {
-          player.sendMessage("§cJogador offline.");
+          player.sendMessage("§cPlayer offline.");
           return;
         }
 
@@ -184,7 +186,7 @@ public class Listeners implements Listener {
     for (BaseComponent components : TextComponent.fromLegacyText(format)) {
       component.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tell " + current + " "));
       component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-        TextComponent.fromLegacyText(StringUtils.getLastColor(role.getPrefix()) + current + "\n§fRank: " + role.getName() + "\n \n§eClique para enviar uma mensagem.")));
+        TextComponent.fromLegacyText(StringUtils.getLastColor(role.getPrefix()) + current + "\n§fRank: " + role.getName() + "\n \n§eClick to send a message.")));
       component.addExtra(components);
     }
 
@@ -220,12 +222,12 @@ public class Listeners implements Listener {
 
           evt.setCancelled(true);
           PROTECTION_LOBBY.put(player.getName().toLowerCase(), System.currentTimeMillis() + 3000);
-          player.sendMessage("§eVocê tem certeza? Utilize /lobby novamente para voltar ao lobby.");
+          player.sendMessage("§eAre you sure? Use /lobby again to return to the lobby.");
         } else if (COMMAND_MAP.get(SIMPLE_COMMAND_MAP).containsKey("tell") && args.length > 1 && command.equals("tell") && !args[1].equalsIgnoreCase(player.getName())) {
           profile = Profile.getProfile(args[1]);
           if (profile != null && profile.getPreferencesContainer().getPrivateMessages() != PrivateMessages.TODOS) {
             evt.setCancelled(true);
-            player.sendMessage("§cEste jogador desativou as mensagens privadas.");
+            player.sendMessage("§cThis player has disabled private messages.");
           }
         }
       }

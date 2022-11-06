@@ -2,8 +2,10 @@ package dev.slasher.smartplugins.queue;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import dev.slasher.smartplugins.Language;
 import dev.slasher.smartplugins.nms.NMS;
 import dev.slasher.smartplugins.player.Profile;
+import dev.slasher.smartplugins.utils.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -39,7 +41,7 @@ public class Queue {
               continue;
             }
 
-            NMS.sendActionBar(qp.player, "§aVocê está na Fila para entrar no servidor §8" + qp.server + " §7(Posição #" + id + ")");
+            NMS.sendActionBar(qp.player, Language.queue$actionbar$message.replace("{server}", qp.server).replace("{id}", StringUtils.formatNumber(id)));
             id++;
           }
 
@@ -58,7 +60,8 @@ public class Queue {
                 if (player.isOnline()) {
                   player.closeInventory();
                   NMS.sendActionBar(player, "");
-                  player.sendMessage("§aConectando...");
+                  player.sendMessage("§aConnecting...");
+                  profile.saveSync();
                   ByteArrayDataOutput out = ByteStreams.newDataOutput();
                   out.writeUTF("Connect");
                   out.writeUTF(server);

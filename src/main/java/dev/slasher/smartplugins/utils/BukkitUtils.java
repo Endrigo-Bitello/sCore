@@ -24,12 +24,12 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Float.parseFloat;
 
 /**
- * Classe com utilitários relacionado a {@link org.bukkit}.
+ * Class with utilities related to {@link org.bukkit}.
  */
 public class BukkitUtils {
 
   /**
-   * Todas as cores prontas da classe {@link Color}
+   * All class ready colors {@link Color}
    */
   public static final List<FieldAccessor<Color>> COLORS;
   public static final MethodAccessor GET_PROFILE;
@@ -84,21 +84,21 @@ public class BukkitUtils {
    * <br/>
    * Propriedades (TAGS) disponíveis:
    * <ul>
-   * <li>nome>&aSei lá - Seta o nome do Item.</li>
+   * <li>name>&aSei lá - Seta o nome do Item.</li>
    * <li>desc>&7Linha 1\n&7Linha2 - Seta a descrição do Item.</li>
-   * <li>encantar>DAMAGE_ALL:1\nFIRE_ASPECT:1 - Encanta o Item.</li>
+   * <li>enchant>DAMAGE_ALL:1\nFIRE_ASPECT:1 - Encanta o Item.</li>
    * <li>pintar>{@link Color} ou pintar>r:g:b - Pinta os Itens: Armadura de Couro e Fogos de
    * Artifício.</li>
-   * <li>dono>Notch - Seta o dono de uma cabeça (Recomendado skin>skinvalue}.</li>
+   * <li>owner>Notch - Seta o dono de uma cabeça (Recomendado skin>skinvalue}.</li>
    * <li>skin>skinvalue - Seta o valor da Skin através do {@link GameProfile} para cabeças
    * customizadas.</li>
    * <li>paginas>Linha1 pagina1\nLinha2 pagina1{pular}Linha1 pagina2\nLinha2 pagina2 - Seta as páginas
    * do livro. (Utilize {pular} para pular para outra página)</li>
-   * <li>autor>&6Kiwizin - Seta o autor do livro.</li>
-   * <li>titulo>&6kCore - Seta o título do livro.</li>
+   * <li>autor>&6sohappynow - Seta o autor do livro.</li>
+   * <li>titulo>&6SCore - Seta o título do livro.</li>
    * <li>efeito>{@link PotionEffectType}:nivel(começa do 0):ticks(20ticks =
    * 1segundo)\nINVISIBILITY:0:600 - Adiciona efeitos em poções.</li>
-   * <li>esconder>{@link ItemFlag}\n{@link ItemFlag} ou esconder>tudo - Aplica ItemFlags (Adicionado
+   * <li>hide>{@link ItemFlag}\n{@link ItemFlag} ou hide>all - Aplica ItemFlags (Adicionado
    * na 1.8)</li>
    * </ul>
    *
@@ -135,7 +135,7 @@ public class BukkitUtils {
     for (int i = 2; i < split.length; i++) {
       String opt = split[i];
 
-      if (opt.startsWith("nome>")) {
+      if (opt.startsWith("name>")) {
         meta.setDisplayName(StringUtils.formatColors(opt.split(">")[1]));
       }
 
@@ -145,7 +145,7 @@ public class BukkitUtils {
         }
       }
 
-      else if (opt.startsWith("encantar>")) {
+      else if (opt.startsWith("enchant>")) {
         for (String enchanted : opt.split(">")[1].split("\n")) {
           if (enchantment != null) {
             enchantment.addStoredEnchant(Enchantment.getByName(enchanted.split(":")[0]), Integer.parseInt(enchanted.split(":")[1]), true);
@@ -181,7 +181,7 @@ public class BukkitUtils {
         }
       }
 
-      else if (opt.startsWith("dono>") && skull != null) {
+      else if (opt.startsWith("owner>") && skull != null) {
         skull.setOwner(opt.split(">")[1]);
       }
 
@@ -191,28 +191,28 @@ public class BukkitUtils {
         SKULL_META_PROFILE.set(skull, gp);
       }
 
-      else if (opt.startsWith("paginas>") && book != null) {
-        book.setPages(opt.split(">")[1].split("\\{pular}"));
+      else if (opt.startsWith("page>") && book != null) {
+        book.setPages(opt.split(">")[1].split("\\{step}"));
       }
 
-      else if (opt.startsWith("autor>") && book != null) {
+      else if (opt.startsWith("author>") && book != null) {
         book.setAuthor(opt.split(">")[1]);
       }
 
-      else if (opt.startsWith("titulo>") && book != null) {
+      else if (opt.startsWith("title>") && book != null) {
         book.setTitle(opt.split(">")[1]);
       }
 
-      else if (opt.startsWith("efeito>") && potion != null) {
+      else if (opt.startsWith("effect>") && potion != null) {
         for (String pe : opt.split(">")[1].split("\n")) {
           potion.addCustomEffect(new PotionEffect(PotionEffectType.getByName(pe.split(":")[0]), Integer.parseInt(pe.split(":")[2]), Integer.parseInt(pe.split(":")[1])), false);
         }
       }
 
-      else if (opt.startsWith("esconder>")) {
+      else if (opt.startsWith("hide>")) {
         String[] flags = opt.split(">")[1].split("\n");
         for (String flag : flags) {
-          if (flag.equalsIgnoreCase("tudo")) {
+          if (flag.equalsIgnoreCase("all")) {
             meta.addItemFlags(ItemFlag.values());
             break;
           } else {
@@ -248,7 +248,7 @@ public class BukkitUtils {
     EnchantmentStorageMeta enchantment = meta instanceof EnchantmentStorageMeta ? ((EnchantmentStorageMeta) meta) : null;
 
     if (meta.hasDisplayName()) {
-      sb.append(" : nome>").append(StringUtils.deformatColors(meta.getDisplayName()));
+      sb.append(" : name>").append(StringUtils.deformatColors(meta.getDisplayName()));
     }
 
     if (meta.hasLore()) {
@@ -260,7 +260,7 @@ public class BukkitUtils {
     }
 
     if (meta.hasEnchants() || (enchantment != null && enchantment.hasStoredEnchants())) {
-      sb.append(" : encantar>");
+      sb.append(" : enchant>");
       int size = 0;
       for (Entry<Enchantment, Integer> entry : (enchantment != null ? enchantment.getStoredEnchants() : meta.getEnchants()).entrySet()) {
         int level = entry.getValue();
@@ -270,7 +270,7 @@ public class BukkitUtils {
     }
 
     if (skull != null && !skull.getOwner().isEmpty()) {
-      sb.append(" : dono>").append(skull.getOwner());
+      sb.append(" : owner>").append(skull.getOwner());
     }
 
     if (book != null && book.hasPages()) {
@@ -299,7 +299,7 @@ public class BukkitUtils {
     }
 
     for (ItemFlag flag : meta.getItemFlags()) {
-      sb.append(" : esconder>").append(flag.name());
+      sb.append(" : hide>").append(flag.name());
     }
 
     return StringUtils.deformatColors(sb.toString()).replace("\n", "\\n");

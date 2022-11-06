@@ -3,7 +3,7 @@ package dev.slasher.smartplugins.utils;
 import org.bukkit.Location;
 
 /**
- * Classe com utilitários diversos sem nicho predefinido.
+ * Class with various utilities without predefined niche.
  */
 public class Utils {
 
@@ -19,10 +19,10 @@ public class Utils {
   }
 
   /**
-   * Verifica se uma localização tem a chunk carregada no mundo.
+   * Checks if a location has the chunk loaded in the world.
    *
-   * @param location localização para verificar
-   * @return TRUE caso a localização tenha a chunk carregada, FALSE caso não tenha.
+   * @param location location to check.
+   * @return TRUE if the location has the chunk loaded, FALSE if it doesn't.
    */
   public static boolean isLoaded(Location location) {
     if (location == null || location.getWorld() == null) {

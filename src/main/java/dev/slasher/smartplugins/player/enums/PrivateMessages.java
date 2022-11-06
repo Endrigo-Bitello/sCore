@@ -14,10 +14,10 @@ public enum PrivateMessages {
 
   public String getName() {
     if (this == TODOS) {
-      return "§aAtivado";
+      return "§aON";
     }
 
-    return "§cDesativado";
+    return "§cOFF";
   }
 
   public PrivateMessages next() {

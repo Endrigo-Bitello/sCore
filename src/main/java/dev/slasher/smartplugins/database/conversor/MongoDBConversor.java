@@ -55,16 +55,16 @@ public class MongoDBConversor implements Listener {
 
       if (CONVERT[0] == null) {
         CONVERT[0] = message;
-        player.sendMessage("§aInsira a Porta do MySQL!");
+        player.sendMessage("§aInsert MySQL Port");
       } else if (CONVERT[1] == null) {
         CONVERT[1] = message;
-        player.sendMessage("§aInsira o nome do Banco de Dados do MySQL!");
+        player.sendMessage("§aInsert MySQL Database");
       } else if (CONVERT[2] == null) {
         CONVERT[2] = message;
-        player.sendMessage("§aInsira o Usuário do MySQL!");
+        player.sendMessage("§aInsert MySQL User");
       } else if (CONVERT[3] == null) {
         CONVERT[3] = message;
-        player.sendMessage("§aInsira a Senha do MySQL!");
+        player.sendMessage("§aInsert MySQL Password");
       } else if (CONVERT[4] == null) {
         if (message.equals("!")) {
           message = "";
@@ -72,7 +72,7 @@ public class MongoDBConversor implements Listener {
         CONVERT[4] = message;
         startConvert(player);
       } else {
-        player.sendMessage("§cProcesso em andamento.");
+        player.sendMessage("§cOngoing process.");
       }
     }
   }
@@ -80,25 +80,25 @@ public class MongoDBConversor implements Listener {
   private static void startConvert(Player player) {
     String host = CONVERT[0], port = CONVERT[1], database = CONVERT[2], user = CONVERT[3], password = CONVERT[4];
     player.sendMessage(
-      " \n§6Informações\n §7▪ §fHost: §7" + host + "\n §7▪ §fPorta: §7" + port + "\n §7▪ §fBanco de Dados: §7" + database + "\n §7▪ §fUsuário: §7" + user + "\n §7▪ §fSenha: §7\"" + password + "\"\n ");
-    player.sendMessage(" \n §c§lAVISO \n §cCaso os dados estejam incorretos, o servidor será fechado!\n ");
+      " \n§6Info\n §7▪ §fHost: §7" + host + "\n §7▪ §fPort: §7" + port + "\n §7▪ §fDatabase: §7" + database + "\n §7▪ §fUser: §7" + user + "\n §7▪ §fPassword: §7\"" + password + "\"\n ");
+    player.sendMessage(" \n §c§lWARNING \n §cIf the data is incorrect, the server will be closed.\n ");
 
     MongoDBDatabase mongoDB = (MongoDBDatabase) Database.getInstance();
     MySQLDatabase mysql = new MySQLDatabase(host, port, database, user, password, false, true);
 
     Map<String, Long> tables = new LinkedHashMap<>();
-    for (String table : new String[] {"kCoreProfile", "kCoreTheBridge", "kCoreSkyWars", "kCosmetics", "kCoreMurder", "kMysteryBox", "kCoreNetworkBooster", "kMysteryBoxContent"}) {
+    for (String table : new String[] {"HyCoreProfile", "HyCoreTheBridge", "HyCoreSkyWars", "HyCosmetics", "sCoreMurder", "HyMysteryBox", "HyCoreNetworkBooster", "HyMysteryBoxContent"}) {
       if (mysql.query("SELECT `table_name` FROM INFORMATION_SCHEMA.STATISTICS WHERE table_name = ?", table) != null) {
         try {
           tables.put(table, Long.parseLong(mysql.query("SELECT COUNT(*) FROM " + table).getObject(1).toString()));
         } catch (Exception ex) {
-          player.sendMessage("§cNão foi possível verificar a quantia de entradas da Tabela \"" + table + "\".");
+          player.sendMessage("§cUnable to verify the amount of table entries \"" + table + "\".");
         }
       }
     }
 
     final List<String> tableQueue = new ArrayList<>(tables.keySet());
-    player.sendMessage("§6Fila de Tabelas:");
+    player.sendMessage("§6Tables queue:");
     for (String table : tableQueue) {
       player.sendMessage(" §7▪ §f" + table);
     }
@@ -115,11 +115,11 @@ public class MongoDBConversor implements Listener {
         if (rs == null) {
           rs = mysql.query("SELECT * FROM `" + this.currentTable + "` LIMIT " + currentRow + ", " + Math.min(currentRow + 1000, maxRows));
           if (rs == null) {
-            player.sendMessage("§aProcessamento da Tabela " + this.currentTable + " concluída.");
+            player.sendMessage("§aTable Processing " + this.currentTable + " completed.");
             tableQueue.remove(0);
             if (tableQueue.isEmpty()) {
               mysql.close();
-              player.sendMessage("§aConversão de Banco de Dados concluída §8(MySQL -> MongoDB)");
+              player.sendMessage("§aDatabase Conversion Completea §8(MySQL -> MongoDB)");
               cancel();
               return;
             }
@@ -135,10 +135,10 @@ public class MongoDBConversor implements Listener {
           this.running = true;
           executor.execute(() -> {
             String collection =
-              this.currentTable.equalsIgnoreCase("kcorenetworkbooster") || this.currentTable.equalsIgnoreCase("kmysteryboxcontent") ? this.currentTable : "Profile";
+              this.currentTable.equalsIgnoreCase("hycorenetworkbooster") || this.currentTable.equalsIgnoreCase("hymysteryboxcontent") ? this.currentTable : "Profile";
             if (currentRow == 0) {
               if (collection.equalsIgnoreCase("Profile")) {
-                if (this.currentTable.equalsIgnoreCase("kCoreProfile")) {
+                if (this.currentTable.equalsIgnoreCase("HyCoreProfile")) {
                   mongoDB.getDatabase().getCollection(collection).drop();
                 }
               } else {
@@ -159,7 +159,7 @@ public class MongoDBConversor implements Listener {
                 rs.close();
               } catch (SQLException ignore) {}
             }
-            if (collection.equalsIgnoreCase("Profile") && !this.currentTable.equalsIgnoreCase("kCoreProfile")) {
+            if (collection.equalsIgnoreCase("Profile") && !this.currentTable.equalsIgnoreCase("HyCoreProfile")) {
               documents.forEach(document -> {
                 String _id = document.getString("_id");
                 document.remove("_id");
@@ -174,7 +174,7 @@ public class MongoDBConversor implements Listener {
         }
 
         if (player.isOnline()) {
-          NMS.sendActionBar(player, "§aConvertendo §f" + this.currentTable + ": §7" + this.currentRow + "/" + this.maxRows + " §8(" + NUMBER_FORMAT
+          NMS.sendActionBar(player, "§aConverting §f" + this.currentTable + ": §7" + this.currentRow + "/" + this.maxRows + " §8(" + NUMBER_FORMAT
             .format(((this.currentRow * 100.0) / this.maxRows)) + "%)");
         }
       }

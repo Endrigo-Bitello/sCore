@@ -1,6 +1,6 @@
 package dev.slasher.smartplugins.plugin.config;
 
-import dev.slasher.smartplugins.plugin.KPlugin;
+import dev.slasher.smartplugins.plugin.HyPlugin;
 
 import java.io.*;
 import java.util.Arrays;
@@ -9,16 +9,16 @@ import java.util.logging.Level;
 
 public class FileUtils {
 
-  private KPlugin plugin;
+  private HyPlugin plugin;
 
-  public FileUtils(KPlugin plugin) {
+  public FileUtils(HyPlugin plugin) {
     this.plugin = plugin;
   }
 
   /**
-   * Deleta um arquivo/pasta.
+   * Deletes a file/folder.
    *
-   * @param file O arquivo para deletar.
+   * @param file The file to delete.
    */
   public void deleteFile(File file) {
     if (!file.exists()) {
@@ -33,11 +33,11 @@ public class FileUtils {
   }
 
   /**
-   * Copia um arquivo de um diretório para outro.
+   * Copies a file from one directory to another.
    *
-   * @param in     Arquivo para copiar.
-   * @param out    Destinário para colar.
-   * @param ignore Arquivos chaves para ignorar caso for uma pasta de arquivos.
+   * @param in File to copy.
+   * @param out Recipient to paste.
+   * @param ignore Key files to ignore if a folder of files.
    */
   public void copyFiles(File in, File out, String... ignore) {
     List<String> list = Arrays.asList(ignore);
@@ -57,16 +57,16 @@ public class FileUtils {
       try {
         copyFile(new FileInputStream(in), out);
       } catch (IOException ex) {
-        this.plugin.getLogger().log(Level.WARNING, "Um erro inesperado ocorreu ao copiar o arquivo \"" + out.getName() + "\": ", ex);
+        this.plugin.getLogger().log(Level.WARNING, "An unexpected error occurred while copying the file \"" + out.getName() + "\": ", ex);
       }
     }
   }
 
   /**
-   * Copia um arquivo de um {@link InputStream}.
+   * Copies a file from a {@link InputStream}.
    *
-   * @param input {@link InputStream} para copiar.
-   * @param out   Destinário para colar.
+   * @param input {@link InputStream} to copy.
+   * @param out Recipient to paste.
    */
   public void copyFile(InputStream input, File out) {
     FileOutputStream ou = null;
@@ -78,7 +78,7 @@ public class FileUtils {
         ou.write(buff, 0, len);
       }
     } catch (IOException ex) {
-      this.plugin.getLogger().log(Level.WARNING, "Um erro inesperado ocorreu ao copiar o arquivo \"" + out.getName() + "\": ", ex);
+      this.plugin.getLogger().log(Level.WARNING, "An unexpected error occurred while copying the file \"" + out.getName() + "\": ", ex);
     } finally {
       try {
         if (ou != null) {

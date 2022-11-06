@@ -11,7 +11,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 /**
- * Interface para criação de CuboId através de localizações do Bukkit.
+ * Interface for creating CubeId through Bukkit locations.
  */
 public class CubeID implements Iterable<Block> {
 

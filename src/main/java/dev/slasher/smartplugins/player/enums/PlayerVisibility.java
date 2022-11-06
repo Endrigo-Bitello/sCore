@@ -14,10 +14,10 @@ public enum PlayerVisibility {
 
   public String getName() {
     if (this == TODOS) {
-      return "§aAtivado";
+      return "§aON";
     }
 
-    return "§cDesativado";
+    return "§cOFF";
   }
 
   public PlayerVisibility next() {

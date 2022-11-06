@@ -4,78 +4,77 @@ import dev.slasher.smartplugins.cash.CashException;
 import dev.slasher.smartplugins.cash.CashManager;
 import dev.slasher.smartplugins.player.role.Role;
 import dev.slasher.smartplugins.utils.StringUtils;
-import dev.slasher.smartplugins.utils.enums.EnumSound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CashCommand extends Commands {
-
+  
   public CashCommand() {
-    super("cash"); }
-
+    super("cash");
+  }
+  
   @Override
   public void perform(CommandSender sender, String label, String[] args) {
     if (args.length == 0) {
       if (sender instanceof Player) {
-
         sender.sendMessage("§eCash: §b" + StringUtils.formatNumber(CashManager.getCash(sender.getName())));
         return;
       }
-
+      
       sender.sendMessage(
-        "\n§b/cash set <jogador> (cash) §f- §eDefina ou altere a quantidade de cash do jogador." +
-           "\n§b/cash add <jogador> (cash) §f- §eAdicione cash a conta do jogador." +
-           "\n§b/cash remove <jogador> (cash) §f- §eRemova cash da conta do jogador.\n ");
+              " \n§b/cash set <player> <amount> §f- §7Set someone's cash number.." +
+                  "\n§b/cash add <player> <amount> §f- §7Give cash to a player." +
+                  "\n§b/cash remove <player> <amount> §f- §7Remove a player's cash value.\n ");
       return;
     }
-
-    if (!sender.hasPermission("core.cmd.cash")) {
-      sender.sendMessage("§eCash: §b" + StringUtils.formatNumber(CashManager.getCash(sender.getName())));
+    
+    if (!sender.hasPermission("hyplay.cmd.cash")) {
+      sender.sendMessage("§7Cash: §b" + StringUtils.formatNumber(CashManager.getCash(sender.getName())));
       return;
     }
-
+    
     String action = args[0];
     if (!action.equalsIgnoreCase("set") && !action.equalsIgnoreCase("add") && !action.equalsIgnoreCase("remove")) {
       sender.sendMessage(
-              "\n§b/cash set <jogador> (cash) §f- §eDefina ou altere a quantidade de cash do jogador." +
-                      "\n§b/cash add <jogador> (cash) §f- §eAdicione cash a conta do jogador." +
-                      "\n§b/cash remove <jogador> (cash) §f- §eRemova cash da conta do jogador.\n ");
+              " \n§b/cash set <player> <amount> §f- §7Set someone's cash number.." +
+                      "\n§b/cash add <player> <amount> §f- §7Give cash to a player." +
+                      "\n§b/cash remove <player> <amount> §f- §7Remove a player's cash value.\n ");
       return;
     }
-
+    
     if (args.length <= 2) {
-      sender.sendMessage("§cUtilize /cash " + action + " <jogador> (cash)");
+      sender.sendMessage("§cUsage /cash " + action + " <player> <amount>");
       return;
     }
-
+    
     long amount = 0L;
     try {
       if (args[2].startsWith("-")) {
         throw new NumberFormatException();
       }
-
+      
       amount = Long.parseLong(args[2]);
     } catch (NumberFormatException ex) {
-      sender.sendMessage("§cUtilize números válidos e positivos.");
+      sender.sendMessage("§cUse valid and positive numbers.");
       return;
     }
-
+    
     try {
       switch (action.toLowerCase()) {
         case "set":
           CashManager.setCash(args[1], amount);
-          sender.sendMessage("§aVocê definiu o cash de " + Role.getColored(args[1]) + " §apara §b" + StringUtils.formatNumber(amount) + "§a.");
+          sender.sendMessage("§aYou have set " + Role.getColored(args[1]) + " cash to " + StringUtils.formatNumber(amount) + "§a.");
           break;
         case "add":
           CashManager.addCash(args[1], amount);
-          sender.sendMessage("§aVocê adicionou §b" + StringUtils.formatNumber(amount) + " §aao saldo de cash de " + Role.getColored(args[1]) + "§a.");
+          sender.sendMessage("§7You added §b" + StringUtils.formatNumber(amount) + " Cash §7to §f" + Role.getColored(args[1]) + "§7.");
           break;
         case "remove":
           CashManager.removeCash(args[1], amount);
-          sender.sendMessage("§aVocê removeu §b" + StringUtils.formatNumber(amount) + " §ado saldo de cash de " + Role.getColored(args[1]) + "§a.");
+          sender.sendMessage("§cYou removed §b" + StringUtils.formatNumber(amount) + " Cash §cfrom §e" + Role.getColored(args[1]) + "§c.");
       }
     } catch (CashException ex) {
-      sender.sendMessage("§cO usuário precisa estar conectado.");
+      sender.sendMessage("§cUser must be logged in.");
     }
   }
 }

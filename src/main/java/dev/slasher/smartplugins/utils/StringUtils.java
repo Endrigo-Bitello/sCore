@@ -9,37 +9,37 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Classe com utilitários relacionado a {@link String}.
+ * Class with utilities related to {@link String}.
  */
 public class StringUtils {
 
   private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,###");
 
   /**
-   * Formata um número "#,###" através do {@link DecimalFormat}
+   * Formats a number "#,###" using the {@link DecimalFormat}
    *
-   * @param number Para formatar.
-   * @return O número formatado.
+   * @param number To format.
+   * @return The formatted number.
    */
   public static String formatNumber(int number) {
     return DECIMAL_FORMAT.format(number);
   }
 
   /**
-   * Formata um número "#,###" através do {@link DecimalFormat}
+   * Formats a number "#,###" using {@link DecimalFormat}
    *
-   * @param number Para formatar.
-   * @return O número formatado.
+   * @param number To format.
+   * @return The formatted number.
    */
   public static String formatNumber(long number) {
     return DECIMAL_FORMAT.format(number);
   }
 
   /**
-   * Formata um número "#,###" através do {@link DecimalFormat}
+   * Formats a number "#,###" using {@link DecimalFormat}
    *
-   * @param number Para formatar.
-   * @return O número formatado.
+   * @param number To format.
+   * @return The formatted number.
    */
   public static String formatNumber(double number) {
     return DECIMAL_FORMAT.format(number);
@@ -48,11 +48,11 @@ public class StringUtils {
   private static final Pattern COLOR_PATTERN = Pattern.compile("(?i)(§)[0-9A-FK-OR]");
 
   /**
-   * Remove todas as cores de uma String.<br/>
+   * Removes all colors from a String.<br/>
    * Color code: §
    *
-   * @param input A string para remover as cores.
-   * @return A string sem cores.
+   * @param input The string to remove colors.
+   * @return The uncolored string.
    */
   public static String stripColors(final String input) {
     if (input == null) {
@@ -63,20 +63,20 @@ public class StringUtils {
   }
 
   /**
-   * Formata os {@code &} para o color code {@code §}.
-   *
-   * @param textToFormat A string para formatar as cores.
-   * @return A string com as cores formatadas.
+   * Format the {@code and} to the color code {@code §}.
+   * *
+   * * @param textToFormat The string to format the colors for.
+   * * @return The string with the formatted colors.
    */
   public static String formatColors(String textToFormat) {
     return translateAlternateColorCodes('&', textToFormat);
   }
 
   /**
-   * Desformata o color code {@code §} para {@code &}.
+   * Unformats color code {@code §} to {@code &}.
    *
-   * @param textToDeFormat A string para desformatar as cores.
-   * @return A string com as cores desformatadas.
+   * @param textToDeFormat The string to unformat the colors.
+   * @return The string with the unformatted colors.
    */
   public static String deformatColors(String textToDeFormat) {
     Matcher matcher = COLOR_PATTERN.matcher(textToDeFormat);
@@ -89,11 +89,11 @@ public class StringUtils {
   }
 
   /**
-   * Formata os {@link altColorChar} para o color code {@code §}.
+   * Format the {@link "altColorChar"} to the color code {@code §}.
    *
-   * @param altColorChar    O caractere que é definido como color code.
-   * @param textToTranslate A string para formatar as cores.
-   * @return A string com as cores formatadas.
+   * @param altColorChar The character that is defined as the color code.
+   * @param textToTranslate The string to format the colors for.
+   * @return The string with the formatted colors.
    */
   public static String translateAlternateColorCodes(char altColorChar, String textToTranslate) {
     Pattern pattern = Pattern.compile("(?i)(" + String.valueOf(altColorChar) + ")[0-9A-FK-OR]");
@@ -108,10 +108,10 @@ public class StringUtils {
   }
 
   /**
-   * Pega a primeira cor de uma {@code String}.
+   * Gets the first color of a {@code String}.
    *
-   * @param input A string para pegar a cor.
-   * @return A primeira cor ou {@code ""(vazio)} caso não encontre nenhuma.
+   * @param input The string to get the color.
+   * @return The first color or {@code ""(empty)} if none is found.
    */
   public static String getFirstColor(String input) {
     Matcher matcher = COLOR_PATTERN.matcher(input);
@@ -124,10 +124,10 @@ public class StringUtils {
   }
 
   /**
-   * Pega a última cor de uma {@code String}.
+   * Get the last color of a {@code String}.
    *
-   * @param input A string para pegar a cor.
-   * @return A última cor ou {@code ""(vazio)} caso não encontre nenhuma.
+   * @param input The string to get the color.
+   * @return The last color or {@code ""(empty)} if none is found.
    */
   public static String getLastColor(String input) {
     Matcher matcher = COLOR_PATTERN.matcher(input);
@@ -140,11 +140,11 @@ public class StringUtils {
   }
 
   /**
-   * Repete uma String várias vezes.
+   * Repeats a String several times.
    *
-   * @param repeat A string para repetir.
-   * @param amount A quantidade de vezes que será repetida.
-   * @return Resultado da repetição.
+   * @param repeat The string to repeat.
+   * @param amount The amount of times to repeat.
+   * @return Result of repetition.
    */
   public static String repeat(String repeat, int amount) {
     StringBuilder sb = new StringBuilder();
@@ -156,12 +156,12 @@ public class StringUtils {
   }
 
   /**
-   * Junta uma Array em uma {@code String} utilizando um separador.
+   * Joins an Array into a {@code String} using a separator.
    *
-   * @param array     A array para juntar.
-   * @param index     O ínicio da iteração da array (0 = toda a array).
-   * @param separator O separador da junção.
-   * @return Resultado da junção.
+   * @param array The array to join.
+   * @param index The start of the array iteration (0 = entire array).
+   * @param separator The junction separator.
+   * @return Result of the join.
    */
   public static <T> String join(T[] array, int index, String separator) {
     StringBuilder joined = new StringBuilder();
@@ -173,45 +173,45 @@ public class StringUtils {
   }
 
   /**
-   * Junta uma Array em uma {@code String} utilizando um separador.
+   * Joins an Array into a {@code String} using a separator.
    *
-   * @param array     A array para juntar.
-   * @param separator O separador da junção.
-   * @return Resultado da junção.
+   * @param array The array to join.
+   * @param separator The junction separator.
+   * @return Result of the join.
    */
   public static <T> String join(T[] array, String separator) {
     return join(array, 0, separator);
   }
 
   /**
-   * Junta uma Coleção em uma {@code String} utilizando um separador.
+   * Join a Collection into a {@code String} using a separator.
    *
-   * @param collection A coleção para juntar.
-   * @param separator  O separador da junção.
-   * @return Resultado da junção.
+   * @param collection The collection to join.
+   * @param separator The junction separator.
+   * @return Result of the join.
    */
   public static <T> String join(Collection<T> collection, String separator) {
     return join(collection.toArray(new Object[collection.size()]), separator);
   }
 
   /**
-   * Quebra uma {@code String} várias vezes para criar linhas com o tamanho máximo definido.<br/>
-   * <b>Observação:</b> Esse método é uma variação do {@link StringUtils#split(String, int, boolean)}
-   * com o parâmetro {@code ignoreCompleteWords} definido como {@code false}.
+   * Breaks a {@code String} multiple times to create lines with the defined maximum length.<br/>
+   * <b>Note:</b> This method is a variation of {@link StringUtils#split(String, int, boolean)}
+   * with the {@code ignoreCompleteWords} parameter set to {@code false}.
    *
-   * @param toSplit String para quebrar.
-   * @param length  Tamanho máximo das linhas.
-   * @return Resultado da separação.
+   * @param toSplit String to break.
+   * @param length Maximum length of lines.
+   * @return Result of separation.
    */
   public static String[] split(String toSplit, int length) {
     return split(toSplit, length, false);
   }
 
   /**
-   * "Capitaliza" uma String Exemplo: MAXTER se torna Maxter
+   * "Capitalizes" a String Example: NOTCH becomes Notch
    *
-   * @param toCapitalise String para capitalizar
-   * @return Resultado capitalizado.
+   * @param toCapitalise String to capitalize
+   * @return Capitalized result.
    */
   public static String capitalise(String toCapitalise) {
     StringBuilder result = new StringBuilder();
@@ -227,13 +227,13 @@ public class StringUtils {
 
 
   /**
-   * Quebra uma {@code String} várias vezes para criar linhas com o tamanho máximo definido.
+   * Breaks a {@code String} multiple times to create lines with the defined maximum length.
    *
-   * @param toSplit               String para quebrar.
-   * @param length                Tamanho máximo das linhas.
-   * @param ignoreIncompleteWords Se irá ignorar a quebra de palavras ou não (caso esteja desativado e
-   *                              for quebrar uma palavra, ela irá ser removida da linha atual e adicionar na próxima).
-   * @return Resultado da separação.
+   * @param toSplit String to break.
+   * @param length Maximum length of lines.
+   * @param ignoreIncompleteWords Whether to ignore word breaks or not (if disabled and
+   * is to break a word, it will be removed from the current line and added to the next one).
+   * @return Result of separation.
    */
   public static String[] split(String toSplit, int length, boolean ignoreIncompleteWords) {
     StringBuilder result = new StringBuilder(), current = new StringBuilder();

@@ -3,7 +3,7 @@ package dev.slasher.smartplugins.reflection.acessors;
 import java.lang.reflect.Constructor;
 
 /**
- * Essa classe representa um {@link Constructor} com métodos seguros de acesso.
+ * This class represents a {@link Constructor} with safe access methods.
  */
 public class ConstructorAccessor<T> {
 
@@ -21,10 +21,10 @@ public class ConstructorAccessor<T> {
   }
 
   /**
-   * Método utilizado criar uma instância de um {@link Constructor}
+   * Method used to create an instance of a {@link Constructor}
    *
-   * @param args Os parâmetros para criar a instância.
-   * @return A instância criada.
+   * @param args The parameters to create the instance.
+   * @return The created instance.
    */
   public T newInstance(Object... args) {
     try {
@@ -35,17 +35,17 @@ public class ConstructorAccessor<T> {
   }
 
   /**
-   * Método utilizado para verificar se a classe do Objeto possui o {@link Constructor}.
+   * Method used to check if the Object class has the {@link Constructor}.
    *
-   * @param target O alvo para verificar.
-   * @return TRUE caso possua o construtor na classe, FALSE caso não.
+   * @param target The target to check.
+   * @return TRUE if you have the constructor in the class, FALSE otherwise.
    */
   public boolean hasConstructor(Object target) {
     return target != null && this.handle.getDeclaringClass().equals(target.getClass());
   }
 
   /**
-   * @return O {@link Constructor} representado nesse Accessor.
+   * @return The {@link Constructor} represented in this Accessor.
    */
   public Constructor<T> getHandle() {
     return handle;

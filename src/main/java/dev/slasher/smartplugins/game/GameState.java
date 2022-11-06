@@ -2,9 +2,9 @@ package dev.slasher.smartplugins.game;
 
 public enum GameState {
 
-  NENHUM, AGUARDANDO, INICIANDO, EMJOGO, ENCERRADO;
+  NONE, WAITING, STARTING, INGAME, ENDING;
   
   public boolean canJoin() {
-    return this == AGUARDANDO;
+    return this == WAITING;
   }
 }

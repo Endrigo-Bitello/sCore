@@ -7,7 +7,7 @@ import dev.slasher.smartplugins.libraries.npclib.api.npc.NPC;
 import dev.slasher.smartplugins.libraries.npclib.npc.AbstractNPC;
 import dev.slasher.smartplugins.libraries.npclib.npc.EntityControllers;
 import dev.slasher.smartplugins.libraries.npclib.npc.ai.NPCHolder;
-import dev.slasher.smartplugins.plugin.KPlugin;
+import dev.slasher.smartplugins.plugin.HyPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -26,7 +26,7 @@ public class NPCLibrary {
   private static Listener LISTENER;
   private static final List<NPC> NPCS = new ArrayList<>();
 
-  public static void setupNPCs(KPlugin pl) {
+  public static void setupNPCs(HyPlugin pl) {
     if (pl == null || plugin != null) {
       return;
     }
@@ -41,8 +41,8 @@ public class NPCLibrary {
   }
 
   public static NPC createNPC(EntityType type, UUID uuid, String name) {
-    Preconditions.checkNotNull(type, "Tipo nao pode ser null");
-    Preconditions.checkNotNull(name, "Nome nao pode ser null");
+    Preconditions.checkNotNull(type, "Type cannot be null");
+    Preconditions.checkNotNull(name, "Name cannot be null");
 
     EntityController controller = EntityControllers.getController(type);
     NPC npc = new AbstractNPC(uuid, name, controller);

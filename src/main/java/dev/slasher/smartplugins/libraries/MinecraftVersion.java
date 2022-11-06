@@ -14,20 +14,20 @@ public class MinecraftVersion {
   private int compareId;
 
   /**
-   * Cria uma versão através do atual servidor<br/>
-   * que pode ser pego através do {@link Bukkit#getServer()}
+   * Create a version from the current server<br/>
+   * that can be picked up through {@link Bukkit#getServer()}
    *
-   * @param server Um servidor bukkit {@link Server}
+   * @param server A bukkit server {@link Server}
    */
   public MinecraftVersion(Server server) {
     this(extractVersion(server));
   }
 
   /**
-   * Cria uma versão através da build do servidor.<br/>
-   * Exemplo de build: 1.8.R3
+   * Create a version through the server build.<br/>
+   * Build example: 1.8.R3
    *
-   * @param version A build do servidor.
+   * @param version The server build.
    */
   public MinecraftVersion(String version) {
     int[] numbers = parseVersion(version);
@@ -38,8 +38,8 @@ public class MinecraftVersion {
   }
 
   /**
-   * Cria uma versão através dos números de build.<br/>
-   * Exemplo: 1.8.R3<br/>
+   * Create a version using build numbers. <br/>
+   * Ex: 1.8.R3<br/>
    * major: 1
    * minor: 8
    * build: 3
@@ -56,41 +56,41 @@ public class MinecraftVersion {
   }
 
   /**
-   * Verifique se essa versão é menos recente ou igual a requisitada.
+   * Check if this version is less recent or the same as requested.
    *
-   * @param version A versão para comparar.
-   * @return TRUE se for menos recente ou igual, FALSE se for mais recente.
+   * @param version The version to compare.
+   * @return TRUE if less recent or equal, FALSE if more recent.
    */
   public boolean lowerThan(MinecraftVersion version) {
     return this.compareId <= version.getCompareId();
   }
 
   /**
-   * Verifique se essa versão é mais recente ou igual  a requisitada.
+   * Check if this version is newer or the same as requested.
    *
-   * @param version A versão para comparar.
-   * @return TRUE se for mais recente ou igual, FALSE se for menos recente.
+   * @param version The version to compare.
+   * @return TRUE if newer or equal, FALSE if less recent.
    */
   public boolean newerThan(MinecraftVersion version) {
     return this.compareId >= version.getCompareId();
   }
 
   /**
-   * Verifique se essa versão é menos recente ou igual a @param latest e<br/>
-   * se é mais recente ou igual a @param olded.
+   * Check if this version is less recent or equal to @param latest e<br/>
+   * if newer or equal to @param olded.
    *
-   * @param latest A versão que precisa que ser menos recente ou igual a atual.
-   * @param olded  A versão que precisa ser mais recente ou igual a atual.
-   * @return TRUE se as duas condições forem cumpridas, FALSE caso não forem.
+   * @param latest The version that needs to be less recent or equal to current.
+   * @param olded The version that needs to be newer or equal to current.
+   * @return TRUE if both conditions are met, FALSE otherwise.
    */
   public boolean inRange(MinecraftVersion latest, MinecraftVersion olded) {
     return (this.compareId <= latest.getCompareId()) && (this.compareId >= olded.getCompareId());
   }
 
   /**
-   * Pega o valor Major da versão.
+   * Get the Major value of the version.
    *
-   * @return Major númerico
+   * @return Numeric Major
    */
   public int getMajor() {
     return this.major;
@@ -106,20 +106,20 @@ public class MinecraftVersion {
   }
 
   /**
-   * Pega o valor Build da versão.
+   * Gets the Build value of the version.
    *
-   * @return Build númerico
+   * @return Numerical Build
    */
   public int getBuild() {
     return this.build;
   }
 
   /**
-   * Pega o valor de comparação da versão.<br/>
-   * Exemplo: 1.8.R3
-   * ID de comparação: 183
+   * Get the version comparison value.<br/>
+   * Example: 1.8.R3
+   * Comparison ID: 183
    *
-   * @return Valor de comparação
+   * @return Comparison value
    */
   public int getCompareId() {
     return this.compareId;
@@ -142,10 +142,10 @@ public class MinecraftVersion {
   }
 
   /**
-   * Retorna a versão em seu estado inicial (package build).<br/>
-   * Exemplo: 1_8_R3
+   * Returns the version in its initial state (package build).<br/>
+   * Example: 1_8_R3
    *
-   * @return Versão original.
+   * @return Original version
    */
   public String getVersion() {
     return String.format("v%s_%s_R%s", this.major, this.minor, this.build);
@@ -183,14 +183,14 @@ public class MinecraftVersion {
   }
 
   /**
-   * Versão atual
+   * Current version
    */
   private static MinecraftVersion currentVersion;
 
   /**
-   * Pega a versão do servidor que está atualmente rodando.
+   * Get the version of the server that is currently running.
    *
-   * @return A versão do servidor representada por um {@link MinecraftVersion}.
+   * @return The server version represented by a {@link MinecraftVersion}.
    */
   public static MinecraftVersion getCurrentVersion() {
     if (currentVersion == null) {

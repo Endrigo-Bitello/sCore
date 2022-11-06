@@ -10,10 +10,10 @@ import dev.slasher.smartplugins.database.data.DataTable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@DataTableInfo(name = "kCoreMurder",
-    create = "CREATE TABLE IF NOT EXISTS `kCoreMurder` (`name` VARCHAR(32), `clkills` LONG, `clbowkills` LONG, `clknifekills` LONG, `clthrownknifekills` LONG, `clwins` LONG, `cldetectivewins` LONG, `clkillerwins` LONG, `clquickestdetective` LONG, `clquickestkiller` LONG, `clchancedetective` LONG, `clchancekiller` LONG, `askills` LONG, `asthrownknifekills` LONG, `aswins` LONG, `coins` DOUBLE, `lastmap` LONG, `cosmetics` TEXT, `selected` TEXT, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
-    select = "SELECT * FROM `kCoreMurder` WHERE LOWER(`name`) = ?",
-    insert = "INSERT INTO `kCoreMurder` VALUES (" +
+@DataTableInfo(name = "sCoreMurder",
+    create = "CREATE TABLE IF NOT EXISTS `sCoreMurder` (`name` VARCHAR(32), `clkills` LONG, `clbowkills` LONG, `clknifekills` LONG, `clthrownknifekills` LONG, `clwins` LONG, `cldetectivewins` LONG, `clkillerwins` LONG, `clquickestdetective` LONG, `clquickestkiller` LONG, `clchancedetective` LONG, `clchancekiller` LONG, `askills` LONG, `asthrownknifekills` LONG, `aswins` LONG, `coins` DOUBLE, `lastmap` LONG, `cosmetics` TEXT, `selected` TEXT, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
+    select = "SELECT * FROM `sCoreMurder` WHERE LOWER(`name`) = ?",
+    insert = "INSERT INTO `sCoreMurder` VALUES (" +
              "?," +
             " ?," +
             " ?," +
@@ -33,7 +33,7 @@ import java.util.Map;
             " ?," +
             " ?," +
             " ?)",
-    update = "UPDATE `kCoreMurder` SET " +
+    update = "UPDATE `sCoreMurder` SET " +
             "`clkills` = ?, " +
             "`clbowkills` = ?, " +
             "`clknifekills` = ?, " +
@@ -58,14 +58,14 @@ public class MurderTable extends DataTable {
   @Override
   public void init(Database database) {
     if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreMurder` LIKE 'askills'") == null) {
+      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `sCoreMurder` LIKE 'askills'") == null) {
         ((MySQLDatabase) database).execute(
-          "ALTER TABLE `kCoreMurder` ADD `askills` LONG DEFAULT 0 AFTER `clchancekiller`, ADD `asthrownknifekills` LONG DEFAULT 0 AFTER `askills`, ADD `aswins` LONG DEFAULT 0 AFTER `asthrownknifekills`");
+          "ALTER TABLE `sCoreMurder` ADD `askills` LONG DEFAULT 0 AFTER `clchancekiller`, ADD `asthrownknifekills` LONG DEFAULT 0 AFTER `askills`, ADD `aswins` LONG DEFAULT 0 AFTER `asthrownknifekills`");
       }
     } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreMurder` LIKE 'askills'") == null) {
+      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `sCoreMurder` LIKE 'askills'") == null) {
         ((HikariDatabase) database).execute(
-          "ALTER TABLE `kCoreMurder` ADD `askills` LONG DEFAULT 0 AFTER `clchancekiller`, ADD `asthrownknifekills` LONG DEFAULT 0 AFTER `askills`, ADD `aswins` LONG DEFAULT 0 AFTER `asthrownknifekills`");
+          "ALTER TABLE `sCoreMurder` ADD `askills` LONG DEFAULT 0 AFTER `clchancekiller`, ADD `asthrownknifekills` LONG DEFAULT 0 AFTER `askills`, ADD `aswins` LONG DEFAULT 0 AFTER `asthrownknifekills`");
       }
     }
   }

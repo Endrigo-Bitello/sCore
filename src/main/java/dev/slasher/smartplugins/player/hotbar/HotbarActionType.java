@@ -19,14 +19,14 @@ public abstract class HotbarActionType {
   private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###.#");
 
   static {
-    actionTypes.put("comando", new HotbarActionType() {
+    actionTypes.put("command", new HotbarActionType() {
 
       @Override
       public void execute(Profile profile, String action) {
         profile.getPlayer().performCommand(action);
       }
     });
-    actionTypes.put("mensagem", new HotbarActionType() {
+    actionTypes.put("message", new HotbarActionType() {
 
       @Override
       public void execute(Profile profile, String action) {
@@ -37,11 +37,11 @@ public abstract class HotbarActionType {
       
       @Override
       public void execute(Profile profile, String action) {
-        if (action.equalsIgnoreCase("jogos")) {
+        if (action.equalsIgnoreCase("games")) {
           new MenuServers(profile);
-        } else if (action.equalsIgnoreCase("perfil")) {
+        } else if (action.equalsIgnoreCase("profile")) {
           new MenuProfile(profile);
-        } else if (action.equalsIgnoreCase("jogadores")) {
+        } else if (action.equalsIgnoreCase("players")) {
           Player player = profile.getPlayer();
           long start = Listeners.DELAY_PLAYERS.containsKey(player.getName()) ? Listeners.DELAY_PLAYERS.get(player.getName()) : 0;
           if (start > System.currentTimeMillis()) {
@@ -52,7 +52,7 @@ public abstract class HotbarActionType {
                 timeString = timeString.substring(0, timeString.lastIndexOf("."));
               }
 
-              player.sendMessage("§cVocê precisa aguardar mais " + timeString + "s para utilizar novamente.");
+              player.sendMessage("§cYou need to wait another §a" + timeString + "s §cto use it again.");
               return;
             }
           }
@@ -61,10 +61,10 @@ public abstract class HotbarActionType {
           profile.getPreferencesContainer().changePlayerVisibility();
           switch (profile.getPreferencesContainer().getPlayerVisibility()) {
             case TODOS:
-              player.sendMessage("§aVisibilidade de jogadores ativada.");
+              player.sendMessage("§aPlayer visibility enabled.");
               break;
             case NENHUM:
-              player.sendMessage("§cVisibilidade de jogadores desativada.");
+              player.sendMessage("§cPlayer visibility off.");
               break;
           }
           profile.refreshPlayers();

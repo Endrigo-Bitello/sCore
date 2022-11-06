@@ -49,8 +49,8 @@ public class AbstractNPC implements NPC {
 
   @Override
   public boolean spawn(Location location) {
-    Preconditions.checkNotNull(location, "A localizacao nao pode ser null!");
-    Preconditions.checkState(!isSpawned(), "O npc ja esta spawnado!");
+    Preconditions.checkNotNull(location, "Location cannot be null!");
+    Preconditions.checkState(!isSpawned(), "The npc is already spawned!");
     controller.spawn(location, this);
 
     boolean couldSpawn = Utils.isLoaded(location) && NMS.addToWorld(location.getWorld(), controller.getBukkitEntity(), SpawnReason.CUSTOM);
@@ -100,7 +100,7 @@ public class AbstractNPC implements NPC {
 
   @Override
   public boolean despawn() {
-    Preconditions.checkState(isSpawned(), "O npc nao esta spawnado!");
+    Preconditions.checkState(isSpawned(), "The npc is not spawned!");
     NPCDespawnEvent event = new NPCDespawnEvent(this);
     Bukkit.getServer().getPluginManager().callEvent(event);
     if (event.isCancelled()) {
@@ -193,7 +193,7 @@ public class AbstractNPC implements NPC {
 
   @Override
   public void playAnimation(NPCAnimation animation) {
-    Preconditions.checkState(isSpawned(), "O npc nao esta spawnado!");
+    Preconditions.checkState(isSpawned(), "The npc is not spawned!");
     NMS.playAnimation(this.getEntity(), animation);
   }
 
@@ -210,7 +210,7 @@ public class AbstractNPC implements NPC {
       traits.put(traitClass, trait);
       trait.onAttach();
     } catch (ReflectiveOperationException e) {
-      throw new RuntimeException("Falha ao adicionar Trait " + traitClass.getName(), e);
+      throw new RuntimeException("Failed to add trait " + traitClass.getName(), e);
     }
   }
 
@@ -234,7 +234,7 @@ public class AbstractNPC implements NPC {
 
   @Override
   public void setFollowing(Entity entity) {
-    Preconditions.checkState(!this.navigating, "O npc ja esta andando para um local!");
+    Preconditions.checkState(!this.navigating, "The npc is already walking to a location!");
     if (this.following != null) {
       Bukkit.getPluginManager().callEvent(new NPCStopFollowingEvent(this, this.following));
     }
@@ -243,12 +243,12 @@ public class AbstractNPC implements NPC {
 
   @Override
   public void setWalkingTo(Location location) {
-    Preconditions.checkState(this.following == null, "O npc ja esta seguindo uma entidade!");
+    Preconditions.checkState(this.following == null, "The npc is already following an entity!");
     if (location == null) {
       this.walkingTo = null;
       return;
     }
-    Preconditions.checkState(!this.navigating, "O npc ja esta andando para um local!");
+    Preconditions.checkState(!this.navigating, "The npc is already walking to a location!");
 
     this.navigating = true;
     this.walkingTo = location;

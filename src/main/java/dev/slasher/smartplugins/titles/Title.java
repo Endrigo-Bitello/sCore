@@ -21,7 +21,7 @@ public class Title {
 
   public Title(String id, String title, String desc) {
     this.id = id;
-    this.icon = "%material%:%durability% : 1 : esconder>tudo : nome>%name% : desc>&fTítulo: " + title + "\n \n" + desc + "\n \n%action%";
+    this.icon = "%material%:%durability% : 1 : hide>all : name>%name% : desc>&fTitle: " + title + "\n \n" + desc + "\n \n%action%";
     this.title = title;
   }
 
@@ -50,31 +50,31 @@ public class Title {
     return BukkitUtils.deserializeItemStack(
       this.icon.replace("%material%", has ? (selected != null && selected.equals(this)) ? "MAP" : "EMPTY_MAP" : "STAINED_GLASS_PANE").replace("%durability%", has ? "0" : "14")
         .replace("%name%", (has ? "&a" : "&c") + StringUtils.stripColors(this.title))
-        .replace("%action%", (has ? (selected != null && selected.equals(this)) ? "&eClique para deselecionar!" : "&eClique para selecionar!" : "&cVocê não possui este título.")));
+        .replace("%action%", (has ? (selected != null && selected.equals(this)) ? "&eClick to unselect!" : "&eClick to select!" : "&cYou do not own this title.")));
   }
 
   private static final List<Title> TITLES = new ArrayList<>();
 
   public static void setupTitles() {
-    TITLES.add(new Title("tbk", "§cSentinela da Ponte", "&8Pode ser desbloqueado através do\n&8Desafio \"Assassino das Pontes\"&8."));
-    TITLES.add(new Title("tbw", "§6Líder da Ponte", "&8Pode ser desbloqueado através do\n&8Desafio \"Glorioso sobre Pontes\"&8."));
-    TITLES.add(new Title("tbp", "§ePontuador Mestre", "&8Pode ser desbloqueado através do\n&8Desafio \"Maestria em Pontuação\"&8."));
+    TITLES.add(new Title("tbk", "§cBridge Sentinel", "&8Can be unlocked through the\n\"Assassino das Pontes\" &8challange."));
+    TITLES.add(new Title("tbw", "§6Bridge Leader", "&8Can be unlocked through the\n\"Glorioso sobre Pontes\" &8challange."));
+    TITLES.add(new Title("tbp", "§eMaster Scorer", "&8Can be unlocked through the\n\"Maestria em Pontuação\"&8challange."));
 
-    TITLES.add(new Title("swk", "§cAnjo da Morte", "&8Pode ser desbloqueado através do\n&8Desafio \"Traidor Celestial\"&8."));
-    TITLES.add(new Title("sww", "§bRei Celestial", "&8Pode ser desbloqueado através do\n&8Desafio \"Destrono Celestial\"&8."));
-    TITLES.add(new Title("swa", "§6Companheiro de Asas", "&8Pode ser desbloqueado através do\n&8Desafio \"Anjo Guardião\"&8."));
+    TITLES.add(new Title("swk", "§cAngel of Death", "&8Can be unlocked through the\n\"Traidor Celestial\" &8challange."));
+    TITLES.add(new Title("sww", "§bHeavenly King", "&8Can be unlocked through the\n\"Destrono Celestial\" &8challange."));
+    TITLES.add(new Title("swa", "§6Wings Companion", "&8Can be unlocked through the\n\"Anjo Guardião\" &8challange."));
 
-    TITLES.add(new Title("mmd", "§6Sherlock Holmes", "&8Pode ser desbloqueado através do\n&8Desafio \"Detetive\"&8."));
-    TITLES.add(new Title("mmk", "§4Jef the Killer", "&8Pode ser desbloqueado através do\n&8Desafio \"Serial Killer\"&8."));
+    TITLES.add(new Title("mmd", "§6Sherlock Holmes", "&8Can be unlocked through the\n\"Detetive\" &8challange."));
+    TITLES.add(new Title("mmk", "§4Jef the Killer", "&8Can be unlocked through the\n\"Serial Killer\" &8challange."));
 
-    TITLES.add(new Title("bwk", "§cDestruidor de Sonhos", "&8Pode ser desbloqueado através do\n&8Desafio \"Assasino a espreita\"&8."));
-    TITLES.add(new Title("bww", "§6Anjo Sonolento", "&8Pode ser desbloqueado através do\n&8Desafio \"Protetor de Camas\"&8."));
-    TITLES.add(new Title("bwp", "§4Pesadelo", "&8Pode ser desbloqueado através do\n&8Desafio \"Freddy Krueger\"&8."));
+    TITLES.add(new Title("bwk", "§cDestroyer of Dreams", "&8Can be unlocked through the\n\"Assasino a espreita\" &8challange."));
+    TITLES.add(new Title("bww", "§6Sleepy Angel", "&8Can be unlocked through the\n\"Protetor de Camas\" &8challange."));
+    TITLES.add(new Title("bwp", "§4Nightmare", "&8Can be unlocked through the\n\"Freddy Krueger\" &8challange."));
 
     if (Database.getInstance() instanceof MongoDBDatabase) {
       MongoDBDatabase database = ((MongoDBDatabase) Database.getInstance());
 
-      MongoCursor<Document> titles = database.getDatabase().getCollection("kCoreTitles").find().cursor();
+      MongoCursor<Document> titles = database.getDatabase().getCollection("HyCoreTitles").find().cursor();
       while (titles.hasNext()) {
         Document title = titles.next();
         TITLES.add(new Title(title.getString("_id"), title.getString("name"), title.getString("description")));

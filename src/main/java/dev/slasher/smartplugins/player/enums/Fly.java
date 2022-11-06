@@ -13,10 +13,10 @@ public enum Fly {
 
     public String getName() {
         if (this == ATIVADO) {
-            return "§aAtivado";
+            return "§aON";
         }
 
-        return "§cDesativado";
+        return "§cOFF";
     }
 
     public Fly next() {

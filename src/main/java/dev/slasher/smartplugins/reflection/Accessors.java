@@ -11,22 +11,21 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 /**
- * Uma classe criado com o intuito de acessar<br/>
- * métodos, fields e construtores de classes através da<br/>
- * Reflection do Java.
+ * A class created in order to access<br/>
+ * methods, fields and class constructors through<br/>
+ * Reflection from Java.
  */
 @SuppressWarnings({"rawtypes"})
 public class Accessors {
 
   private Accessors() {
-    // Selando a classe.
   }
 
   /**
-   * Método utilizado para remover o {@link Modifier#FINAL} do field caso ele possua<br>
-   * e setar o field para acessível caso ele não seja acessível.
+   * Method used to remove the {@link Modifier#FINAL} from the field if it has<br>
+   * and set the field to accessible if it is not accessible.
    *
-   * @param field O field para modificar.
+   * @param field The field to modify.
    */
   public static void setAccessible(Field field) {
     if (!field.isAccessible()) {
@@ -39,63 +38,63 @@ public class Accessors {
   }
 
   /**
-   * Seta o valor de um field através um {@link FieldAccessor}
+   * Sets the value of a field through a {@link FieldAccessor}
    *
-   * @param field  O field para modificar.
-   * @param target O alvo que contém o field para modificar.
-   * @param value  O novo valor do field.
+   * @param field The field to modify.
+   * @param target The target that contains the field to modify.
+   * @param value The new value of the field.
    */
   public static void setFieldValue(Field field, Object target, Object value) {
     new FieldAccessor<>(field, true).set(target, value);
   }
 
   /**
-   * Retorna o valor de um field através de um {@link FieldAccessor}
+   * Returns the value of a field through a {@link FieldAccessor}
    *
-   * @param field  O field para pegar o valor.
-   * @param target O alvo que contém o field para pegar.
-   * @return O valor do field.
+   * @param field The field to get the value.
+   * @param target The target that contains the field to catch.
+   * @return The value of the field.
    */
   public static Object getFieldValue(Field field, Object target) {
     return new FieldAccessor<>(field, true).get(target);
   }
 
   /**
-   * Um encurtador sem tipo para {@link Accessors#getField(Class, int, Class)}
+   * An untyped shortener for {@link Accessors#getField(Class, int, Class)}
    */
   public static FieldAccessor<Object> getField(Class clazz, int index) {
     return getField(clazz, index, null);
   }
 
   /**
-   * Um encurtador sem tipo para {@link Accessors#getField(Class, String, Class)}
+   * An untyped shortener for {@link Accessors#getField(Class, String, Class)}
    */
   public static FieldAccessor<Object> getField(Class clazz, String fieldName) {
     return getField(clazz, fieldName, null);
   }
 
   /**
-   * Um encurtador sem nome correto para {@link Accessors#getField(Class, String, int, Class)}
+   * A correct unnamed shortener for {@link Accessors#getField(Class, String, int, Class)}
    */
   public static <T> FieldAccessor<T> getField(Class clazz, int index, Class<T> fieldType) {
     return getField(clazz, null, index, fieldType);
   }
 
   /**
-   * Um encurtador com índice 0 para {@link Accessors#getField(Class, String, int, Class)}
+   * A shortener with index 0 for {@link Accessors#getField(Class, String, int, Class)}
    */
   public static <T> FieldAccessor<T> getField(Class clazz, String fieldName, Class<T> fieldType) {
     return getField(clazz, fieldName, 0, fieldType);
   }
 
   /**
-   * Método utilizado para pegar um {@link Field} por índice.
+   * Method used to get a {@link Field} per index.
    *
-   * @param clazz     A classe para buscar os fields.
-   * @param fieldName O nome do field, caso for null irá ignorar o nome.
-   * @param index     O índice para pegar o field, caso chegue em 0 irá retornar o field.
-   * @param fieldType O tipo do field, caso for null irá ignorar o tipo.
-   * @return O {@link Field} representado por um {@link FieldAccessor}
+   * @param clazz The class to fetch the fields.
+   * @param fieldName The name of the field, if null it will ignore the name.
+   * @param index The index to get the field, if it reaches 0 it will return the field.
+   * @param fieldType The type of the field, if null it will ignore the type.
+   * @return The {@link Field} represented by a {@link FieldAccessor}
    */
   public static <T> FieldAccessor<T> getField(Class clazz, String fieldName, int index, Class<T> fieldType) {
     int indexCopy = index;
@@ -117,56 +116,56 @@ public class Accessors {
   }
 
   /**
-   * Um encurtador sem parâmetros para {@link Accessors#getMethod(Class, String, Class...)}
+   * A parameterless shortener for {@link Accessors#getMethod(Class, String, Class...)}
    */
   public static MethodAccessor getMethod(Class clazz, String methodName) {
     return getMethod(clazz, null, methodName, (Class[]) null);
   }
 
   /**
-   * Um encurtador sem parâmetros {@link Accessors#getMethod(Class, int, Class...)}
+   * A parameterless shortener {@link Accessors#getMethod(Class, int, Class...)}
    */
   public static MethodAccessor getMethod(Class clazz, int index) {
     return getMethod(clazz, null, index, (Class[]) null);
   }
 
   /**
-   * Um encurtador sem tipo de retorno para {@link Accessors#getMethod(Class, Class, String, Class...)}
+   * A shortener with no return type for {@link Accessors#getMethod(Class, Class, String, Class...)}
    */
   public static MethodAccessor getMethod(Class clazz, String methodName, Class... parameters) {
     return getMethod(clazz, null, methodName, parameters);
   }
 
   /**
-   * Um encurtador sem tipo de retorno para {@link Accessors#getMethod(Class, Class, int, Class...)}
+   * A shortener with no return type for {@link Accessors#getMethod(Class, Class, int, Class...)}
    */
   public static MethodAccessor getMethod(Class clazz, int index, Class... parameters) {
     return getMethod(clazz, null, index, parameters);
   }
 
   /**
-   * Um encurtador sem índice para {@link Accessors#getMethod(Class, int, Class, String, Class...)}
+   * An index-less shortener for {@link Accessors#getMethod(Class, int, Class, String, Class...)}
    */
   public static MethodAccessor getMethod(Class clazz, Class returnType, String methodName, Class... parameters) {
     return getMethod(clazz, 0, returnType, methodName, parameters);
   }
 
   /**
-   * Um encurtador sem nome correto para {@link Accessors#getMethod(Class, int, Class, String, Class...)}
+   * A correct unnamed shortener for {@link Accessors#getMethod(Class, int, Class, String, Class...)}
    */
   public static MethodAccessor getMethod(Class clazz, Class returnType, int index, Class... parameters) {
     return getMethod(clazz, index, returnType, null, parameters);
   }
 
   /**
-   * Método utilizado para pegar um {@link Method} por índice.
+   * Method used to get a {@link Method} per index.
    *
-   * @param clazz      A classe para buscar os métodos.
-   * @param index      O índice para pegar o Método, caso chegue em 0 retorna o Método.
-   * @param returnType O tipo de retorno do método, caso for null irá ignorar.
-   * @param methodName O nome do éetodo, caso for null irá ignorar.
-   * @param parameters Os parâmetros do método, caso for null irá ignorar.
-   * @return O {@link Method} representado por um {@link MethodAccessor}
+   * @param clazz The class to fetch the methods.
+   * @param index The index to get the Method, if it reaches 0 returns the Method.
+   * @param returnType The method's return type, if null will be ignored.
+   * @param methodName The name of the method, if null it will be ignored.
+   * @param parameters Method parameters, if null it will be ignored.
+   * @return The {@link Method} represented by a {@link MethodAccessor}
    */
   public static MethodAccessor getMethod(Class clazz, int index, Class returnType, String methodName, Class... parameters) {
     int indexCopy = index;
@@ -191,27 +190,27 @@ public class Accessors {
   }
 
   /**
-   * Um encurtador sem tipo de parâmetros para {@link Accessors#getConstructor(Class, int, Class...)}
+   * A parameterless type shortener for {@link Accessors#getConstructor(Class, int, Class...)}
    */
   public static <T> ConstructorAccessor<T> getConstructor(Class<T> clazz, int index) {
     return getConstructor(clazz, index, (Class[]) null);
   }
 
   /**
-   * Um encurtador com índice 0 para {@link Accessors#getConstructor(Class, int, Class...)}
+   * A shortener with index 0 for {@link Accessors#getConstructor(Class, int, Class...)}
    */
   public static <T> ConstructorAccessor<T> getConstructor(Class<T> clazz, Class... parameters) {
     return getConstructor(clazz, 0, parameters);
   }
 
   /**
-   * Método utilizado para pegar um {@link Constructor} por um índice.
+   * Method used to get a {@link Constructor} by an index.
    *
-   * @param clazz      Classe para pegar o construtor.
-   * @param index      O índice para pegar o construtor, caso chegue em 0 irá retornar o construtor.
-   * @param parameters Classes dos parâmetros do construtor, caso for null irá ignorar os parâmetros.
-   * @return O {@link Constructor} representado por um {@link ConstructorAccessor}.
-   * @throws IllegalArgumentException Caso não encontre nenhum construtor.
+   * @param clazz Class to get the constructor.
+   * @param index The index to get the constructor, if it reaches 0 it will return the constructor.
+   * @param parameters Classes of constructor parameters, if null will ignore parameters.
+   * @return The {@link Constructor} represented by a {@link ConstructorAccessor}.
+   * @throws IllegalArgumentException If no constructor is found.
    */
   @SuppressWarnings("unchecked")
   public static <T> ConstructorAccessor<T> getConstructor(Class<T> clazz, int index, Class... parameters) {

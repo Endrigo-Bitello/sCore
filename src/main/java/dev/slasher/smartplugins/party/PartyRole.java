@@ -1,15 +1,15 @@
 package dev.slasher.smartplugins.party;
 
 public enum PartyRole {
-  MEMBER("Membro"),
-  LEADER("Líder");
-
-  private String name;
-
+  MEMBER("Member"),
+  LEADER("Leader");
+  
+  private final String name;
+  
   PartyRole(String name) {
     this.name = name;
   }
-
+  
   public String getName() {
     return this.name;
   }

@@ -1,6 +1,6 @@
 package dev.slasher.smartplugins.bukkit;
 
-import dev.slasher.smartplugins.plugin.config.KConfig;
+import dev.slasher.smartplugins.plugin.config.HyConfig;
 import org.bukkit.entity.Player;
 import dev.slasher.smartplugins.Core;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class BukkitPartySizer {
 
-  private static final KConfig CONFIG;
+  private static final HyConfig CONFIG;
   private static final Map<String, Integer> SIZES;
 
   static {

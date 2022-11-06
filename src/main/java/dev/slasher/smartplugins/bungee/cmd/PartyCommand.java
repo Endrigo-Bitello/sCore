@@ -1,384 +1,377 @@
 package dev.slasher.smartplugins.bungee.cmd;
 
-import dev.slasher.smartplugins.party.PartyRole;
-import dev.slasher.smartplugins.player.Profile;
-import dev.slasher.smartplugins.player.enums.PartyRequest;
-import dev.slasher.smartplugins.utils.StringUtils;
+import dev.slasher.smartplugins.Manager;
 import dev.slasher.smartplugins.bungee.party.BungeeParty;
 import dev.slasher.smartplugins.bungee.party.BungeePartyManager;
 import dev.slasher.smartplugins.player.role.Role;
-import net.md_5.bungee.api.ChatColor;
+import dev.slasher.smartplugins.utils.StringUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import dev.slasher.smartplugins.Manager;
-import org.bukkit.Bukkit;
 
-import javax.xml.soap.Text;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PartyCommand extends Commands {
+import static dev.slasher.smartplugins.party.PartyRole.LEADER;
 
+public class PartyCommand extends Commands {
+  
   public PartyCommand() {
     super("party");
   }
-
+  
   @Override
   public void perform(CommandSender sender, String[] args) {
     if (!(sender instanceof ProxiedPlayer)) {
-      sender.sendMessage(TextComponent.fromLegacyText("§cApenas jogadores podem utilizar este comando."));
+      sender.sendMessage(TextComponent.fromLegacyText("§cOnly players can use this command."));
       return;
     }
-
+    
     ProxiedPlayer player = (ProxiedPlayer) sender;
     if (args.length == 0) {
       player.sendMessage(TextComponent.fromLegacyText(
-                      "\n§b/pc <mensagem> §f- §eComunicar-se com os membros." +
-                      "\n§b/party abrir §f- §eTornar a party pública." +
-                      "\n§b/party fechar §f- §eTornar a party privada." +
-                      "\n§b/party entrar <jogador> §f- §eEntrar em uma party pública." +
-                      "\n§b/party aceitar <jogador> §f- §eAceitar uma solicitação." +
-                      "\n§b/party ajuda §f- §eMostrar essa mensagem de ajuda." +
-                      "\n§b/party convidar <jogador> §f- §eConvidar um jogador." +
-                      "\n§b/party deletar §f- §eDeletar a party." +
-                      "\n§b/party expulsar <jogador> §f- §eExpulsar um membro." +
-                      "\n§b/party info §f- §eInformações da sua Party." +
-                      "\n§b/party negar <jogador> §f- §eRecuse o convite para party." +
-                      "\n§b/party sair §f- §eSaia da party." +
-                      "\n§b/party transferir <jogador> §f- §eTransfira a posse da party para um membro.\n "));
+                  "§e/p <message> §7- §bTalk to your party members." +
+                  "\n§e/party open §7- §bMake your party public." +
+                  "\n§e/party close §7- §bPrivate your party to invite only." +
+                  "\n§e/party join <player> §7- §bJoin a player's party." +
+                  "\n§e/party accept <player> §7- §bAccept a party invite." +
+                  "\n§e/party help §7- §bOpen the party instructions list." +
+                  "\n§e/party invite <player> §7- §bSend an invite to a player." +
+                  "\n§e/party delete §7- §bDelete the party." +
+                  "\n§e/party kick <player> §7- §bKick a member." +
+                  "\n§e/party info §7- §bView your party information." +
+                  "\n§e/party deny <player> §7- §bDecline a party request." +
+                  "\n§e/party leave §7- §bLeave the party." +
+                  "\n§e/party transfer <player> §7- §bTransfer party ownership to another player."));
       return;
     }
-
+    
     String action = args[0];
-    if (action.equalsIgnoreCase("abrir") || action.equalsIgnoreCase("open")) {
+    if (action.equalsIgnoreCase("open")) {
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pertence a uma party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou are not in a party."));
         return;
       }
-
+      
       if (!party.isLeader(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não é o Líder da party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou are not the party leader."));
         return;
       }
-
+      
       if (party.isOpen()) {
-        player.sendMessage(TextComponent.fromLegacyText("§cSua party já é pública."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYour party is now public."));
         return;
       }
-
+      
       party.setIsOpen(true);
-      player.sendMessage(TextComponent.fromLegacyText("§aVocê abriu a party para qualquer jogador."));
-      TextComponent component = new TextComponent("");
-      for (BaseComponent components : TextComponent.fromLegacyText("\n§r" + Role.getColored(player.getName() + " §eabriu sua party para todos os jogadores!"))) ;
-      component.addExtra(component);
-
-      Bukkit.broadcastMessage("\n"+ Role.getColored(player.getName()) + " §eabriu sua party para todos os jogadores!\nPara entrar, digite §b/party entrar " + player.getName() + "§e.\n ");
-
-    } else if (action.equalsIgnoreCase("fechar") || action.equalsIgnoreCase("close")) {
+      player.sendMessage(TextComponent.fromLegacyText("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-"));
+      player.sendMessage(TextComponent.fromLegacyText("§6You opened your party to everyone!"));
+      player.sendMessage(TextComponent.fromLegacyText("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-"));
+    } else if (action.equalsIgnoreCase("open")) {
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pertence a uma party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou are not in a party."));
         return;
       }
-
+      
       if (!party.isLeader(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não é o Líder da party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou are not the party leader."));
         return;
       }
-
+      
       if (!party.isOpen()) {
-        player.sendMessage(TextComponent.fromLegacyText("§cSua party já é privada."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYour party is already private."));
         return;
       }
-
+      
       party.setIsOpen(false);
-      player.sendMessage(TextComponent.fromLegacyText("§cVocê fechou a party para apenas convidados."));
-    } else if (action.equalsIgnoreCase("entrar") || action.equalsIgnoreCase("join")) {
+      player.sendMessage(TextComponent.fromLegacyText("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-"));
+      player.sendMessage(TextComponent.fromLegacyText("§cYou have closed your invite-only party!"));
+      player.sendMessage(TextComponent.fromLegacyText("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-"));
+    } else if (action.equalsIgnoreCase("join")) {
       if (args.length == 1) {
-        player.sendMessage(TextComponent.fromLegacyText("§cUtilize /party entrar <jogador>"));
+        player.sendMessage(TextComponent.fromLegacyText("§cUsage: /party join <player>"));
         return;
       }
-
+      
       String target = args[1];
       if (target.equalsIgnoreCase(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pode entrar na party de você mesmo."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou cannot join your own party."));
         return;
       }
-
+      
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party != null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê já pertence a uma Party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou already belong to a party."));
         return;
       }
-
+      
       party = BungeePartyManager.getLeaderParty(target);
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " não é o líder de party."));
+        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " is not the party leader."));
         return;
       }
-
+      
       target = party.getName(target);
       if (!party.isOpen()) {
-        player.sendMessage(TextComponent.fromLegacyText("§cA party de " + Manager.getCurrent(target) + " é privada."));
+        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + "'s party is private."));
         return;
       }
-
+      
       if (!party.canJoin()) {
-        player.sendMessage(TextComponent.fromLegacyText("§cA party de " + Manager.getCurrent(target) + " está lotada."));
+        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + "'s party is full."));
         return;
       }
-
+      
       party.join(player.getName());
-      player.sendMessage(TextComponent.fromLegacyText("§eVocê juntou-se a party de " + Role.getColored(target) + "§e."));
-    } else if (action.equalsIgnoreCase("aceitar") || action.equalsIgnoreCase("accept")) {
+      player.sendMessage(TextComponent.fromLegacyText("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-"));
+      player.sendMessage(TextComponent.fromLegacyText("§eYou joined §6" + Role.getPrefixed(target) + "'s §eparty!"));
+      player.sendMessage(TextComponent.fromLegacyText("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-"));
+    } else if (action.equalsIgnoreCase("accept")) {
       if (args.length == 1) {
-        player.sendMessage(TextComponent.fromLegacyText("§cUtilize /party aceitar <jogador>"));
+        player.sendMessage(TextComponent.fromLegacyText("§cUsage: /party accept <player>"));
         return;
       }
-
+      
       String target = args[1];
       if (target.equalsIgnoreCase(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pode aceitar convites de si mesmo."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou cannot accept invitations from yourself."));
         return;
       }
-
+      
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party != null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê já pertence a uma party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou already belong to a party."));
         return;
       }
-
+      
       party = BungeePartyManager.getLeaderParty(target);
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " não é o líder de party."));
+        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " is not a leader."));
         return;
       }
-
+      
       target = party.getName(target);
       if (!party.isInvited(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " não convidou você para party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou don't have invitations from " + Manager.getCurrent(target)) + ".");
         return;
       }
-
+      
       if (!party.canJoin()) {
-        player.sendMessage(TextComponent.fromLegacyText("§cA party de " + Manager.getCurrent(target) + " está lotada."));
+        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + "'s is full."));
         return;
       }
-
+      
       party.join(player.getName());
-      player.sendMessage(TextComponent.fromLegacyText("§aVocê entrou na party de " + Role.getPrefixed(target) + "§a."));
-    } else if (action.equalsIgnoreCase("ajuda")) {
+      player.sendMessage(TextComponent.fromLegacyText("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-"));
+      player.sendMessage(TextComponent.fromLegacyText("§eYou joined §6" + Role.getPrefixed(target) + "'s §eparty!"));
+      player.sendMessage(TextComponent.fromLegacyText("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-"));
+    } else if (action.equalsIgnoreCase("help")) {
       player.sendMessage(TextComponent.fromLegacyText(
-              "\n§b/pc <mensagem> §f- §eComunicar-se com os membros." +
-                      "\n§b/party abrir §f- §eTornar a party pública." +
-                      "\n§b/party fechar §f- §eTornar a party privada." +
-                      "\n§b/party entrar <jogador> §f- §eEntrar em uma party pública." +
-                      "\n§b/party aceitar <jogador> §f- §eAceitar uma solicitação." +
-                      "\n§b/party ajuda §f- §eMostrar essa mensagem de ajuda." +
-                      "\n§b/party convidar <jogador> §f- §eConvidar um jogador." +
-                      "\n§b/party deletar §f- §eDeletar a party." +
-                      "\n§b/party expulsar <jogador> §f- §eExpulsar um membro." +
-                      "\n§b/party info §f- §eInformações da sua Party." +
-                      "\n§b/party negar <jogador> §f- §eRecuse o convite para party." +
-                      "\n§b/party sair §f- §eSaia da party." +
-                      "\n§b/party transferir <jogador> §f- §eTransfira a posse da party para um membro.\n "));
-    } else if (action.equalsIgnoreCase("puxar") || action.equalsIgnoreCase("push")) {
+                      "§e/p <message> §7- §bTalk to your party members." +
+                      "\n§e/party open §7- §bMake your party public." +
+                      "\n§e/party close §7- §bPrivate your party to invite only." +
+                      "\n§e/party join <player> §7- §bJoin a player's party." +
+                      "\n§e/party accept <player> §7- §bAccept a party invite." +
+                      "\n§e/party help §7- §bOpen the party instructions list." +
+                      "\n§e/party invite <jogador> §7- §bSend an invite to a player." +
+                      "\n§e/party delete §7- §bDelete the party." +
+                      "\n§e/party kick <jogador> §7- §bKick a member." +
+                      "\n§e/party info §7- §bView your party information." +
+                      "\n§e/party deny <jogador> §7- §bDecline a party request." +
+                      "\n§e/party leave §7- §bLeave the party." +
+                      "\n§e/party transfer <jogador> §7- §bTransfer party ownership to another player."));
+    } else if (action.equalsIgnoreCase("send")) {
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pertence a uma party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou don't belong to a party."));
         return;
       }
-
+      
       if (!party.isLeader(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não é o líder da party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou are not the party leader."));
         return;
       }
-
-      party.listMembers().forEach(member -> ProxyServer.getInstance().getPlayer(member.getName()).connect(player.getServer().getInfo()));
-      party.broadcast("§dParty> " + Role.getColored(player.getName() + " §etrouxe todos os membros para o seu servidor."));
-    } else if (action.equalsIgnoreCase("deletar") || action.equalsIgnoreCase("delete")) {
+      
+      party.summonMembers(player.getServer().getInfo());
+      player.sendMessage(TextComponent.fromLegacyText("§7You pulled all players from your party."));
+    } else if (action.equalsIgnoreCase("delete")) {
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pertence a uma party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou don't belong to a party."));
         return;
       }
-
+      
       if (!party.isLeader(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não é o líder da party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou are not the party leader."));
         return;
       }
-
-      party.broadcast("§dParty> " + Role.getColored(player.getName()) + " §cdeletou a party.", true);
+      
+      party.broadcast("" + Role.getPrefixed(player.getName()) + " §cdeleted the party.", true);
       party.delete();
-      player.sendMessage(TextComponent.fromLegacyText("§aVocê deletou a party."));
-    } else if (action.equalsIgnoreCase("expulsar") || action.equalsIgnoreCase("kick")) {
+      player.sendMessage(TextComponent.fromLegacyText("§cYou deleted the party."));
+    } else if (action.equalsIgnoreCase("kick")) {
       if (args.length == 1) {
-        player.sendMessage(TextComponent.fromLegacyText("§cUtilize /party expulsar <jogador>"));
+        player.sendMessage(TextComponent.fromLegacyText("§cUsage: /party kick <player>"));
         return;
       }
-
+      
       BungeeParty party = BungeePartyManager.getLeaderParty(player.getName());
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não é um líder de party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou are not a party leader."));
         return;
       }
-
+      
       String target = args[1];
       if (target.equalsIgnoreCase(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pode se expulsar."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou can't kick yourself out."));
         return;
       }
-
+      
       if (!party.isMember(target)) {
-        player.sendMessage(TextComponent.fromLegacyText("§cEsse jogador não pertence a sua Party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cThis player does not belong to your party."));
         return;
       }
-
+      
       target = party.getName(target);
       party.kick(target);
-      party.broadcast("§eParty> " + Role.getColored(player.getName()) + " §eexpulsou " + Role.getColored(target) + " §eda party.");
+      party.broadcast("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-");
+      party.broadcast("§b" + Role.getPrefixed(player.getName()) + " §ekicked §f" + Role.getPrefixed(target) + " §eout of the party!\n ");
+      party.broadcast("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-");
     } else if (action.equalsIgnoreCase("info")) {
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pertence a uma party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou don't belong to a party."));
         return;
       }
-
-      List<String> members = party.listMembers().stream().filter(pp -> pp.getRole() != PartyRole.LEADER).map(pp -> (pp.isOnline() ? "§a" : "§c") + pp.getName()).collect(Collectors.toList());
+      
+      List<String> members = party.listMembers().stream().filter(pp -> pp.getRole() != LEADER).map(pp -> (pp.isOnline() ? "§a" : "§c") + pp.getName()).collect(Collectors.toList());
       player.sendMessage(TextComponent.fromLegacyText(
-        " \n§aDono: " + Role.getPrefixed(party.getLeader()) +
-        "\n§aTipo: " + (party.isOpen() ? "§7Pública" : "§7Privada") +
-        "\n§aLimite de membros: §7" + party.listMembers()
-          .size() + "/" + party.getSlots() + "\n§aMembros: §7" + StringUtils.join(members, "§7, ") + "\n "));
-    } else if (action.equalsIgnoreCase("negar") || action.equalsIgnoreCase("deny")) {
+                 " \n§8▪ §7Leader: " + Role.getPrefixed(party.getLeader()) +
+                  "\n§8▪ §7Status: " + (party.isOpen() ? "§fPública" : "§fParticular") +
+                  "\n§8▪ §7Member Limit: §f" + party.listMembers().size() + "/" + party.getSlots() +
+                  "\n§8▪ §7Members: §f" + StringUtils.join(members, "§7, ") + "\n "));
+    } else if (action.equalsIgnoreCase("deny")) {
       if (args.length == 1) {
-        player.sendMessage(TextComponent.fromLegacyText("§cUtilize /party negar <jogador>"));
+        player.sendMessage(TextComponent.fromLegacyText("§cUsage /party deny <player>"));
         return;
       }
-
+      
       String target = args[1];
       if (target.equalsIgnoreCase(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pode negar convites de si mesmo."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou can't deny yourself invitations."));
         return;
       }
-
+      
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party != null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê já pertence a uma party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou already belong to a party."));
         return;
       }
-
+      
       party = BungeePartyManager.getLeaderParty(target);
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " não é o líder da party."));
+        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " is not a party leader."));
         return;
       }
-
+      
       target = party.getName(target);
       if (!party.isInvited(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " não convidou você para party."));
+        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(target) + " didn't invite you."));
         return;
       }
-
+      
       party.reject(player.getName());
-      player.sendMessage(TextComponent.fromLegacyText("§cVocê recusou o convite para a party de " + Role.getColored(target) + "§c."));
-    } else if (action.equalsIgnoreCase("sair") || action.equalsIgnoreCase("leave")) {
+      player.sendMessage(TextComponent.fromLegacyText("§cYou declined " + Role.getPrefixed(target) + "'s invitation."));
+    } else if (action.equalsIgnoreCase("leave")) {
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pertence a uma party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou don't belong to a party."));
         return;
       }
-
+      
       party.leave(player.getName());
-      player.sendMessage(TextComponent.fromLegacyText("§aVocê saiu da party."));
-    } else if (action.equalsIgnoreCase("transferir") || action.equalsIgnoreCase("transfer")) {
+      player.sendMessage(TextComponent.fromLegacyText("§cYou left the party. "));
+    } else if (action.equalsIgnoreCase("transfer")) {
       if (args.length == 1) {
-        player.sendMessage(TextComponent.fromLegacyText("§cUtilize /party transferir <jogador>"));
+        player.sendMessage(TextComponent.fromLegacyText("§cUsage /party transfer <player>"));
         return;
       }
-
+      
       BungeeParty party = BungeePartyManager.getLeaderParty(player.getName());
       if (party == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não é um líder de party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou are not a party leader."));
         return;
       }
-
+      
       String target = args[1];
       if (target.equalsIgnoreCase(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê já tem a posse dessa party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou already own this party."));
         return;
       }
-
+      
       if (!party.isMember(target)) {
-        player.sendMessage(TextComponent.fromLegacyText("§cEsse jogador não pertence a sua party."));
+        player.sendMessage(TextComponent.fromLegacyText("§cThat player does not belong to your party."));
         return;
       }
-
+      
       target = party.getName(target);
       party.transfer(target);
-      party.broadcast("§dParty> " + Role.getColored(player.getName()) + " §etransferiu a posse da party para " + Role.getColored(target) + "§e.");
+      party.broadcast("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-");
+      party.broadcast("§b" + Role.getPrefixed(player.getName()) + " §etransferred ownership of the party to §f" + Role.getPrefixed(target) + "§e.");
+      party.broadcast("§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-§9§m-§b§m-");
     } else {
-      if (action.equalsIgnoreCase("convidar") || action.equalsIgnoreCase("invite")) {
+      if (action.equalsIgnoreCase("invite")) {
         if (args.length == 1) {
-          player.sendMessage(TextComponent.fromLegacyText("§cUtilize /party convidar <jogador>"));
+          player.sendMessage(TextComponent.fromLegacyText("§cUsage /party invite <player>"));
           return;
         }
-
+        
         action = args[1];
       }
-
+      
       ProxiedPlayer target = ProxyServer.getInstance().getPlayer(action);
       if (target == null) {
-        player.sendMessage(TextComponent.fromLegacyText("§cUsuário não encontrado."));
+        player.sendMessage(TextComponent.fromLegacyText("§cPlayer not found."));
         return;
       }
-
+      
       action = target.getName();
       if (action.equalsIgnoreCase(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê não pode enviar convites para si mesmo."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYou cannot send invitations to yourself"));
         return;
       }
-
+      
       BungeeParty party = BungeePartyManager.getMemberParty(player.getName());
       if (party == null) {
         party = BungeePartyManager.createParty(player);
       }
-
+      
       if (!party.isLeader(player.getName())) {
-        player.sendMessage(TextComponent.fromLegacyText("§cApenas o líder da party pode enviar convites!"));
+        player.sendMessage(TextComponent.fromLegacyText("§cOnly the party leader can send invites"));
         return;
       }
-
+      
       if (!party.canJoin()) {
-        player.sendMessage(TextComponent.fromLegacyText("§cA sua party está lotada."));
+        player.sendMessage(TextComponent.fromLegacyText("§cYour party is full."));
         return;
       }
-
+      
       if (party.isInvited(action)) {
-        player.sendMessage(TextComponent.fromLegacyText("§cVocê já enviou um convite para " + Manager.getCurrent(action) + "."));
+        player.sendMessage(TextComponent.fromLegacyText("§cHave you already sent an invitation to " + Manager.getCurrent(action) + "."));
         return;
       }
-
+      
       if (BungeePartyManager.getMemberParty(action) != null) {
-        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(action) + " já pertence a uma Party."));
+        player.sendMessage(TextComponent.fromLegacyText("§c" + Manager.getCurrent(action) + " already belongs to a party."));
         return;
       }
-
-      Profile profilet = Profile.getProfile(target.getName());
-      if(profilet.getPreferencesContainer().getPartyRequest().equals(PartyRequest.DESATIVADO)) {
-        player.sendMessage(TextComponent.fromLegacyText("§cEsse jogador não quer receber convites para party."));
-        return;
-      }
-
+      
       party.invite(target);
       player.sendMessage(
-        TextComponent.fromLegacyText(" \n" + Role.getColored(action) + " §efoi convidado para a party, ele tem 60 segundos para responder ao convite.\n "));
+          TextComponent.fromLegacyText("§6----------------------------------\n" + Role.getPrefixed(action) + " §ehas invited to join their party! He has 60 seconds to accept or deny this request.\n§6----------------------------------"));
     }
   }
 }

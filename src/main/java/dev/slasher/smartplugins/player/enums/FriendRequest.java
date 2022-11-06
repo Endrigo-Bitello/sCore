@@ -14,10 +14,10 @@ public enum FriendRequest {
 
     public String getName() {
         if (this == ATIVADO) {
-            return "§aAtivado";
+            return "§aON";
         }
 
-        return "§cDesativado";
+        return "§cOFF";
     }
 
     public FriendRequest next() {

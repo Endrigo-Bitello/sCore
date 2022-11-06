@@ -5,10 +5,10 @@ import dev.slasher.smartplugins.utils.StringUtils;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum EnumRarity {
-  DIVINO("§cLendário", 10),
-  EPICO("§dÉpico", 25),
-  RARO("§9Raro", 50),
-  COMUM("§aComum", 100);
+  DIVINO("§6Legendary", 10),
+  EPICO("§5Epic", 25),
+  RARO("§9Rare", 50),
+  COMUM("§aCommon", 100);
 
   private String name;
   private int percentage;

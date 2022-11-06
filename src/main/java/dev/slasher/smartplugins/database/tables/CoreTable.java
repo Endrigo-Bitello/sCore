@@ -11,23 +11,23 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @DataTableInfo(
-    name = "kCoreProfile",
-    create = "CREATE TABLE IF NOT EXISTS `kCoreProfile` (`name` VARCHAR(32), `cash` LONG, `role` TEXT, `deliveries` TEXT, `preferences` TEXT, `titles` TEXT, `boosters` TEXT, `achievements` TEXT, `selected` TEXT, `created` LONG, `tag` TEXT, `lastlogin` LONG, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
-    select = "SELECT * FROM `kCoreProfile` WHERE LOWER(`name`) = ?",
-    insert = "INSERT INTO `kCoreProfile` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", //13
-    update = "UPDATE `kCoreProfile` SET `cash` = ?, `role` = ?, `deliveries` = ?, `preferences` " +
+    name = "HyCoreProfile",
+    create = "CREATE TABLE IF NOT EXISTS `HyCoreProfile` (`name` VARCHAR(32), `cash` LONG, `role` TEXT, `deliveries` TEXT, `preferences` TEXT, `titles` TEXT, `boosters` TEXT, `achievements` TEXT, `selected` TEXT, `created` LONG, `tag` TEXT, `lastlogin` LONG, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
+    select = "SELECT * FROM `HyCoreProfile` WHERE LOWER(`name`) = ?",
+    insert = "INSERT INTO `HyCoreProfile` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", //13
+    update = "UPDATE `HyCoreProfile` SET `cash` = ?, `role` = ?, `deliveries` = ?, `preferences` " +
             "= ?, `titles` = ?, `boosters` = ?, `achievements` = ?, `selected` = ?, `created` = ?, `tag` = ?, `lastlogin` = ? WHERE LOWER(`name`) = ?")
 public class CoreTable extends DataTable {
 
   @Override
   public void init(Database database) {
     if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `kCoreProfile` LIKE 'cash'") == null) {
-        ((MySQLDatabase) database).execute("ALTER TABLE `kCoreProfile` ADD `cash` LONG AFTER `name`");
+      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `HyCoreProfile` LIKE 'cash'") == null) {
+        ((MySQLDatabase) database).execute("ALTER TABLE `HyCoreProfile` ADD `cash` LONG AFTER `name`");
       }
     } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `kCoreProfile` LIKE 'cash'") == null) {
-        ((HikariDatabase) database).execute("ALTER TABLE `kCoreProfile` ADD `cash` LONG AFTER `name`");
+      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `HyCoreProfile` LIKE 'cash'") == null) {
+        ((HikariDatabase) database).execute("ALTER TABLE `HyCoreProfile` ADD `cash` LONG AFTER `name`");
       }
     }
   }

@@ -34,8 +34,8 @@ public class Hotbar {
     player.getInventory().setArmorContents(null);
 
     this.buttons.stream().filter(button -> button.getSlot() >= 0 && button.getSlot() <= 8).forEach(button -> {
-      ItemStack icon = BukkitUtils.deserializeItemStack(PlaceholderAPI.setPlaceholders(player, button.getIcon().replace("%perfil%", "")));
-      player.getInventory().setItem(button.getSlot(), button.getIcon().contains("%perfil%") ? BukkitUtils.putProfileOnSkull(player, icon) : icon);
+      ItemStack icon = BukkitUtils.deserializeItemStack(PlaceholderAPI.setPlaceholders(player, button.getIcon().replace("%profile%", "")));
+      player.getInventory().setItem(button.getSlot(), button.getIcon().contains("%profile%") ? BukkitUtils.putProfileOnSkull(player, icon) : icon);
     });
 
     player.updateInventory();

@@ -70,7 +70,7 @@
             <artifactId>bungeecord</artifactId>
             <version>latest</version>
             <scope>system</scope>
-            <systemPath>D:/localpost/BungeeCord.jar</systemPath>
+            <systemPath>D:/localpost/jar/BungeeCord.jar</systemPath>
         </dependency>
         <!-- <dependency>
             <groupId>dev.cangasso.fearland</groupId>

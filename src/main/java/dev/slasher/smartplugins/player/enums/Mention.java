@@ -14,10 +14,10 @@ package dev.slasher.smartplugins.player.enums;
 
         public String getName() {
             if (this == ATIVADO) {
-                return "§aAtivado";
+                return "§aON";
             }
 
-            return "§cDesativado";
+            return "§cOFF";
         }
 
         public Mention next() {
