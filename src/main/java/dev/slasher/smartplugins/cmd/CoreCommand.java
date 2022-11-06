@@ -8,21 +8,21 @@ import org.bukkit.entity.Player;
 public class CoreCommand extends Commands {
   
   public CoreCommand() {
-    super("HyCore");
+    super("sCore");
   }
   
   @Override
   public void perform(CommandSender sender, String label, String[] args) {
     if (sender instanceof Player) {
       Player player = (Player) sender;
-      if (!player.hasPermission("hyplay.admin")) {
+      if (!player.hasPermission("smart.admin")) {
         player.sendMessage("§cYou don't have permission.");
         return;
       }
       
       if (args.length == 0) {
-        player.sendMessage("\n§6/hyplay update §f- §7Download the latest version of the plugin.\n"
-        		           + "§6/hyplay convert §f- §7Convert the database information.\n ");
+        player.sendMessage("\n§6/smart update §f- §7Download the latest version of the plugin.\n"
+        		           + "§6/smart convert §f- §7Convert the database information.\n ");
         return;
       }
       
@@ -38,7 +38,7 @@ public class CoreCommand extends Commands {
           SmartUpdater.UPDATER.canDownload = false;
           SmartUpdater.UPDATER.downloadUpdate(player);
         } else {
-          player.sendMessage("§a[HyCore] §fThe plugin is already in its latest version");
+          player.sendMessage("§a[sCore] §fThe plugin is already in its latest version");
         }
       } else if (action.equalsIgnoreCase("convert")) {
         player.sendMessage("§fDatabase: §7" + Database.getInstance().getClass().getSimpleName().replace("Database", ""));

@@ -3,7 +3,7 @@ package dev.slasher.smartplugins.deliveries;
 import dev.slasher.smartplugins.Core;
 import dev.slasher.smartplugins.player.Profile;
 import dev.slasher.smartplugins.player.role.Role;
-import dev.slasher.smartplugins.plugin.config.HyConfig;
+import dev.slasher.smartplugins.plugin.config.SConfig;
 import dev.slasher.smartplugins.utils.BukkitUtils;
 import dev.slasher.smartplugins.utils.StringUtils;
 import dev.slasher.smartplugins.utils.TimeUtils;
@@ -89,7 +89,7 @@ public class Delivery {
   private static final List<Delivery> DELIVERIES = new ArrayList<>();
 
   public static void setupDeliveries() {
-    HyConfig config = Core.getInstance().getConfig("deliveries");
+    SConfig config = Core.getInstance().getConfig("deliveries");
 
     for (String key : config.getSection("deliveries").getKeys(false)) {
       int slot = config.getInt("deliveries." + key + ".slot");

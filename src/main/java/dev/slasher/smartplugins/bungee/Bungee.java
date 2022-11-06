@@ -95,7 +95,7 @@ public class Bungee extends Plugin {
     try {
       if (utils.get("fake.role") instanceof  String) {
         utils.set("fake.role", Arrays.asList(utils.getString("fake.role")));
-        YamlConfiguration.getProvider(YamlConfiguration.class).save(utils, new File("plugins/HyCore/utils.yml"));
+        YamlConfiguration.getProvider(YamlConfiguration.class).save(utils, new File("plugins/sCore/utils.yml"));
       }
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -136,7 +136,7 @@ public class Bungee extends Plugin {
     if (sound != null) {
       out.writeUTF(sound);
     }
-    player.getServer().sendData("HyCore", out.toByteArray());
+    player.getServer().sendData("sCore", out.toByteArray());
   }
 
   public static void sendSkin(ProxiedPlayer player, String roleName, String sound) {

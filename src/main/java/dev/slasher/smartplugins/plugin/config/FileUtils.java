@@ -1,6 +1,6 @@
 package dev.slasher.smartplugins.plugin.config;
 
-import dev.slasher.smartplugins.plugin.HyPlugin;
+import dev.slasher.smartplugins.plugin.SPlugin;
 
 import java.io.*;
 import java.util.Arrays;
@@ -9,9 +9,9 @@ import java.util.logging.Level;
 
 public class FileUtils {
 
-  private HyPlugin plugin;
+  private SPlugin plugin;
 
-  public FileUtils(HyPlugin plugin) {
+  public FileUtils(SPlugin plugin) {
     this.plugin = plugin;
   }
 

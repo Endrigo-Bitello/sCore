@@ -28,7 +28,7 @@ public class CashCommand extends Commands {
       return;
     }
     
-    if (!sender.hasPermission("hyplay.cmd.cash")) {
+    if (!sender.hasPermission("smart.cmd.cash")) {
       sender.sendMessage("§7Cash: §b" + StringUtils.formatNumber(CashManager.getCash(sender.getName())));
       return;
     }

@@ -7,7 +7,7 @@ import dev.slasher.smartplugins.libraries.npclib.api.npc.NPC;
 import dev.slasher.smartplugins.libraries.npclib.npc.AbstractNPC;
 import dev.slasher.smartplugins.libraries.npclib.npc.EntityControllers;
 import dev.slasher.smartplugins.libraries.npclib.npc.ai.NPCHolder;
-import dev.slasher.smartplugins.plugin.HyPlugin;
+import dev.slasher.smartplugins.plugin.SPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -26,7 +26,7 @@ public class NPCLibrary {
   private static Listener LISTENER;
   private static final List<NPC> NPCS = new ArrayList<>();
 
-  public static void setupNPCs(HyPlugin pl) {
+  public static void setupNPCs(SPlugin pl) {
     if (pl == null || plugin != null) {
       return;
     }

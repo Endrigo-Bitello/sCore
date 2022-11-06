@@ -47,7 +47,7 @@ public class HikariDatabase extends Database {
     this.executor = Executors.newCachedThreadPool();
 
     this.update(
-      "CREATE TABLE IF NOT EXISTS `HyCoreNetworkBooster` (`id` VARCHAR(32), `booster` TEXT, `multiplier` DOUBLE, `expires` LONG, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;");
+      "CREATE TABLE IF NOT EXISTS `sCoreNetworkBooster` (`id` VARCHAR(32), `booster` TEXT, `multiplier` DOUBLE, `expires` LONG, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;");
 
     DataTable.listTables().forEach(table -> {
       this.update(table.getInfo().create());
@@ -67,8 +67,8 @@ public class HikariDatabase extends Database {
   public void setupBoosters() {
     if (!Manager.BUNGEE) {
       for (String mg : Core.minigames) {
-        if (query("SELECT * FROM `HyCoreNetworkBooster` WHERE `id` = ?", mg) == null) {
-          execute("INSERT INTO `HyCoreNetworkBooster` VALUES (?, ?, ?, ?)", mg, "Cangasso", 1.0, 0L);
+        if (query("SELECT * FROM `sCoreNetworkBooster` WHERE `id` = ?", mg) == null) {
+          execute("INSERT INTO `sCoreNetworkBooster` VALUES (?, ?, ?, ?)", mg, "Cangasso", 1.0, 0L);
         }
       }
     }
@@ -76,12 +76,12 @@ public class HikariDatabase extends Database {
 
   @Override
   public void setBooster(String minigame, String booster, double multiplier, long expires) {
-    execute("UPDATE `HyCoreNetworkBooster` SET `booster` = ?, `multiplier` = ?, `expires` = ? WHERE `id` = ?", booster, multiplier, expires, minigame);
+    execute("UPDATE `sCoreNetworkBooster` SET `booster` = ?, `multiplier` = ?, `expires` = ? WHERE `id` = ?", booster, multiplier, expires, minigame);
   }
 
   @Override
   public NetworkBooster getBooster(String minigame) {
-    try (CachedRowSet rs = query("SELECT * FROM `HyCoreNetworkBooster` WHERE `id` = ?", minigame)) {
+    try (CachedRowSet rs = query("SELECT * FROM `sCoreNetworkBooster` WHERE `id` = ?", minigame)) {
       if (rs != null) {
         String booster = rs.getString("booster");
         double multiplier = rs.getDouble("multiplier");
@@ -98,7 +98,7 @@ public class HikariDatabase extends Database {
 
   @Override
   public String getRankAndName(String player) {
-    try (CachedRowSet rs = query("SELECT `name`, `role` FROM `HyCoreProfile` WHERE LOWER(`name`) = ?", player.toLowerCase())) {
+    try (CachedRowSet rs = query("SELECT `name`, `role` FROM `sCoreProfile` WHERE LOWER(`name`) = ?", player.toLowerCase())) {
       if (rs != null) {
         String result = rs.getString("role") + " : " + rs.getString("name");
         RoleCache.setCache(player, rs.getString("role"), rs.getString("name"));
@@ -111,7 +111,7 @@ public class HikariDatabase extends Database {
   @Override
   public boolean getPreference(String player, String id, boolean def) {
     boolean preference = true;
-    try (CachedRowSet rs = query("SELECT `preferences` FROM `HyCoreProfile` WHERE LOWER(`name`) = ?", player.toLowerCase())) {
+    try (CachedRowSet rs = query("SELECT `preferences` FROM `sCoreProfile` WHERE LOWER(`name`) = ?", player.toLowerCase())) {
       if (rs != null) {
         preference = ((JSONObject) new JSONParser().parse(rs.getString("preferences"))).get(id).equals(0L);
       }
@@ -224,7 +224,7 @@ public class HikariDatabase extends Database {
   @Override
   public String exists(String name) {
     try {
-      return this.query("SELECT `name` FROM `HyCoreProfile` WHERE LOWER(`name`) = ?", name.toLowerCase()).getString("name");
+      return this.query("SELECT `name` FROM `sCoreProfile` WHERE LOWER(`name`) = ?", name.toLowerCase()).getString("name");
     } catch (Exception ex) {
       return null;
     }

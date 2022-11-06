@@ -10,22 +10,22 @@ import dev.slasher.smartplugins.database.HikariDatabase;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@DataTableInfo(name = "HyCoreTheBridge",
-    create = "CREATE TABLE IF NOT EXISTS `HyCoreTheBridge` (`name` VARCHAR(32), `1v1kills` LONG, `1v1deaths` LONG, `1v1games` LONG, `1v1points` LONG, `1v1wins` LONG, `2v2kills` LONG, `2v2deaths` LONG, `2v2games` LONG, `2v2points` LONG, `2v2wins` LONG, `coins` DOUBLE, `winstreak` LONG, `laststreak` LONG, `lastmap` LONG, `hotbar` TEXT, `cosmetics` TEXT, `selected` TEXT, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
-    select = "SELECT * FROM `HyCoreTheBridge` WHERE LOWER(`name`) = ?",
-    insert = "INSERT INTO `HyCoreTheBridge` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    update = "UPDATE `HyCoreTheBridge` SET `1v1kills` = ?, `1v1deaths` = ?, `1v1games` = ?, `1v1points` = ?, `1v1wins` = ?, `2v2kills` = ?, `2v2deaths` = ?, `2v2games` = ?, `2v2points` = ?, `2v2wins` = ?, `coins` = ?, `winstreak` = ?, `laststreak` = ?, `lastmap` = ?, `hotbar` = ?, `cosmetics` = ?, `selected` = ? WHERE LOWER(`name`) = ?")
+@DataTableInfo(name = "sCoreTheBridge",
+    create = "CREATE TABLE IF NOT EXISTS `sCoreTheBridge` (`name` VARCHAR(32), `1v1kills` LONG, `1v1deaths` LONG, `1v1games` LONG, `1v1points` LONG, `1v1wins` LONG, `2v2kills` LONG, `2v2deaths` LONG, `2v2games` LONG, `2v2points` LONG, `2v2wins` LONG, `coins` DOUBLE, `winstreak` LONG, `laststreak` LONG, `lastmap` LONG, `hotbar` TEXT, `cosmetics` TEXT, `selected` TEXT, PRIMARY KEY(`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;",
+    select = "SELECT * FROM `sCoreTheBridge` WHERE LOWER(`name`) = ?",
+    insert = "INSERT INTO `sCoreTheBridge` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    update = "UPDATE `sCoreTheBridge` SET `1v1kills` = ?, `1v1deaths` = ?, `1v1games` = ?, `1v1points` = ?, `1v1wins` = ?, `2v2kills` = ?, `2v2deaths` = ?, `2v2games` = ?, `2v2points` = ?, `2v2wins` = ?, `coins` = ?, `winstreak` = ?, `laststreak` = ?, `lastmap` = ?, `hotbar` = ?, `cosmetics` = ?, `selected` = ? WHERE LOWER(`name`) = ?")
 public class TheBridgeTable extends DataTable {
 
   @Override
   public void init(Database database) {
     if (database instanceof MySQLDatabase) {
-      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `HyCoreTheBridge` LIKE 'hotbar'") == null) {
-        ((MySQLDatabase) database).execute("ALTER TABLE `HyCoreTheBridge` ADD `hotbar` TEXT AFTER `lastmap`");
+      if (((MySQLDatabase) database).query("SHOW COLUMNS FROM `sCoreTheBridge` LIKE 'hotbar'") == null) {
+        ((MySQLDatabase) database).execute("ALTER TABLE `sCoreTheBridge` ADD `hotbar` TEXT AFTER `lastmap`");
       }
     } else if (database instanceof HikariDatabase) {
-      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `HyCoreTheBridge` LIKE 'hotbar'") == null) {
-        ((HikariDatabase) database).execute("ALTER TABLE `HyCoreTheBridge` ADD `hotbar` TEXT AFTER `lastmap`");
+      if (((HikariDatabase) database).query("SHOW COLUMNS FROM `sCoreTheBridge` LIKE 'hotbar'") == null) {
+        ((HikariDatabase) database).execute("ALTER TABLE `sCoreTheBridge` ADD `hotbar` TEXT AFTER `lastmap`");
       }
     }
   }

@@ -76,11 +76,11 @@ public class TheBridgeAchievement extends Achievement {
   
   @Override
   protected boolean check(Profile profile) {
-    return profile.getStats("HyTheBridge", this.stats) >= this.reach;
+    return profile.getStats("sTheBridge", this.stats) >= this.reach;
   }
   
   public ItemStack getIcon(Profile profile) {
-    long current = profile.getStats("HyTheBridge", this.stats);
+    long current = profile.getStats("sTheBridge", this.stats);
     if (current > this.reach) {
       current = this.reach;
     }
@@ -104,7 +104,7 @@ public class TheBridgeAchievement extends Achievement {
     
     @Override
     public void give(Profile profile) {
-      profile.getDataContainer("HyTheBridge", "coins").addDouble(this.amount);
+      profile.getDataContainer("sTheBridge", "coins").addDouble(this.amount);
     }
   }
   

@@ -21,7 +21,7 @@ public class FakeListCommand extends Commands {
     }
     
     ProxiedPlayer player = (ProxiedPlayer) sender;
-    if (!player.hasPermission("hyplay.cmd.fakelist")) {
+    if (!player.hasPermission("smart.cmd.fakelist")) {
       player.sendMessage(TextComponent.fromLegacyText("§cYou don't have permission."));
       return;
     }

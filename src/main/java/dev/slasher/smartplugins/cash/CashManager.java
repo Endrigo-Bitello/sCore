@@ -2,13 +2,13 @@ package dev.slasher.smartplugins.cash;
 
 import dev.slasher.smartplugins.Core;
 import dev.slasher.smartplugins.player.Profile;
-import dev.slasher.smartplugins.plugin.config.HyConfig;
+import dev.slasher.smartplugins.plugin.config.SConfig;
 import org.bukkit.entity.Player;
 
 public class CashManager {
   
   public static final boolean CASH;
-  private static final HyConfig CONFIG;
+  private static final SConfig CONFIG;
   
   static {
     CONFIG = Core.getInstance().getConfig("utils");
@@ -24,7 +24,7 @@ public class CashManager {
       throw new CashException("User needs to be logged in to change cash.");
     }
     
-    profile.setStats("HyCoreProfile", profile.getStats("HyCoreProfile", "cash") + amount, "cash");
+    profile.setStats("sCoreProfile", profile.getStats("sCoreProfile", "cash") + amount, "cash");
   }
   
   public static void addCash(Player player, long amount) throws CashException {
@@ -40,7 +40,7 @@ public class CashManager {
       throw new CashException("User needs to be logged in to change cash.");
     }
     
-    profile.setStats("HyCoreProfile", profile.getStats("HyCoreProfile", "cash") - amount, "cash");
+    profile.setStats("sCoreProfile", profile.getStats("sCoreProfile", "cash") - amount, "cash");
   }
   
   public static void removeCash(Player player, long amount) throws CashException {
@@ -56,7 +56,7 @@ public class CashManager {
       throw new CashException("User needs to be logged in to change cash.");
     }
     
-    profile.setStats("HyCoreProfile", amount, "cash");
+    profile.setStats("sCoreProfile", amount, "cash");
   }
   
   public static void setCash(Player player, long amount) throws CashException {
@@ -70,7 +70,7 @@ public class CashManager {
   public static long getCash(Profile profile) {
     long cash = 0L;
     if (profile != null) {
-      cash = profile.getStats("HyCoreProfile", "cash");
+      cash = profile.getStats("sCoreProfile", "cash");
     }
     
     return cash;

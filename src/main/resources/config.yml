@@ -1,6 +1,6 @@
 database:
  # Database types currently available: MongoDB, MySQL
- tipo: 'MySQL'
+ type: 'MySQL'
  mysql:
   # Use Hikari
   hikari: false

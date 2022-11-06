@@ -20,7 +20,7 @@ public class PluginMessageListener implements org.bukkit.plugin.messaging.Plugin
 
   @Override
   public void onPluginMessageReceived(String channel, Player receiver, byte[] data) {
-    if (channel.equals("HyCore")) {
+    if (channel.equals("sCore")) {
       ByteArrayDataInput in = ByteStreams.newDataInput(data);
 
       String subChannel = in.readUTF();

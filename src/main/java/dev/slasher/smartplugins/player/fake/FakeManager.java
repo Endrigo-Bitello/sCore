@@ -5,7 +5,7 @@ import com.comphenix.protocol.wrappers.WrappedSignedProperty;
 import dev.slasher.smartplugins.Core;
 import dev.slasher.smartplugins.libraries.profile.Mojang;
 import dev.slasher.smartplugins.player.role.Role;
-import dev.slasher.smartplugins.plugin.config.HyConfig;
+import dev.slasher.smartplugins.plugin.config.SConfig;
 import dev.slasher.smartplugins.utils.BukkitUtils;
 import dev.slasher.smartplugins.utils.StringUtils;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -30,8 +30,8 @@ public class FakeManager {
   public static final String ALEX =
           "eyJ0aW1lc3RhbXAiOjE1ODcxMzkyMDU4MzUsInByb2ZpbGVJZCI6Ijc1MTQ0NDgxOTFlNjQ1NDY4Yzk3MzlhNmUzOTU3YmViIiwicHJvZmlsZU5hbWUiOiJUaGFua3NNb2phbmciLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzNiNjBhMWY2ZDU2MmY1MmFhZWJiZjE0MzRmMWRlMTQ3OTMzYTNhZmZlMGU3NjRmYTQ5ZWEwNTc1MzY2MjNjZDMiLCJtZXRhZGF0YSI6eyJtb2RlbCI6InNsaW0ifX19fQ==:W60UUuAYlWfLFt5Ay3Lvd/CGUbKuuU8+HTtN/cZLhc0BC22XNgbY1btTite7ZtBUGiZyFOhYqQi+LxVWrdjKEAdHCSYWpCRMFhB1m0zEfu78yg4XMcFmd1v7y9ZfS45b3pLAJ463YyjDaT64kkeUkP6BUmgsTA2iIWvM33k6Tj3OAM39kypFSuH+UEpkx603XtxratD+pBjUCUvWyj2DMxwnwclP/uACyh0ZVrI7rC5xJn4jSura+5J2/j6Z/I7lMBBGLESt7+pGn/3/kArDE/1RShOvm5eYKqrTMRfK4n3yd1U1DRsMzxkU2AdlCrv1swT4o+Cq8zMI97CF/xyqk8z2L98HKlzLjtvXIE6ogljyHc9YsfU9XhHwZ7SKXRNkmHswOgYIQCSa1RdLHtlVjN9UdUyUoQIIO2AWPzdKseKJJhXwqKJ7lzfAtStErRzDjmjr7ld/5tFd3TTQZ8yiq3D6aRLRUnOMTr7kFOycPOPhOeZQlTjJ6SH3PWFsdtMMQsGzb2vSukkXvJXFVUM0TcwRZlqT5MFHyKBBPprIt0wVN6MmSKc8m5kdk7ZBU2ICDs/9Cd/fyzAIRDu3Kzm7egbAVK9zc1kXwGzowUkGGy1XvZxyRS5jF1zu6KzVgaXOGcrOLH4z/OHzxvbyW22/UwahWGN7MD4j37iJ7gjZDrk=";
 
-  private static final HyConfig CONFIG = Core.getInstance().getConfig("utils");
-  private static final Pattern REAL_PATTERN = Pattern.compile("(?i)hycorefakereal:\\w*"), NOT_CHANGE_PATTERN = Pattern.compile("(?i)hycorenotchange:\\w*");
+  private static final SConfig CONFIG = Core.getInstance().getConfig("utils");
+  private static final Pattern REAL_PATTERN = Pattern.compile("(?i)scorefakereal:\\w*"), NOT_CHANGE_PATTERN = Pattern.compile("(?i)sCorenotchange:\\w*");
 
   public static Map<String, String> fakeNames = new HashMap<>();
   public static Map<String, Role> fakeRoles = new HashMap<>();
@@ -70,7 +70,7 @@ public class FakeManager {
     TextComponent ALEX = new TextComponent("\n §0▪ §7Alex");
     ALEX.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§7You will get Alex's appearance.")));
     ALEX.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/fake {role} alex"));
-    TextComponent YOU = new TextComponent("\n §0▪ §7Você");
+    TextComponent YOU = new TextComponent("\n §0▪ §7You");
     YOU.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§7You will keep your appearance.")));
     YOU.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/fake {role} you"));
     FAKE_SKINS.addExtra(STEVE);
@@ -170,7 +170,7 @@ public class FakeManager {
       Matcher matcher = Pattern.compile("(?i)" + name).matcher(replaced);
 
       while (matcher.find()) {
-        replaced = replaced.replaceFirst(Pattern.quote(matcher.group()), Matcher.quoteReplacement("hycorenotchange:" + name));
+        replaced = replaced.replaceFirst(Pattern.quote(matcher.group()), Matcher.quoteReplacement("sCorenotchange:" + name));
       }
     }
 
@@ -184,8 +184,8 @@ public class FakeManager {
       Matcher matcher = NOT_CHANGE_PATTERN.matcher(replaced);
       while (matcher.find()) {
         String found = matcher.group();
-        backup.add(found.replace("hycorenotchange:", ""));
-        replaced = replaced.replaceFirst(Pattern.quote(found), Matcher.quoteReplacement("hycorenotchange:" + (backup.size() - 1)));
+        backup.add(found.replace("scorenotchange:", ""));
+        replaced = replaced.replaceFirst(Pattern.quote(found), Matcher.quoteReplacement("sCorenotchange:" + (backup.size() - 1)));
       }
 
       matcher = Pattern.compile("(?i)" + (toFake ? name : getFake(name))).matcher(replaced);
@@ -198,13 +198,13 @@ public class FakeManager {
     while (matcher.find()) {
       String found = matcher.group();
       replaced = replaced.replaceFirst(Pattern.quote(found), Matcher.quoteReplacement(
-              fakeNames.entrySet().stream().filter(entry -> entry.getValue().equals(found.replace("hycoreakereal:", ""))).map(Map.Entry::getKey).findFirst().orElse("")));
+              fakeNames.entrySet().stream().filter(entry -> entry.getValue().equals(found.replace("sCoreakereal:", ""))).map(Map.Entry::getKey).findFirst().orElse("")));
     }
 
     matcher = NOT_CHANGE_PATTERN.matcher(replaced);
     while (matcher.find()) {
       String found = matcher.group();
-      replaced = replaced.replaceFirst(Pattern.quote(matcher.group()), Matcher.quoteReplacement(backup.get(Integer.parseInt(found.replace("hycorenotchange:", "")))));
+      replaced = replaced.replaceFirst(Pattern.quote(matcher.group()), Matcher.quoteReplacement(backup.get(Integer.parseInt(found.replace("sCorenotchange:", "")))));
     }
 
     backup.clear();

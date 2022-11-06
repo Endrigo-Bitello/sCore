@@ -1,7 +1,7 @@
 package dev.slasher.smartplugins.servers;
 
 import dev.slasher.smartplugins.player.Profile;
-import dev.slasher.smartplugins.plugin.config.HyConfig;
+import dev.slasher.smartplugins.plugin.config.SConfig;
 import dev.slasher.smartplugins.servers.balancer.BaseBalancer;
 import dev.slasher.smartplugins.servers.balancer.Server;
 import dev.slasher.smartplugins.servers.balancer.type.LeastConnection;
@@ -50,7 +50,7 @@ public class ServerItem {
   }
 
   private static final List<ServerItem> SERVERS = new ArrayList<>();
-  public static final HyConfig CONFIG = Core.getInstance().getConfig("servers");
+  public static final SConfig CONFIG = Core.getInstance().getConfig("servers");
   public static final List<Integer> DISABLED_SLOTS = CONFIG.getIntegerList("disabled-slots");
   public static final Map<String, Integer> SERVER_COUNT = new HashMap<>();
 

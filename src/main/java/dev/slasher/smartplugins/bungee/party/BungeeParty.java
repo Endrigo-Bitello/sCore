@@ -100,7 +100,7 @@ private void sendData(String extraKey, String extraValue) {
     ByteArrayDataOutput out = ByteStreams.newDataOutput();
     out.writeUTF("PARTY");
     out.writeUTF(changes.toString());
-    serverInfos.forEach(info -> info.sendData("HyCore", out.toByteArray()));
+    serverInfos.forEach(info -> info.sendData("sCore", out.toByteArray()));
   }
   
   public void summonMembers(ServerInfo serverInfo) {

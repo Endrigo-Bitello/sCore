@@ -28,9 +28,9 @@ public class MenuProfile extends PlayerMenu {
         super(profile.getPlayer(), "My profile", 3);
 
         this.setItem(10, BukkitUtils.putProfileOnSkull(this.player, BukkitUtils.deserializeItemStack(
-                "SKULL_ITEM:3 : 1 : name>&aPersonal informations : desc>&fRank: " + Role.getRoleByName(profile.getDataContainer("HyCoreProfile", "role").getAsString())
-                        .getName() + "\n&fCash: &b" + StringUtils.formatNumber(profile.getStats("HyCoreProfile", "cash")) + "\n \n&fFirst login: &7" + SDF.format(profile.getDataContainer("HyCoreProfile", "created").getAsLong()) + "\n&fLast login: &7" + SDF
-                        .format(profile.getDataContainer("HyCoreProfile", "lastlogin").getAsLong()))));
+                "SKULL_ITEM:3 : 1 : name>&aPersonal informations : desc>&fRank: " + Role.getRoleByName(profile.getDataContainer("sCoreProfile", "role").getAsString())
+                        .getName() + "\n&fCash: &b" + StringUtils.formatNumber(profile.getStats("sCoreProfile", "cash")) + "\n \n&fFirst login: &7" + SDF.format(profile.getDataContainer("sCoreProfile", "created").getAsLong()) + "\n&fLast login: &7" + SDF
+                        .format(profile.getDataContainer("sCoreProfile", "lastlogin").getAsLong()))));
 
         this.setItem(11, BukkitUtils.deserializeItemStack(
                 "PAPER : 1 : name>&aStatistics : desc>&7View your stats for each\n&7minigame on the server.\n \n&eClick to view your stats!"));

@@ -79,11 +79,11 @@ public class SkyWarsAchievement extends Achievement {
   
   @Override
   protected boolean check(Profile profile) {
-    return profile.getStats("HySkyWars", this.stats) >= this.reach;
+    return profile.getStats("sSkyWars", this.stats) >= this.reach;
   }
   
   public ItemStack getIcon(Profile profile) {
-    long current = profile.getStats("HySkyWars", this.stats);
+    long current = profile.getStats("sSkyWars", this.stats);
     if (current > this.reach) {
       current = this.reach;
     }
@@ -107,7 +107,7 @@ public class SkyWarsAchievement extends Achievement {
     
     @Override
     public void give(Profile profile) {
-      profile.getDataContainer("HySkyWars", "coins").addDouble(this.amount);
+      profile.getDataContainer("sSkyWars", "coins").addDouble(this.amount);
     }
   }
   

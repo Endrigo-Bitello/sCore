@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import dev.slasher.smartplugins.Core;
 import dev.slasher.smartplugins.libraries.holograms.api.HologramLine;
 import dev.slasher.smartplugins.nms.NMS;
-import dev.slasher.smartplugins.plugin.HyPlugin;
-import dev.slasher.smartplugins.plugin.logger.HyLogger;
+import dev.slasher.smartplugins.plugin.SPlugin;
+import dev.slasher.smartplugins.plugin.logger.SLogger;
 import dev.slasher.smartplugins.libraries.holograms.api.Hologram;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class HologramLibrary {
 
-  public static final HyLogger LOGGER = ((HyLogger) Core.getInstance().getLogger()).getModule("HOLOGRAMS");
+  public static final SLogger LOGGER = ((SLogger) Core.getInstance().getLogger()).getModule("HOLOGRAMS");
 
   private static Plugin plugin;
   private static final List<Hologram> holograms = new ArrayList<>();
@@ -77,7 +77,7 @@ public class HologramLibrary {
     return ImmutableList.copyOf(holograms);
   }
 
-  public static void setupHolograms(HyPlugin pl) {
+  public static void setupHolograms(SPlugin pl) {
     if (plugin != null) {
       return;
     }

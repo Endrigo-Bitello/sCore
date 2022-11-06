@@ -84,7 +84,7 @@ fake:
   kick-apply: '&c&lSMART\n \n&eYour nickname has been changed!\n&eSign in again to update.'
   # Mensagem de kick ao utilizar o /faker
   kick-remove: '&c&lSMART\n \n&eYour nickname has been reset!\n&eSign in again to update.'
-# /party do kCore
+# /party do sCore
 party:
   # Party size by permission
   # (_) it's the same as (.)

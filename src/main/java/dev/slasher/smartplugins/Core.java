@@ -14,8 +14,8 @@ import dev.slasher.smartplugins.nms.NMS;
 import dev.slasher.smartplugins.player.Profile;
 import dev.slasher.smartplugins.player.fake.FakeManager;
 import dev.slasher.smartplugins.player.role.Role;
-import dev.slasher.smartplugins.plugin.HyPlugin;
-import dev.slasher.smartplugins.plugin.config.HyConfig;
+import dev.slasher.smartplugins.plugin.SPlugin;
+import dev.slasher.smartplugins.plugin.config.SConfig;
 import dev.slasher.smartplugins.queue.Queue;
 import dev.slasher.smartplugins.queue.QueuePlayer;
 import dev.slasher.smartplugins.servers.ServerItem;
@@ -46,7 +46,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 @SuppressWarnings("unchecked")
-public class Core extends HyPlugin {
+public class Core extends SPlugin {
 
   private static Core instance;
   public static boolean validInit;
@@ -92,7 +92,7 @@ public class Core extends HyPlugin {
 
     if (!warnings.isEmpty()) {
       CommandSender sender = Bukkit.getConsoleSender();
-      StringBuilder sb = new StringBuilder(" \n §6§lIMPORTANT WARNING\n \n §7Apparently you use plugins that conflict with HyCore.\n §7You will not be able to start the server with the following plugins:");
+      StringBuilder sb = new StringBuilder(" \n §6§lIMPORTANT WARNING\n \n §7Apparently you use plugins that conflict with sCore.\n §7You will not be able to start the server with the following plugins:");
       for (String warning : warnings) {
         sb.append("\n§f").append(warning);
       }
@@ -176,8 +176,8 @@ public class Core extends HyPlugin {
     ProtocolLibrary.getProtocolManager().addPacketListener(new HologramAdapter());
 
     getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-    getServer().getMessenger().registerOutgoingPluginChannel(this, "HyCore");
-    getServer().getMessenger().registerIncomingPluginChannel(this, "HyCore", new PluginMessageListener());
+    getServer().getMessenger().registerOutgoingPluginChannel(this, "sCore");
+    getServer().getMessenger().registerIncomingPluginChannel(this, "sCore", new PluginMessageListener());
 
    // Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> new SlickUpdater(this, 2).run());
 
@@ -200,11 +200,11 @@ public class Core extends HyPlugin {
       Database.getInstance().close();
     }
 
-    File update = new File("plugins/HyCore/update", "HyCore.jar");
+    File update = new File("plugins/sCore/update", "sCore.jar");
     if (update.exists()) {
       try {
-        this.getFileUtils().deleteFile(new File("plugins/HyCore.jar"));
-        this.getFileUtils().copyFile(new FileInputStream(update), new File("plugins/HyCore.jar"));
+        this.getFileUtils().deleteFile(new File("plugins/sCore.jar"));
+        this.getFileUtils().copyFile(new FileInputStream(update), new File("plugins/sCore.jar"));
         this.getFileUtils().deleteFile(update.getParentFile());
         this.getLogger().info("Update added.");
       } catch (Exception ex) {
@@ -215,7 +215,7 @@ public class Core extends HyPlugin {
   }
 
   private void setupRoles() {
-    HyConfig config = getConfig("roles");
+    SConfig config = getConfig("roles");
     for (String key : config.getSection("roles").getKeys(false)) {
       String name = config.getString("roles." + key + ".name");
       String prefix = config.getString("roles." + key + ".prefix");

@@ -19,7 +19,7 @@ public class FakeResetCommand extends Commands {
     }
     
     ProxiedPlayer player = (ProxiedPlayer) sender;
-    if (!player.hasPermission("hyplay.cmd.fake")) {
+    if (!player.hasPermission("smart.cmd.fake")) {
       player.sendMessage(TextComponent.fromLegacyText("§cYou don't have permission."));
       return;
     }

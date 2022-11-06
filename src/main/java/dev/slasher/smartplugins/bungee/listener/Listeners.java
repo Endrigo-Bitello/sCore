@@ -91,7 +91,7 @@ private static final FieldAccessor<Map> COMMAND_MAP = Accessors.getField(PluginM
       out.writeUTF(Bungee.getFake(player.getName()));
       out.writeUTF(StringUtils.stripColors(Bungee.getRole(player.getName()).getName()));
       out.writeUTF(skin);
-      evt.getServer().sendData("HyCore", out.toByteArray());
+      evt.getServer().sendData("sCore", out.toByteArray());
       
       
       LoginResult profile = ((InitialHandler) player.getPendingConnection()).getLoginProfile();

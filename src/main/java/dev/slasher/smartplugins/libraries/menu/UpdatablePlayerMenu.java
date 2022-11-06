@@ -1,6 +1,6 @@
 package dev.slasher.smartplugins.libraries.menu;
 
-import dev.slasher.smartplugins.plugin.HyPlugin;
+import dev.slasher.smartplugins.plugin.SPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -25,7 +25,7 @@ public abstract class UpdatablePlayerMenu extends UpdatableMenu implements Liste
     player.openInventory(getInventory());
   }
 
-  public void register(HyPlugin plugin, long updateEveryTicks) {
+  public void register(SPlugin plugin, long updateEveryTicks) {
     Bukkit.getPluginManager().registerEvents(this, plugin);
     this.task = new BukkitRunnable() {
       @Override

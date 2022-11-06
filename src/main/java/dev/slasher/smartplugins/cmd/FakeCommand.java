@@ -29,7 +29,7 @@ public class FakeCommand extends Commands {
     }
     
     Player player = (Player) sender;
-    if (!player.hasPermission("hyplay.cmd.fake") || (label.equalsIgnoreCase("fakel") && !player.hasPermission("hyplay.cmd.fakelist"))) {
+    if (!player.hasPermission("smart.cmd.fake") || (label.equalsIgnoreCase("fakel") && !player.hasPermission("hyplay.cmd.fakelist"))) {
       player.sendMessage("§cYou do not have permission to use this command.");
       return;
     }
@@ -102,7 +102,7 @@ public class FakeCommand extends Commands {
       List<String> nicked = FakeManager.listNicked();
       StringBuilder sb = new StringBuilder();
       for (int index = 0; index < nicked.size(); index++) {
-        sb.append("§c").append(nicked.get(index)).append(" §fis actually ").append("§ahyplayfakereal:").append(nicked.get(index)).append(index + 1 == nicked.size() ? "" : "\n");
+        sb.append("§c").append(nicked.get(index)).append(" §fis actually ").append("§asmartfakereal:").append(nicked.get(index)).append(index + 1 == nicked.size() ? "" : "\n");
       }
       
       nicked.clear();

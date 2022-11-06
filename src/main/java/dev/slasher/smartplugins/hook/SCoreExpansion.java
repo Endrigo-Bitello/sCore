@@ -160,7 +160,7 @@ public class SCoreExpansion extends PlaceholderExpansion {
 
 
     } else if (params.startsWith("BedWars_")) {
-      String table = "sBedWars";
+      String table = "sCoreBedWars";
       String value = params.replace("BedWars_", "");
       if (value.equals("kills") || value.equals("deaths") || value.equals("bedslosteds") || value.equals("finalkills") || value.equals("finaldeaths") || value.equals("bedsdestroyeds") || value.equals("games") || value.equals("wins")) {
         return StringUtils.formatNumber(profile.getStats(table, "1v1" + value, "4v4" + value, "2v2" + value));

@@ -36,7 +36,7 @@ public class DeliveryReward {
     if (this.type == RewardType.COMMAND) {
       Bukkit.dispatchCommand(Bukkit.getConsoleSender(), ((String) this.values[0]).replace("{name}", profile.getName()));
     } else if (this.type == RewardType.CASH) {
-      profile.setStats("sCoreProfile", profile.getStats("HyCoreProfile", "cash") + (long) this.values[0], "cash");
+      profile.setStats("sCoreProfile", profile.getStats("sCoreProfile", "cash") + (long) this.values[0], "cash");
     } else if (this.type.name().contains("_COINS")) {
       profile.addCoins("sCore" + this.type.name().replace("_COINS", ""), (double) this.values[0]);
     } else if (this.type.name().contains("_BOOSTER")) {

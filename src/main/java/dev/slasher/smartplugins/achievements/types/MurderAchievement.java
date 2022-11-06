@@ -50,11 +50,11 @@ public class MurderAchievement extends Achievement {
   
   @Override
   protected boolean check(Profile profile) {
-    return profile.getStats("HyMurder", this.stats) >= this.reach;
+    return profile.getStats("sMurder", this.stats) >= this.reach;
   }
   
   public ItemStack getIcon(Profile profile) {
-    long current = profile.getStats("HyMurder", this.stats);
+    long current = profile.getStats("sMurder", this.stats);
     if (current > this.reach) {
       current = this.reach;
     }
@@ -78,7 +78,7 @@ public class MurderAchievement extends Achievement {
     
     @Override
     public void give(Profile profile) {
-      profile.getDataContainer("HyMurder", "coins").addDouble(this.amount);
+      profile.getDataContainer("sMurder", "coins").addDouble(this.amount);
     }
   }
   

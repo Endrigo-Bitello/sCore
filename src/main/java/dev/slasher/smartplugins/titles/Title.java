@@ -74,7 +74,7 @@ public class Title {
     if (Database.getInstance() instanceof MongoDBDatabase) {
       MongoDBDatabase database = ((MongoDBDatabase) Database.getInstance());
 
-      MongoCursor<Document> titles = database.getDatabase().getCollection("HyCoreTitles").find().cursor();
+      MongoCursor<Document> titles = database.getDatabase().getCollection("sCoreTitles").find().cursor();
       while (titles.hasNext()) {
         Document title = titles.next();
         TITLES.add(new Title(title.getString("_id"), title.getString("name"), title.getString("description")));

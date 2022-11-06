@@ -20,7 +20,7 @@ public class CoinsCommand extends Commands {
       
       for (String name : new String[]{"Bed Wars", "Murder", "The Bridge", "Sky Wars", "Build Battle"}) {
         player.sendMessage(" §8▪ §e" + name + ": §6" + StringUtils
-            .formatNumber(profile.getCoins("HyCore" + name.replace(" ", ""))));
+            .formatNumber(profile.getCoins("sCore" + name.replace(" ", ""))));
       }
       
       player.sendMessage("\n");

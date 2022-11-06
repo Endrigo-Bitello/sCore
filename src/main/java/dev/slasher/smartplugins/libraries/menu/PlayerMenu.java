@@ -1,6 +1,6 @@
 package dev.slasher.smartplugins.libraries.menu;
 
-import dev.slasher.smartplugins.plugin.HyPlugin;
+import dev.slasher.smartplugins.plugin.SPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -18,7 +18,7 @@ public class PlayerMenu extends Menu implements Listener {
     this.player = player;
   }
 
-  public void register(HyPlugin plugin) {
+  public void register(SPlugin plugin) {
     Bukkit.getPluginManager().registerEvents(this, plugin);
   }
 

@@ -61,13 +61,13 @@ public class NMS1_8R3 implements INMS {
     CLASS_TO_NAME = Accessors.getField(EntityTypes.class, "d", Map.class);
 
     CLASS_TO_ID.get(null).put(EntityStand.class, 30);
-    CLASS_TO_NAME.get(null).put(EntityStand.class, "HyCore-EntityStand");
+    CLASS_TO_NAME.get(null).put(EntityStand.class, "sCore-EntityStand");
     CLASS_TO_ID.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntityArmorStand.class, 30);
-    CLASS_TO_NAME.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntityArmorStand.class, "HyCore-ArmorStand");
+    CLASS_TO_NAME.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntityArmorStand.class, "sCore-ArmorStand");
     CLASS_TO_ID.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntitySlime.class, 55);
-    CLASS_TO_NAME.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntitySlime.class, "HyCore-Slime");
+    CLASS_TO_NAME.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntitySlime.class, "sCore-Slime");
     CLASS_TO_ID.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntityItem.class, 1);
-    CLASS_TO_NAME.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntityItem.class, "HyCore-Item");
+    CLASS_TO_NAME.get(null).put(dev.slasher.smartplugins.nms.v1_8_R3.entity.EntityItem.class, "sCore-Item");
     SET_TRACKERS = Accessors.getField(EntityTracker.class, "c", Set.class);
 
     FieldAccessor<PlayerMetadataStore> metadatastore = Accessors.getField(CraftServer.class, "playerMetadata", PlayerMetadataStore.class);

@@ -1,6 +1,6 @@
 package dev.slasher.smartplugins.libraries.menu;
 
-import dev.slasher.smartplugins.plugin.HyPlugin;
+import dev.slasher.smartplugins.plugin.SPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -18,7 +18,7 @@ public abstract class UpdatablePagedMenu extends PagedMenu implements Listener {
     super(name, rows);
   }
 
-  public void register(HyPlugin plugin, long updateEveryTicks) {
+  public void register(SPlugin plugin, long updateEveryTicks) {
     Bukkit.getPluginManager().registerEvents(this, plugin);
     this.task = new BukkitRunnable() {
       @Override

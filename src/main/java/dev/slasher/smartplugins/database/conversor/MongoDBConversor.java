@@ -87,7 +87,7 @@ public class MongoDBConversor implements Listener {
     MySQLDatabase mysql = new MySQLDatabase(host, port, database, user, password, false, true);
 
     Map<String, Long> tables = new LinkedHashMap<>();
-    for (String table : new String[] {"HyCoreProfile", "HyCoreTheBridge", "HyCoreSkyWars", "HyCosmetics", "sCoreMurder", "HyMysteryBox", "HyCoreNetworkBooster", "HyMysteryBoxContent"}) {
+    for (String table : new String[] {"sCoreProfile", "sCoreTheBridge", "sCoreSkyWars", "sCosmetics", "sCoreMurder", "HyMysteryBox", "sCoreNetworkBooster", "HyMysteryBoxContent"}) {
       if (mysql.query("SELECT `table_name` FROM INFORMATION_SCHEMA.STATISTICS WHERE table_name = ?", table) != null) {
         try {
           tables.put(table, Long.parseLong(mysql.query("SELECT COUNT(*) FROM " + table).getObject(1).toString()));
@@ -135,10 +135,10 @@ public class MongoDBConversor implements Listener {
           this.running = true;
           executor.execute(() -> {
             String collection =
-              this.currentTable.equalsIgnoreCase("hycorenetworkbooster") || this.currentTable.equalsIgnoreCase("hymysteryboxcontent") ? this.currentTable : "Profile";
+              this.currentTable.equalsIgnoreCase("scorenetworkbooster") || this.currentTable.equalsIgnoreCase("smysteryboxcontent") ? this.currentTable : "Profile";
             if (currentRow == 0) {
               if (collection.equalsIgnoreCase("Profile")) {
-                if (this.currentTable.equalsIgnoreCase("HyCoreProfile")) {
+                if (this.currentTable.equalsIgnoreCase("sCoreProfile")) {
                   mongoDB.getDatabase().getCollection(collection).drop();
                 }
               } else {
@@ -159,7 +159,7 @@ public class MongoDBConversor implements Listener {
                 rs.close();
               } catch (SQLException ignore) {}
             }
-            if (collection.equalsIgnoreCase("Profile") && !this.currentTable.equalsIgnoreCase("HyCoreProfile")) {
+            if (collection.equalsIgnoreCase("Profile") && !this.currentTable.equalsIgnoreCase("sCoreProfile")) {
               documents.forEach(document -> {
                 String _id = document.getString("_id");
                 document.remove("_id");

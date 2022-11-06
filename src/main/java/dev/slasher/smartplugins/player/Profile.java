@@ -48,7 +48,7 @@ public class Profile {
     public Profile(String name) throws ProfileLoadException {
         this.name = name;
         this.tableMap = Database.getInstance().load(name);
-        this.getDataContainer("HyCoreProfile", "lastlogin").set(System.currentTimeMillis());
+        this.getDataContainer("sCoreProfile", "lastlogin").set(System.currentTimeMillis());
     }
 
     public void setGame(Game<? extends GameTeam> game) {
@@ -109,8 +109,8 @@ public class Profile {
             player.setGameMode(GameMode.ADVENTURE);
             player.teleport(Core.getLobby());
 
-            player.setAllowFlight(player.hasPermission("hycore.fly"));
-            this.getDataContainer("HyCoreProfile", "role").set(StringUtils.stripColors(Role.getPlayerRole(player, true).getName()));
+            player.setAllowFlight(player.hasPermission("score.fly"));
+            this.getDataContainer("sCoreProfile", "role").set(StringUtils.stripColors(Role.getPlayerRole(player, true).getName()));
         }
 
         if (this.hotbar != null) {
@@ -397,27 +397,27 @@ public class Profile {
     }
 
     public DeliveriesContainer getDeliveriesContainer() {
-        return this.getAbstractContainer("HyCoreProfile", "deliveries", DeliveriesContainer.class);
+        return this.getAbstractContainer("sCoreProfile", "deliveries", DeliveriesContainer.class);
     }
 
     public PreferencesContainer getPreferencesContainer() {
-        return this.getAbstractContainer("HyCoreProfile", "preferences", PreferencesContainer.class);
+        return this.getAbstractContainer("sCoreProfile", "preferences", PreferencesContainer.class);
     }
 
     public TitlesContainer getTitlesContainer() {
-        return this.getAbstractContainer("HyCoreProfile", "titles", TitlesContainer.class);
+        return this.getAbstractContainer("sCoreProfile", "titles", TitlesContainer.class);
     }
 
     public BoostersContainer getBoostersContainer() {
-        return this.getAbstractContainer("HyCoreProfile", "boosters", BoostersContainer.class);
+        return this.getAbstractContainer("sCoreProfile", "boosters", BoostersContainer.class);
     }
 
     public AchievementsContainer getAchievementsContainer() {
-        return this.getAbstractContainer("HyCoreProfile", "achievements", AchievementsContainer.class);
+        return this.getAbstractContainer("sCoreProfile", "achievements", AchievementsContainer.class);
     }
 
     public SelectedContainer getSelectedContainer() {
-        return this.getAbstractContainer("HyCoreProfile", "selected", SelectedContainer.class);
+        return this.getAbstractContainer("sCoreProfile", "selected", SelectedContainer.class);
     }
 
     public DataContainer getDataContainer(String table, String key) {

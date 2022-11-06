@@ -8,7 +8,7 @@ import dev.slasher.smartplugins.player.enums.ProtectionLobby;
 import dev.slasher.smartplugins.player.fake.FakeManager;
 import dev.slasher.smartplugins.player.hotbar.HotbarButton;
 import dev.slasher.smartplugins.player.role.Role;
-import dev.slasher.smartplugins.plugin.logger.HyLogger;
+import dev.slasher.smartplugins.plugin.logger.SLogger;
 import dev.slasher.smartplugins.titles.TitleManager;
 import dev.slasher.smartplugins.utils.SmartUpdater;
 import dev.slasher.smartplugins.utils.StringUtils;
@@ -44,7 +44,7 @@ import java.util.logging.Level;
 
 public class Listeners implements Listener {
 
-  public static final HyLogger LOGGER = ((HyLogger) Core.getInstance().getLogger()).getModule("Listeners");
+  public static final SLogger LOGGER = ((SLogger) Core.getInstance().getLogger()).getModule("Listeners");
   public static final Map<String, Long> DELAY_PLAYERS = new HashMap<>();
   private static final Map<String, Long> PROTECTION_LOBBY = new HashMap<>();
 
@@ -92,19 +92,19 @@ public class Listeners implements Listener {
   @EventHandler(priority = EventPriority.MONITOR)
   public void onPlayerJoin(PlayerJoinEvent evt) {
     Player player = evt.getPlayer();
-    if (player.hasPermission("hycore.admin")) {
+    if (player.hasPermission("sCore.admin")) {
       if (SmartUpdater.UPDATER != null && SmartUpdater.UPDATER.canDownload) {
         TextComponent component = new TextComponent("");
         for (BaseComponent components :
-                TextComponent.fromLegacyText(" \n §6§l[HYCORE]\n " +
-                        "\n §7HyCore has a new update to be made, to proceed just ")) {
+                TextComponent.fromLegacyText(" \n §6§l[sCore]\n " +
+                        "\n §7sCore has a new update to be made, to proceed just ")) {
           component.addExtra(components);
         }
         TextComponent click = new TextComponent("CLICK HERE");
         click.setColor(ChatColor.GREEN);
         click.setBold(true);
         click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/hc update"));
-        click.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§Click here to update HyCore.")));
+        click.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§Click here to update sCore.")));
         component.addExtra(click);
         for (BaseComponent components : TextComponent.fromLegacyText("§7.\n ")) {
           component.addExtra(components);

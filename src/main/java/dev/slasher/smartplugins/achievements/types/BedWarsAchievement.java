@@ -74,11 +74,11 @@ public class BedWarsAchievement extends Achievement {
   
   @Override
   protected boolean check(Profile profile) {
-    return profile.getStats("HyBedWars", this.stats) >= this.reach;
+    return profile.getStats("sCoreBedWars", this.stats) >= this.reach;
   }
   
   public ItemStack getIcon(Profile profile) {
-    long current = profile.getStats("HyBedWars", this.stats);
+    long current = profile.getStats("sCoreBedWars", this.stats);
     if (current > this.reach) {
       current = this.reach;
     }
@@ -103,7 +103,7 @@ public class BedWarsAchievement extends Achievement {
     
     @Override
     public void give(Profile profile) {
-      profile.getDataContainer("HyBedWars", "coins").addDouble(this.amount);
+      profile.getDataContainer("sCoreBedWars", "coins").addDouble(this.amount);
     }
   }
   

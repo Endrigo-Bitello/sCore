@@ -54,7 +54,7 @@ public class MongoDBDatabase extends Database {
     this.collation = Collation.builder().locale("en_US").collationStrength(CollationStrength.SECONDARY).build();
     this.updateOptions = new UpdateOptions().collation(this.collation);
     this.tables =
-      DataTable.listTables().stream().map(DataTable::getInfo).map(DataTableInfo::name).filter(name -> !name.equalsIgnoreCase("HyCoreProfile")).collect(Collectors.toList());
+      DataTable.listTables().stream().map(DataTable::getInfo).map(DataTableInfo::name).filter(name -> !name.equalsIgnoreCase("sCoreProfile")).collect(Collectors.toList());
 
     if (!Manager.BUNGEE) {
       Object pluginManager = Accessors.getMethod(org.bukkit.Bukkit.class, "getPluginManager").invoke(null);
@@ -72,16 +72,16 @@ public class MongoDBDatabase extends Database {
       }
 
       MongoDBConversor.CONVERT = new String[5];
-      ((org.bukkit.entity.Player) player).sendMessage("§aIniciando conversão §8(MySQL -> MongoDB)");
-      ((org.bukkit.entity.Player) player).sendMessage("§aInsira a Host do MySQL!");
-      ((org.bukkit.entity.Player) player).sendMessage("§cVocê pode cancelar essa Operação ao digitar 'cancelar' (sem aspas).");
+      ((org.bukkit.entity.Player) player).sendMessage("§atarting conversion §8(MySQL -> MongoDB)");
+      ((org.bukkit.entity.Player) player).sendMessage("§aEnter the MySQL Host.");
+      ((org.bukkit.entity.Player) player).sendMessage("§eYou can cancel an operation by typing 'cancel' (without quotes).");
     }
   }
 
   @Override
   public void setupBoosters() {
     if (!Manager.BUNGEE) {
-      MongoCollection<Document> collection = this.database.getCollection("kCoreNetworkBooster");
+      MongoCollection<Document> collection = this.database.getCollection("sCoreNetworkBooster");
       for (String mg : Core.minigames) {
         if (collection.find(new BasicDBObject("_id", mg)).first() == null) {
           this.executor.execute(() -> collection.insertOne(new Document("_id", mg).append("booster", "Kiwizin").append("multiplier", 1.0).append("expires", 0L)));
@@ -92,14 +92,14 @@ public class MongoDBDatabase extends Database {
 
   @Override
   public void setBooster(String minigame, String booster, double multiplier, long expires) {
-    this.executor.execute(() -> this.database.getCollection("kCoreNetworkBooster")
+    this.executor.execute(() -> this.database.getCollection("sCoreNetworkBooster")
       .updateOne(Filters.eq("_id", minigame), new BasicDBObject("$set", new BasicDBObject("booster", booster).append("multiplier", multiplier).append("expires", expires))));
   }
 
   @Override
   public NetworkBooster getBooster(String minigame) {
     try {
-      Document document = this.executor.submit(() -> this.database.getCollection("kCoreNetworkBooster").find(new BasicDBObject("_id", minigame)).first()).get();
+      Document document = this.executor.submit(() -> this.database.getCollection("sCoreNetworkBooster").find(new BasicDBObject("_id", minigame)).first()).get();
       if (document != null) {
         String booster = document.getString("booster");
         double multiplier = document.getDouble("multiplier");
@@ -172,7 +172,7 @@ public class MongoDBDatabase extends Database {
 
   public void openConnection() {
     this.client = MongoClients.create(this.url);
-    this.database = this.client.getDatabase("HyCore");
+    this.database = this.client.getDatabase("sCore");
     this.collection = this.database.getCollection("Profile");
     LOGGER.info("Conectado ao MongoDB");
   }
@@ -193,7 +193,7 @@ public class MongoDBDatabase extends Database {
         containerMap.put("month", new DataContainer((Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR)));
       }
 
-      String prefix = table.getInfo().name().equalsIgnoreCase("HyCoreProfile") ? "" : table.getInfo().name() + ".";
+      String prefix = table.getInfo().name().equalsIgnoreCase("sCoreProfile") ? "" : table.getInfo().name() + ".";
       containerMap.keySet().forEach(key -> includes.add(prefix + key));
       tableMap.put(table.getInfo().name(), containerMap);
     }
@@ -218,7 +218,7 @@ public class MongoDBDatabase extends Database {
           continue;
         }
 
-        tableMap.get("HyCoreProfile").put(key, new DataContainer(document.get(key)));
+        tableMap.get("sCoreProfile").put(key, new DataContainer(document.get(key)));
       }
     } else {
       Document insert = new Document();
@@ -261,7 +261,7 @@ public class MongoDBDatabase extends Database {
         continue;
       }
 
-      String prefix = table.getInfo().name().equalsIgnoreCase("HyCoreProfile") ? "" : table.getInfo().name() + ".";
+      String prefix = table.getInfo().name().equalsIgnoreCase("sCoreProfile") ? "" : table.getInfo().name() + ".";
       if (table.getInfo().name().contains("SkyWars") || table.getInfo().name().contains("TheBridge")) {
         save.put(prefix + "totalkills", rows.get("1v1kills").getAsLong() + rows.get("2v2kills").getAsLong());
         save.put(prefix + "totalwins", rows.get("1v1wins").getAsLong() + rows.get("2v2wins").getAsLong());
